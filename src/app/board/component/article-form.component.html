@@ -1,0 +1,33 @@
+<form nz-form [formGroup]="articleForm">  
+    {{articleForm.value | json}}
+
+    <input type="text" formControlName="fkBoard">
+    <input type="text" formControlName="pkArticle">
+    <input type="hidden" formControlName="ppkArticle">         
+
+    <div *ngFor="let attach of article.attachFile">
+        <a [href]="'http://localhost:8090/file/' + attach.fileId" target="_blank" >{{attach.fileName}}</a>
+    </div>
+    <input type="file" accept="image/*" (change)="onFileChange(fileInput.files)" #fileInput>
+
+    <nz-form-item>
+        <nz-form-label nzFor="title" nzRequired [nzSm]="6" [nzXs]="24">제목</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="title" formControlName="title" placeholder="제목을 입력해주세요.">             
+            <nz-form-explain *ngIf="articleForm.get('menuCode').dirty && articleForm.get('menuCode').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>        
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="contents" [nzSm]="6" [nzXs]="24">내용</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <textarea nz-input id="contents" formControlName="contents" placeholder="내용을 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+        </nz-form-control>        
+    </nz-form-item>    
+    
+    <button class="btn btn-primary" (click)="getArticle()">조회</button>
+    <button class="btn btn-primary" (click)="saveBoard()">등록</button>
+    <button class="btn btn-primary" (click)="fileDown()">첨부파일</button>
+    <!--<button class="btn btn-primary" (click)="deleteBoard()">삭제</button>-->
+  
+</form>

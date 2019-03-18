@@ -1,0 +1,81 @@
+<div nz-row class="btn-group">
+  <div nz-col [nzSpan]="12">
+      <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+          <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getUserList()">
+      </nz-input-group>
+      <ng-template #addOnBeforeTemplate>
+          <nz-select [(ngModel)]="queryKey">
+              <nz-option [nzLabel]="'아이디'" [nzValue]="'userId'"></nz-option>
+              <nz-option [nzLabel]="'성명'" [nzValue]="'name'"></nz-option>
+          </nz-select>
+          </ng-template>
+      <ng-template #suffixIconSearch>
+          <i nz-icon type="search"></i>
+      </ng-template>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button
+          nz-button
+          (click)="getUserList()">
+          <i nz-icon type="search"></i>
+          조회
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+      <button
+          nz-button
+          (click)="initForm()">
+          <i nz-icon type="form" theme="outline"></i>
+          신규
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+      <button
+          nz-button
+          nzType="primary"
+          nz-popconfirm
+          nzTitle="저장하시겠습니까?"
+          (nzOnConfirm)="saveUser()"
+          (nzOnCancel)="false">
+          <i nz-icon type="save" theme="outline"></i>
+          저장
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+      <button
+          nz-button
+          nzType="danger"
+          nz-popconfirm
+          nzTitle="삭제하시겠습니까?"
+          (nzOnConfirm)="deleteUser()"
+          (nzOnCancel)="false">
+          <i nz-icon type="delete" theme="outline"></i>
+          삭제
+      </button>
+  </div>
+</div>
+
+<h3>사용자 목록</h3>
+<div class="grid-wrapper">
+    <app-user-grid
+        id="userGrid"
+        #userGrid
+        (rowSelected)="true"
+        (editButtonClicked)="editDrawOpen($event)"
+        (rowDoubleClicked)="editDrawOpen($event)">
+    </app-user-grid>
+
+</div>
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="false"
+    [nzWidth]="720"
+    [nzVisible]="drawerVisible"
+    nzTitle="권한 등록"
+    (nzOnClose)="closeDrawer()">
+    <app-user-form
+        id="userForm"
+        #userForm
+        (formSaved)="getUserList()"
+        (formDeleted)="getUserList()"
+        (formClosed)="closeDrawer()">
+    </app-user-form>
+</nz-drawer>

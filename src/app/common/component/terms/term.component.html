@@ -1,0 +1,73 @@
+<div nz-row class="btn-group">
+    <div nz-col [nzSpan]="12">
+      <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+        <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getTermList()">
+      </nz-input-group>
+      <ng-template #addOnBeforeTemplate>
+          <nz-select [(ngModel)]="queryKey">
+            <nz-option [nzLabel]="'용어'"     [nzValue]="'term'"></nz-option>
+            <nz-option [nzLabel]="'업무영역'" [nzValue]="'domain'"></nz-option>            
+          </nz-select>
+        </ng-template>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">    
+      <button
+        nz-button
+        (click)="getTermList()">
+        <i nz-icon type="search"></i>
+        조회
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+      <button
+        nz-button
+        (click)="initForm()">
+        <i nz-icon type="form" theme="outline"></i>
+        신규
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+      <button 
+        nz-button 
+        nzType="danger" 
+        nz-popconfirm 
+        nzTitle="삭제하시겠습니까?" 
+        (nzOnConfirm)="deleteTerm()" 
+        (nzOnCancel)="false">
+        <i nz-icon type="delete" theme="outline"></i>
+        삭제
+      </button>    
+    </div>
+  </div>
+  
+  
+  <h3>용어사전 목록</h3>
+  
+  <div class="grid-wrapper">
+      <app-term-grid
+          id="termGrid"        
+          #termGrid
+          (rowSelected)="selectedItem($event)"
+          (editButtonClicked)="editDrawerOpen($event)"
+          (rowDoubleClicked)="editDrawerOpen($event)">
+      </app-term-grid>
+  </div>
+  
+  
+  <nz-drawer
+      [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+      [nzMaskClosable]="false"
+      [nzWidth]="720"
+      [nzVisible]="drawerVisible"
+      nzTitle="용어 등록"
+      (nzOnClose)="closeDrawer()">
+      <app-term-form
+          id="termForm"
+          #termForm
+          (formSaved)="getTermList()"
+          (formDeleted)="getTermList()"
+          (formClosed)="closeDrawer()">
+      </app-term-form>
+  </nz-drawer>
+  

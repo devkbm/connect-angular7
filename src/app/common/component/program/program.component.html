@@ -1,0 +1,74 @@
+<div nz-row class="btn-group">
+  <div nz-col [nzSpan]="12">
+    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getProgramList()">
+    </nz-input-group>
+    <ng-template #addOnBeforeTemplate>
+        <nz-select [(ngModel)]="queryKey">
+          <nz-option [nzLabel]="'프로그램코드'" [nzValue]="'programCode'"></nz-option>
+          <nz-option [nzLabel]="'프로그램명'" [nzValue]="'programName'"></nz-option>
+          <nz-option [nzLabel]="'URL'" [nzValue]="'url'"></nz-option>
+          <nz-option [nzLabel]="'설명'" [nzValue]="'description'"></nz-option>
+        </nz-select>
+      </ng-template>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">    
+    <button
+      nz-button
+      (click)="getProgramList()">
+      <i nz-icon type="search"></i>
+      조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+      nz-button
+      (click)="initForm()">
+      <i nz-icon type="form" theme="outline"></i>
+      신규
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button 
+      nz-button 
+      nzType="danger" 
+      nz-popconfirm 
+      nzTitle="삭제하시겠습니까?" 
+      (nzOnConfirm)="deleteProgram()" 
+      (nzOnCancel)="false">
+      <i nz-icon type="delete" theme="outline"></i>
+      삭제
+    </button>    
+  </div>
+</div>
+
+
+<h3>프로그램 목록</h3>
+
+<div class="grid-wrapper">
+    <app-program-grid
+        id="programGrid"        
+        #programGrid
+        (rowSelected)="selectedItem($event)"
+        (editButtonClicked)="editDrawerOpen($event)"
+        (rowDoubleClicked)="editDrawerOpen($event)">
+    </app-program-grid>
+</div>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="false"
+    [nzWidth]="720"
+    [nzVisible]="drawerVisible"
+    nzTitle="프로그램 등록"
+    (nzOnClose)="closeDrawer()">
+    <app-program-form
+        id="programForm"
+        #programForm
+        (formSaved)="getProgramList()"
+        (formDeleted)="getProgramList()"
+        (formClosed)="closeDrawer()">
+    </app-program-form>
+</nz-drawer>

@@ -1,0 +1,11 @@
+.ag-theme-balham .ag-header-cell-label {
+    display: inline !important;
+}
+
+.ag-theme-balham .ag-header-cell-label > span {
+    float: none !important;
+}
+
+.text-center {
+    text-align: center
+ }

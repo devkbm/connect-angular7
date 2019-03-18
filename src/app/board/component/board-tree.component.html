@@ -1,0 +1,9 @@
+<button (click)="getboardHierarchy()">
+    조회
+</button>
+
+<nz-tree
+    #treeCom
+    [nzData]="boardItems"
+    (nzClick)="nzClick($event)">        
+</nz-tree>

@@ -1,0 +1,60 @@
+{{menuGroupForm.value | json}}
+
+<form nz-form [formGroup]="menuGroupForm">
+
+    <nz-form-item>
+        <nz-form-label nzFor="menuGroupCode" nzRequired [nzSm]="6" [nzXs]="24">메뉴그룹코드</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="menuGroupCode" formControlName="menuGroupCode" placeholder="메뉴그룹코드를 입력해주세요.">
+            <nz-form-explain *ngIf="menuGroupForm.get('menuGroupCode').dirty && menuGroupForm.get('menuGroupCode').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="menuGroupName" nzRequired [nzSm]="6" [nzXs]="24">메뉴그룹명</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="menuGroupName" formControlName="menuGroupName" placeholder="메뉴그룹명을 입력해주세요.">
+            <nz-form-explain *ngIf="menuGroupForm.get('menuGroupName').dirty && menuGroupForm.get('menuGroupName').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+        <nz-form-label nzFor="description" [nzSm]="6" [nzXs]="24">비고</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <textarea nz-input id="description" formControlName="description" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+</form>
+
+<div class="footer">
+    <button
+        nz-button
+        (click)="closeForm()">
+        <i nz-icon type="form" theme="outline"></i>
+        닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        nzType="primary"
+        nz-popconfirm
+        nzTitle="저장하시겠습니까?"
+        (nzOnConfirm)="submitMenuGroup()"
+        (nzOnCancel)="false">
+        <i nz-icon type="save" theme="outline"></i>
+        저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        nzType="danger"
+        nz-popconfirm
+        nzTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="deleteMenuGroup()"
+        (nzOnCancel)="false">
+        <i nz-icon type="delete" theme="outline"></i>
+        삭제
+    </button>
+</div>

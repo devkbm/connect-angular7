@@ -1,0 +1,98 @@
+<!-- {{termForm.value | json}} -->
+<form nz-form [formGroup]="termForm">
+
+    <nz-form-item>
+        <nz-form-label nzFor="domain" nzRequired [nzSm]="6" [nzXs]="24">업무영역</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="domain" formControlName="domain" placeholder="업무영역을 입력해주세요.">
+            <nz-form-explain *ngIf="termForm.get('domain').dirty && termForm.get('domain').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="term" nzRequired [nzSm]="6" [nzXs]="24">용어</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="term" formControlName="term" placeholder="용어를 입력해주세요.">
+            <nz-form-explain *ngIf="termForm.get('term').dirty && termForm.get('term').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="nameKor" nzRequired [nzSm]="6" [nzXs]="24">한글명</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="nameKor" formControlName="nameKor" placeholder="한글명을 입력해주세요.">
+            <nz-form-explain *ngIf="termForm.get('nameKor').dirty && termForm.get('nameKor').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="abbreviationKor" nzRequired [nzSm]="6" [nzXs]="24">한글약어</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="abbreviationKor" formControlName="abbreviationKor" placeholder="한글 약어를 입력해주세요.">
+            <nz-form-explain *ngIf="termForm.get('abbreviationKor').dirty && termForm.get('abbreviationKor').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="nameEng" nzRequired [nzSm]="6" [nzXs]="24">영어명</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="nameEng" formControlName="nameEng" placeholder="영어명을 입력해주세요.">
+            <nz-form-explain *ngIf="termForm.get('nameEng').dirty && termForm.get('nameEng').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="abbreviationEng" nzRequired [nzSm]="6" [nzXs]="24">한글약어</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="abbreviationEng" formControlName="abbreviationEng" placeholder="영어 약어를 입력해주세요.">
+            <nz-form-explain *ngIf="termForm.get('abbreviationEng').dirty && termForm.get('abbreviationEng').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>    
+
+    <nz-form-item>
+        <nz-form-label nzFor="description" [nzSm]="6" [nzXs]="24">설명</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <textarea nz-input id="description" formControlName="description" placeholder="프로그램 설명을 입력해주세요." [nzAutosize]="{ minRows: 3, maxRows: 6 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="comment" [nzSm]="6" [nzXs]="24">비고</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <textarea nz-input id="comment" formControlName="comment" placeholder="비고을 입력해주세요." [nzAutosize]="{ minRows: 3, maxRows: 6 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+</form>
+
+<div class="footer">
+    <button
+        nz-button
+        (click)="closeForm()">
+        <i nz-icon type="form" theme="outline"></i>
+        닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        nzType="primary"
+        nz-popconfirm
+        nzTitle="저장하시겠습니까?"
+        (nzOnConfirm)="submitTerm()"
+        (nzOnCancel)="false">
+        <i nz-icon type="save" theme="outline"></i>
+        저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        nzType="danger"
+        nz-popconfirm
+        nzTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="deleteTerm()"
+        (nzOnCancel)="false">
+        <i nz-icon type="delete" theme="outline"></i>
+        삭제
+    </button>
+
+</div>

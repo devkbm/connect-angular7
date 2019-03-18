@@ -1,0 +1,6 @@
+.content {
+    height: calc(100% - 0px);
+    display: grid;
+    grid-template-rows: 24px 1fr;
+    grid-template-columns: 200px 1fr;
+  }

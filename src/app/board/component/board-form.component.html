@@ -1,0 +1,97 @@
+{{boardForm.value | json}}
+
+<div class="btn-group">
+    <button
+        nz-button
+        (click)="getBoard()">
+        <i nz-icon type="search"></i>
+        조회
+    </button>
+    <button
+        nz-button
+        nzType="primary"
+        (click)="saveBoard()">
+        저장
+    </button>
+    <button
+        nz-button
+        nzType="danger"
+        nz-popconfirm
+        nzTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="deleteBoard()"
+        (nzOnCancel)="false">
+        삭제
+    </button>
+</div>
+
+<form nz-form [formGroup]="boardForm">
+
+    <input type="text" name="pkBoard" formControlName="pkBoard"> <br/>
+    <input type="text" name="ppkBoard" formControlName="ppkBoard"> <br/>
+
+    <nz-form-item>
+        <nz-form-label nzFor="boardName" nzRequired [nzSm]="6" [nzXs]="24">게시판 명</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="boardName" formControlName="boardName" placeholder="게시판명을 입력해주세요.">
+            <nz-form-explain *ngIf="boardForm.get('boardName').dirty && boardForm.get('boardName').errors">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          nzFor="boardType">
+          게시판 타입
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-select
+              id="boardType"
+              formControlName="boardType"
+              [nzSize]="'default'"
+              nzShowSearch
+              nzAllowClear
+              nzPlaceHolder="메뉴타입을 선택해주세요.">
+                  <nz-option
+                      *ngFor="let option of boardTypeList"
+                      [nzLabel]="option.name"
+                      [nzValue]="option.code">
+                  </nz-option>
+          </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="boardDescription" [nzSm]="6" [nzXs]="24">게시판 설명</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <textarea nz-input id="boardDescription" formControlName="boardDescription" placeholder="게시판 설명을 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="ppkBoard" nzRequired [nzSm]="6" [nzXs]="24">상위 게시판</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-tree-select
+                id="ppkBoard"
+                [nzNodes]="parentBoardItems"
+                [nzAllowClear]="true"
+                formControlName="ppkBoard">
+            </nz-tree-select>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="fromDate" nzRequired [nzSm]="6" [nzXs]="24">시작일자</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-date-picker formControlName="fromDate"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="toDate" nzRequired [nzSm]="6" [nzXs]="24">종료일자</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-date-picker formControlName="toDate"></nz-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+
+</form>

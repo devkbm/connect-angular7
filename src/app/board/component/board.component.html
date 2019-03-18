@@ -1,0 +1,14 @@
+<div class="content">
+  <h3>게시판 목록</h3>
+  <h3>게시글 + {{this.selectedBoard}}</h3>
+  <app-board-tree (itemSelected)="setBoardSelect($event, grid)"></app-board-tree>
+  
+  <nz-tabset>
+    <nz-tab nzTitle="Tab 1">
+      <div>
+        <app-article-grid #grid></app-article-grid>
+      </div>
+    </nz-tab>
+  </nz-tabset>
+  
+</div>
