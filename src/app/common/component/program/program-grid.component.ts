@@ -48,8 +48,8 @@ export class ProgramGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '<span style="background-color: blue">프로그램코드</span>',   field: 'programCode',     width: 150 },
-      {headerName: '프로그램명',     field: 'programName',     width: 200 },
+      {headerName: '프로그램코드',  field: 'programCode',     width: 150 },
+      {headerName: '프로그램명',    field: 'programName',     width: 200 },
       {headerName: 'Url',           field: 'url',             width: 200 },
       {headerName: '설명',          field: 'description',     width: 300 }
     ];

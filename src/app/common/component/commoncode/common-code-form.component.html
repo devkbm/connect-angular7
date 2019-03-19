@@ -1,0 +1,81 @@
+{{codeForm.value | json}}
+<form nz-form [formGroup]="codeForm">
+
+    <nz-form-item>
+        <nz-form-label nzFor="code" nzRequired [nzSm]="6" [nzXs]="24">공통코드</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="code" formControlName="code" placeholder="공통코드를 입력해주세요.">
+            <nz-form-explain *ngIf="isFieldErrors('code')">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="codeName" nzRequired [nzSm]="6" [nzXs]="24">공통코드명</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="codeName" formControlName="codeName" placeholder="공통코드명을 입력해주세요.">
+            <nz-form-explain *ngIf="isFieldErrors('codeName')">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+        <nz-form-label nzFor="codeNameAbbreviation" nzRequired [nzSm]="6" [nzXs]="24">공통코드 약어</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input id="codeNameAbbreviation" formControlName="codeNameAbbreviation" placeholder="공통코드 약어를 입력해주세요.">            
+            <nz-form-explain *ngIf="isFieldErrors('codeNameAbbreviation')">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>    
+
+    <nz-form-item>
+        <nz-form-label nzFor="fromDate" [nzSm]="6" [nzXs]="24">시작일</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-date-picker id="fromDate" formControlName="fromDate" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>            
+        </nz-form-control>
+    </nz-form-item>    
+
+    <nz-form-item>
+        <nz-form-label nzFor="toDate" [nzSm]="6" [nzXs]="24">종료일</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-date-picker id="toDate" formControlName="toDate" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>                        
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="cmt" [nzSm]="6" [nzXs]="24">설명</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <textarea nz-input id="cmt" formControlName="cmt" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+</form>
+
+<div class="footer">
+    <button
+        nz-button
+        (click)="closeForm()">
+        <i nz-icon type="form" theme="outline"></i>
+        닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        nzType="primary"
+        nz-popconfirm
+        nzTitle="저장하시겠습니까?"
+        (nzOnConfirm)="submitCommonCode()"
+        (nzOnCancel)="false">
+        <i nz-icon type="save" theme="outline"></i>
+        저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        nzType="danger"
+        nz-popconfirm
+        nzTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="deleteCommonCode()"
+        (nzOnCancel)="false">
+        <i nz-icon type="delete" theme="outline"></i>
+        삭제
+    </button>
+
+</div>

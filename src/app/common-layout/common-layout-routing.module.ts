@@ -22,6 +22,8 @@ import { MenuComponent } from '../common/component/menu/menu.component';
 import { MenuFormComponent } from '../common/component/menu/menu-form.component';
 import { BoardComponent } from '../board/component/board.component';
 import { TermComponent } from '../common/component/terms/term.component';
+import { CommonCodeFormComponent } from '../common/component/commoncode/common-code-form.component';
+import { CommonCodeComponent } from '../common/component/commoncode/common-code.component';
 
 
 const layoutroutes: Routes = [
@@ -41,6 +43,7 @@ const layoutroutes: Routes = [
       {path: 'programForm',   component: ProgramFormComponent},
       {path: 'programGrid',   component: ProgramGridComponent},
       {path: 'program',       component: ProgramComponent},
+      {path: 'commoncode',    component: CommonCodeComponent},
       {path: 'authForm',      component: AuthorityFormComponent},
       {path: 'authGrid',      component: AuthorityGridComponent},
       {path: 'auth',          component: AuthorityComponent},

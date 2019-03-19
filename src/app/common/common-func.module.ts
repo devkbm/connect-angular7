@@ -35,6 +35,10 @@ import { UserDuplicationValidatorDirective } from './validator/user-duplication-
 import { TermComponent } from './component/terms/term.component';
 import { TermGridComponent } from './component/terms/term-grid.component';
 import { TermFormComponent } from './component/terms/term-form.component';
+import { CommonCodeFormComponent } from './component/commoncode/common-code-form.component';
+import { CommonCodeService } from './service/common-code.service';
+import { CommonCodeGridComponent } from './component/commoncode/common-code-grid.component';
+import { CommonCodeComponent } from './component/commoncode/common-code.component';
 
 
 @NgModule({
@@ -68,7 +72,10 @@ import { TermFormComponent } from './component/terms/term-form.component';
     AuthorityComponent,
     TermGridComponent,
     TermFormComponent,
-    TermComponent
+    TermComponent,
+    CommonCodeFormComponent,
+    CommonCodeGridComponent,
+    CommonCodeComponent
   ],
   exports: [
     LoginComponent,
@@ -83,12 +90,16 @@ import { TermFormComponent } from './component/terms/term-form.component';
     AuthorityFormComponent,
     AuthorityGridComponent,
     AuthorityComponent,
-    TermComponent
+    TermComponent,
+    CommonCodeFormComponent,    
+    CommonCodeGridComponent,
+    CommonCodeComponent
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     LoginService,
-    UserService
+    UserService,
+    CommonCodeService
   ]
 })
 export class CommonFuncModule { }
