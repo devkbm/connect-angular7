@@ -10,61 +10,65 @@ import { CommonCodeFormComponent } from './common-code-form.component';
 })
 export class CommonCodeComponent implements OnInit {
 
-  drawerVisible = false;
+    drawerVisible = false;
 
-  queryKey: string = 'programCode';
-  queryValue: string = '';
+    queryKey: string = 'programCode';
+    queryValue: string = '';
 
-  @ViewChild('commonCodeGrid')
-  grid: CommonCodeGridComponent;
+    @ViewChild('commonCodeGrid')
+    grid: CommonCodeGridComponent;
 
-  @ViewChild('commonCodeForm')
-  form: CommonCodeFormComponent;
+    @ViewChild('commonCodeForm')
+    form: CommonCodeFormComponent;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  openDrawer(): void {
-    this.drawerVisible = true;
-  }
+    openDrawer(id: string): void {
+        if (id != null)
+            this.form.getCommonCode(id);
 
-  closeDrawer(): void {
-    this.drawerVisible = false;
-  }
+        this.drawerVisible = true;        
+    }
+
+    closeDrawer(): void {
+        this.drawerVisible = false;
+    }
     
-  getProgramList() {
-    let params = null;
-    if ( this.queryValue !== '') {
-      params = new Object();
-      params[this.queryKey] = this.queryValue;      
-    }        
+    getProgramList() {
+        let params = null;
+        if ( this.queryValue !== '') {
+        params = new Object();
+        params[this.queryKey] = this.queryValue;      
+        }        
 
-    this.closeDrawer();
-    this.grid.getProgramList(params);
-  }
+        this.closeDrawer();
+        this.grid.getCommonCodeList(params);
+    }
 
-  initForm() {
-    this.form.programForm.reset();
-    this.openDrawer();
-  }
+    initForm() {
+        this.form.codeForm.reset();
+        this.openDrawer(null);
+    }
 
-  saveProgram() {
-    this.form.submitProgram();
-  }
+    saveProgram() {
+        this.form.submitCommonCode();
+    }
 
-  deleteProgram() {
-    this.form.deleteProgram();
-  }
+    deleteProgram() {
+        this.form.submitCommonCode();
+    }
 
-  selectedItem(item) {
-    this.form.programForm.patchValue(item);     
-  }  
+    selectedItem(item) {
+        console.log(item.id);        
+        //this.form.getCommonCode(item.id);
+    }  
 
-  editDrawerOpen(item) {
-    this.form.programForm.patchValue(item);  
-    this.openDrawer();   
-  }
+    editDrawerOpen(item) {
+        this.form.codeForm.patchValue(item);
+        this.openDrawer(item.id);   
+    }
 
 }

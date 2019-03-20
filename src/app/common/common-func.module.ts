@@ -39,6 +39,7 @@ import { CommonCodeFormComponent } from './component/commoncode/common-code-form
 import { CommonCodeService } from './service/common-code.service';
 import { CommonCodeGridComponent } from './component/commoncode/common-code-grid.component';
 import { CommonCodeComponent } from './component/commoncode/common-code.component';
+import { CommonCodeTreeComponent } from './component/commoncode/common-code-tree.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { CommonCodeComponent } from './component/commoncode/common-code.componen
     TermComponent,
     CommonCodeFormComponent,
     CommonCodeGridComponent,
+    CommonCodeTreeComponent,
     CommonCodeComponent
   ],
   exports: [
@@ -93,6 +95,7 @@ import { CommonCodeComponent } from './component/commoncode/common-code.componen
     TermComponent,
     CommonCodeFormComponent,    
     CommonCodeGridComponent,
+    CommonCodeTreeComponent,
     CommonCodeComponent
   ],
   providers: [

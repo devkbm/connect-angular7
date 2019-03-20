@@ -106,8 +106,7 @@ export class CommonCodeGridComponent extends AggridFunction implements OnInit {
   }
 
   private selectionChanged(event) {
-    const selectedRows = this.gridApi.getSelectedRows();
-
+    const selectedRows = this.gridApi.getSelectedRows();    
     this.rowSelected.emit(selectedRows[0]);
   }
 

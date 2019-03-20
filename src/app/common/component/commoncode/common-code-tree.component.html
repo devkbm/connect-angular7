@@ -1,0 +1,10 @@
+<button (click)="getCommonCodeHierarchy()">
+    조회
+</button>
+
+<nz-tree
+    #treeComponent
+    [nzData]="nodeItems"
+    (nzClick)="nzClick($event)">        
+</nz-tree>
+    

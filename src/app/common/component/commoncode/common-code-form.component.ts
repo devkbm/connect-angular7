@@ -58,12 +58,12 @@ export class CommonCodeFormComponent implements OnInit {
         && this.codeForm.get(fieldName).errors ? true : false;
   }
 
-  public getCommonCode() {
+  public getCommonCode(id: string) {
     this.commonCodeService
-        .getCommonCode(this.codeForm.get('id').value)
+        .getCommonCode(id)
         .subscribe(
             (model: ResponseObject<CommonCode>) => {
-              if ( model.total > 0 ) {
+              if ( model.total > 0 ) {                
                 this.codeForm.patchValue(model.data);
               } else {
                 this.codeForm.reset();

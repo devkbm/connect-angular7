@@ -9,6 +9,7 @@ import { ResponseObject } from '../model/response-object';
 import { ResponseList } from '../model/response-list';
 
 import { CommonCode } from '../model/common-code';
+import { CommonCodeHierarchy } from '../model/common-code-hierarchy';
 
 
 @Injectable()
@@ -40,6 +41,18 @@ export class CommonCodeService extends DataService {
     };
 
     return this.http.get<ResponseObject<CommonCode>>(url, options).pipe(
+      catchError((err) => Observable.throw(err))
+    );
+  }
+
+  getCommonCodeHierarchy(params?: any): Observable<ResponseList<CommonCodeHierarchy>> {
+    const url = `http://localhost:8090/common/codetree`;
+    const options = {
+        headers: this.getAuthorizedHttpHeaders(),
+        params: params
+     };
+
+    return this.http.get<ResponseList<CommonCodeHierarchy>>(url, options).pipe(
       catchError((err) => Observable.throw(err))
     );
   }
