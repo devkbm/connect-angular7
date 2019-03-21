@@ -3,8 +3,9 @@ export class CommonCode {
     code: string;
     codeName: string;
     codeNameAbbreviation: string;
-    fromDate: string;
-    toDate: string;
+    fromDate: Date;
+    toDate: Date;
+    seq: number;
     hierarchyLevel: number;
     fixedLengthYn: boolean;
     codeLength: number;

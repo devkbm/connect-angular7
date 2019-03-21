@@ -1,10 +1,11 @@
-export class Program {
+export class WebResource {
     createdDt;
     createdBy;
     modifiedDt;
     modifiedBy;
-    programCode: string;
-    programName: string;
+    resourceCode: string;
+    resourceName: string;
+    resourceType: string;
     url: string;
     description: string;
 }

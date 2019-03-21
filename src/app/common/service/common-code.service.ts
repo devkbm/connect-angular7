@@ -32,12 +32,9 @@ export class CommonCodeService extends DataService {
   }
 
   getCommonCode(id: string): Observable<ResponseObject<CommonCode>> {
-    const url = `${this.API_URI}`;
+    const url = `${this.API_URI}/${id}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders(),
-      params: {
-        id : id
-      }
+      headers: this.getAuthorizedHttpHeaders()      
     };
 
     return this.http.get<ResponseObject<CommonCode>>(url, options).pipe(

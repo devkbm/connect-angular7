@@ -1,5 +1,3 @@
-import { Program } from './Program';
-
 export class MenuHierarchy {
     createdDt;
     createdBy;

@@ -10,7 +10,7 @@ import { ProgramService } from '../../service/program.service';
 import { AppAlarmService } from '../../service/app-alarm.service';
 
 import { ResponseObject } from '../../model/response-object';
-import { Program } from '../../model/Program';
+import { WebResource } from '../../model/web-resource';
 
 @Component({
   selector: 'app-program-form',
@@ -37,18 +37,25 @@ export class ProgramFormComponent implements OnInit {
   ngOnInit() {
 
     this.programForm = this.fb.group({
-      programCode   : [ null, [ Validators.required ] ],
-      programName   : [ null, [ Validators.required ] ],
+      resourceCode  : [ null, [ Validators.required ] ],
+      resourceName  : [ null, [ Validators.required ] ],
+      resourceType  : [ null, [ Validators.required ] ],
       url           : [ null, [ Validators.required ] ],
       description   : [ null]
     });
   }
 
+  public isFieldErrors(fieldName: string): boolean {
+    return this.programForm.get(fieldName).dirty 
+        && this.programForm.get(fieldName).errors ? true : false;
+  }
+
+
   public getProgram() {
     this.programService
-      .getProgram(this.programForm.get('programCode').value)
+      .getProgram(this.programForm.get('resourceCode').value)
       .subscribe(
-        (model: ResponseObject<Program>) => {
+        (model: ResponseObject<WebResource>) => {
           if ( model.total > 0 ) {
             this.programForm.patchValue(model.data);
           } else {
@@ -67,7 +74,7 @@ export class ProgramFormComponent implements OnInit {
     this.programService
         .registerProgram(this.programForm.value)
         .subscribe(
-          (model: ResponseObject<Program>) => {
+          (model: ResponseObject<WebResource>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formSaved.emit(this.programForm.value);
           },
@@ -80,9 +87,9 @@ export class ProgramFormComponent implements OnInit {
 
   public deleteProgram() {
     this.programService
-      .deleteProgram(this.programForm.get('programCode').value)
+      .deleteProgram(this.programForm.get('resourceCode').value)
       .subscribe(
-        (model: ResponseObject<Program>) => {
+        (model: ResponseObject<WebResource>) => {
           this.appAlarmService.changeMessage(model.message);
           this.formDeleted.emit(this.programForm.value);
         },

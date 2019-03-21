@@ -7,7 +7,9 @@
     padding-right: 5;
   }
   
-  .grid-wrapper {
-    height: calc(100% - 80px)
+  .grid-wrapper {    
+    display: grid;
+    grid-template-rows: 24px 1fr;
+    grid-template-columns: 200px 1fr;
   }
   

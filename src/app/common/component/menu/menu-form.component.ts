@@ -13,7 +13,7 @@ import { AppAlarmService } from '../../service/app-alarm.service';
 import { ResponseList } from '../../model/response-list';
 import { ResponseObject } from '../../model/response-object';
 import { Menu } from '../../model/menu';
-import { Program } from '../../model/Program';
+import { WebResource } from '../../model/web-resource';
 import { MenuHierarchy } from '../../model/menu-hierarchy';
 import { MenuGroup } from '../../model/menu-group';
 
@@ -146,7 +146,7 @@ export class MenuFormComponent implements OnInit {
     this.programService
       .getProgramList()
       .subscribe(
-        (model: ResponseList<Program>) => {
+        (model: ResponseList<WebResource>) => {
           if (model.total > 0) {
             this.programList = model.data;
           } else {

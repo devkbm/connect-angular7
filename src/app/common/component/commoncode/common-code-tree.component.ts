@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { ResponseList } from '../../../common/model/response-list';
 import { CommonCodeHierarchy } from '../../model/common-code-hierarchy';
 
@@ -14,46 +14,49 @@ import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd'
 })
 export class CommonCodeTreeComponent implements OnInit {
 
-  @ViewChild('treeComponent') treeComponent;
+    @ViewChild('treeComponent') treeComponent;
   
-  nodeItems: CommonCodeHierarchy[];
+    nodeItems: CommonCodeHierarchy[];
 
-  @Output()
-  itemSelected = new EventEmitter();
+    @Input()
+    searchValue = '';
 
-  constructor(private commonCodeService: CommonCodeService) { }
+    @Output()
+    itemSelected = new EventEmitter();
 
-  ngOnInit() {
-    console.log('CommonCodeTreeComponent init');
-  }
+    constructor(private commonCodeService: CommonCodeService) { }
 
-  getCommonCodeHierarchy() {
-    this.commonCodeService
-        .getCommonCodeHierarchy()
-        .subscribe(
-            (model: ResponseList<CommonCodeHierarchy>) => {
-                if ( model.total > 0 ) {
-                this.nodeItems = model.data;
-                } else {
-                this.nodeItems = null;
-                }            
-            },
-            (err) => {
-            console.log(err);
-            },
-            () => {
-            console.log('완료');
-            }
-        );
-  }
+    ngOnInit() {
+        console.log('CommonCodeTreeComponent init');
+    }
 
-  nzClick(event: NzFormatEmitEvent): void {
-     const node = event.nodes[0].origin;
-    // console.log(event, event.selectedKeys, event.keys, event.nodes);
-     console.log(node);
-    //console.log(event.nodes[0]);
+    getCommonCodeHierarchy() {
+        this.commonCodeService
+            .getCommonCodeHierarchy()
+            .subscribe(
+                (model: ResponseList<CommonCodeHierarchy>) => {
+                    if ( model.total > 0 ) {
+                    this.nodeItems = model.data;
+                    } else {
+                    this.nodeItems = null;
+                    }            
+                },
+                (err) => {
+                console.log(err);
+                },
+                () => {
+                console.log('완료');
+                }
+            );
+    }
 
-    this.itemSelected.emit(node.key);
-  }
+    nzClick(event: NzFormatEmitEvent): void {
+        const node = event.nodes[0].origin;
+        // console.log(event, event.selectedKeys, event.keys, event.nodes);
+        console.log(node);
+        //console.log(event.nodes[0]);
+
+        this.itemSelected.emit(node);
+    }
 
 }

@@ -12,7 +12,7 @@ export class ProgramComponent implements OnInit {
 
   drawerVisible = false;
 
-  queryKey: string = 'programCode';
+  queryKey: string = 'resourceCode';
   queryValue: string = '';
 
   @ViewChild('programGrid')

@@ -8,45 +8,45 @@ import { DataService } from '../../common/service/data.service';
 import { ResponseObject } from '../../common/model/response-object';
 import { ResponseList } from '../../common/model/response-list';
 
-import { Program } from '../model/Program';
+import { WebResource } from '../model/web-resource';
 
 @Injectable()
 export class ProgramService extends DataService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:8090/program', http);
+    super('http://localhost:8090/webresource', http);
   }
 
-  getProgramList(params?: any): Observable<ResponseList<Program>> {
+  getProgramList(params?: any): Observable<ResponseList<WebResource>> {
     const url = `${this.API_URI}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
         params: params
      };
 
-    return this.http.get<ResponseList<Program>>(url, options).pipe(
+    return this.http.get<ResponseList<WebResource>>(url, options).pipe(
       catchError((err) => Observable.throw(err))
     );
   }
 
-  getProgram(id: string): Observable<ResponseObject<Program>> {
+  getProgram(id: string): Observable<ResponseObject<WebResource>> {
     const url = `${this.API_URI}/${id}`;
-    return this.http.get<ResponseObject<Program>>(url, {headers: this.getAuthorizedHttpHeaders()}).pipe(
+    return this.http.get<ResponseObject<WebResource>>(url, {headers: this.getAuthorizedHttpHeaders()}).pipe(
       catchError((err) => Observable.throw(err))
     );
   }
 
-  registerProgram(program: Program): Observable<ResponseObject<Program>> {
-    const url = `${this.API_URI}/${program.programCode}`;
-    return this.http.post<ResponseObject<Program>>(url, program, {headers: this.getAuthorizedHttpHeaders()}).pipe(
+  registerProgram(program: WebResource): Observable<ResponseObject<WebResource>> {
+    const url = `${this.API_URI}`;
+    return this.http.post<ResponseObject<WebResource>>(url, program, {headers: this.getAuthorizedHttpHeaders()}).pipe(
       catchError((err) => Observable.throw(err))
     );
   }
 
-  deleteProgram(id: string): Observable<ResponseObject<Program>> {
+  deleteProgram(id: string): Observable<ResponseObject<WebResource>> {
     const url = `${this.API_URI}/${id}`;
     return this.http
-              .delete<ResponseObject<Program>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .delete<ResponseObject<WebResource>>(url, {headers: this.getAuthorizedHttpHeaders()})
               .pipe(
                 catchError((err) => Observable.throw(err))
               );

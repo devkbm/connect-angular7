@@ -11,6 +11,8 @@ import { AppAlarmService } from '../../service/app-alarm.service';
 
 import { ResponseObject } from '../../model/response-object';
 import { CommonCode } from '../../model/common-code';
+import { CommonCodeHierarchy } from '../../model/common-code-hierarchy';
+import { ResponseList } from '../../model/response-list';
 
 
 @Component({
@@ -21,6 +23,17 @@ import { CommonCode } from '../../model/common-code';
 export class CommonCodeFormComponent implements OnInit {
 
   codeForm: FormGroup;
+  nodeItems: CommonCodeHierarchy[];
+
+  /**
+   * < 576px span size
+   */
+  formLabelXs = 24;
+
+  /**
+   * >= 576px span size
+   */
+  formLabelSm = 4;
 
   @Output()
   formSaved = new EventEmitter();
@@ -51,6 +64,8 @@ export class CommonCodeFormComponent implements OnInit {
         codeLength              : [ null ],  
         cmt                     : [ null ]
     });
+
+    this.getCommonCodeHierarchy();
   }
 
   public isFieldErrors(fieldName: string): boolean {
@@ -63,7 +78,7 @@ export class CommonCodeFormComponent implements OnInit {
         .getCommonCode(id)
         .subscribe(
             (model: ResponseObject<CommonCode>) => {
-              if ( model.total > 0 ) {                
+              if ( model.total > 0 ) {                   
                 this.codeForm.patchValue(model.data);
               } else {
                 this.codeForm.reset();
@@ -76,6 +91,26 @@ export class CommonCodeFormComponent implements OnInit {
             () => {}
         );
   }
+
+  getCommonCodeHierarchy() {
+    this.commonCodeService
+        .getCommonCodeHierarchy()
+        .subscribe(
+            (model: ResponseList<CommonCodeHierarchy>) => {
+                if ( model.total > 0 ) {
+                this.nodeItems = model.data;
+                } else {
+                this.nodeItems = null;
+                }            
+            },
+            (err) => {
+            console.log(err);
+            },
+            () => {
+            console.log('완료');
+            }
+        );
+}
 
   public submitCommonCode() {
     this.commonCodeService

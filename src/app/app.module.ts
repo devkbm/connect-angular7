@@ -13,6 +13,8 @@ import { CommonLayoutModule } from './common-layout/common-layout.module';
 import { CommonFuncModule } from './common/common-func.module';
 import { BoardModule } from './board/board.module';
 
+import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
+
 registerLocaleData(ko);
 
 @NgModule({
@@ -31,7 +33,15 @@ registerLocaleData(ko);
   declarations: [
     AppComponent
   ],
-  providers: [{ provide: NZ_I18N, useValue: ko_KR }],
+  providers: [
+    {
+      provide: NZ_I18N, useValue: ko_KR 
+    },
+    {
+      provide: COMPOSITION_BUFFER_MODE,
+      useValue: false
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

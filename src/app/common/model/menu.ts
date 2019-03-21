@@ -1,4 +1,4 @@
-import { Program } from './Program';
+import { WebResource } from './web-resource';
 
 export class Menu {
     createdDt;
@@ -12,5 +12,5 @@ export class Menu {
     parentMenuCode: string;
     sequence: number;
     level: number;
-    program: Program;
+    resource: WebResource;
 }

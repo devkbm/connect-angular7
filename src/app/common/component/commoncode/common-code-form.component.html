@@ -1,46 +1,82 @@
 {{codeForm.value | json}}
 <form nz-form [formGroup]="codeForm">
 
-    <nz-form-item>
-        <nz-form-label nzFor="code" nzRequired [nzSm]="6" [nzXs]="24">공통코드</nz-form-label>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="code" [nzXs]="formLabelXs" [nzSm]="formLabelSm">상위 공통코드</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-tree-select
+                style="width: 250px"                
+                [nzNodes]="nodeItems"
+                nzShowSearch
+                nzPlaceHolder="Please select"
+                formControlName="parentId"
+                (ngModelChange)="true">
+            </nz-tree-select>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="code" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
             <input nz-input id="code" formControlName="code" placeholder="공통코드를 입력해주세요.">
             <nz-form-explain *ngIf="isFieldErrors('code')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item>
-        <nz-form-label nzFor="codeName" nzRequired [nzSm]="6" [nzXs]="24">공통코드명</nz-form-label>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="codeName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드명</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
             <input nz-input id="codeName" formControlName="codeName" placeholder="공통코드명을 입력해주세요.">
             <nz-form-explain *ngIf="isFieldErrors('codeName')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
     
-    <nz-form-item>
-        <nz-form-label nzFor="codeNameAbbreviation" nzRequired [nzSm]="6" [nzXs]="24">공통코드 약어</nz-form-label>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="codeNameAbbreviation" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드 약어</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
             <input nz-input id="codeNameAbbreviation" formControlName="codeNameAbbreviation" placeholder="공통코드 약어를 입력해주세요.">            
             <nz-form-explain *ngIf="isFieldErrors('codeNameAbbreviation')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>    
 
-    <nz-form-item>
-        <nz-form-label nzFor="fromDate" [nzSm]="6" [nzXs]="24">시작일</nz-form-label>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="fromDate" [nzXs]="formLabelXs" [nzSm]="formLabelSm">시작일</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
             <nz-date-picker id="fromDate" formControlName="fromDate" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>            
         </nz-form-control>
     </nz-form-item>    
 
-    <nz-form-item>
-        <nz-form-label nzFor="toDate" [nzSm]="6" [nzXs]="24">종료일</nz-form-label>
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="toDate" [nzXs]="formLabelXs" [nzSm]="formLabelSm">종료일</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
             <nz-date-picker id="toDate" formControlName="toDate" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>                        
         </nz-form-control>
     </nz-form-item>
 
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="seq" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">출력 순번</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-input-number id="seq" formControlName="seq" [nzMin]="0" [nzMax]="9999" [nzStep]="1"></nz-input-number>            
+            <nz-form-explain *ngIf="isFieldErrors('seq')">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>    
+
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="fixedLengthYn" [nzXs]="formLabelXs" [nzSm]="formLabelSm">고정 길이 사용여부</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <label id="fixedLengthYn" nz-checkbox formControlName="fixedLengthYn"></label>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="codeLength" [nzXs]="formLabelXs" [nzSm]="formLabelSm">고정 길이</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-input-number id="codeLength" formControlName="codeLength" [nzMax]="255" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+
     <nz-form-item>
-        <nz-form-label nzFor="cmt" [nzSm]="6" [nzXs]="24">설명</nz-form-label>
+        <nz-form-label nzFor="cmt" [nzXs]="formLabelXs" [nzSm]="formLabelSm">설명</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
             <textarea nz-input id="cmt" formControlName="cmt" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
         </nz-form-control>
@@ -48,7 +84,7 @@
 
 </form>
 
-<div class="footer">
+<!--<div class="footer">
     <button
         nz-button
         (click)="closeForm()">
@@ -79,3 +115,4 @@
     </button>
 
 </div>
+-->

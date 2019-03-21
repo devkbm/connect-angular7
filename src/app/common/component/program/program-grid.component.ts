@@ -4,7 +4,7 @@ import { ProgramService } from '../../service/program.service';
 import { AppAlarmService } from '../../service/app-alarm.service';
 
 import { ResponseList } from '../../model/response-list';
-import { Program } from '../../model/Program';
+import { WebResource } from '../../model/web-resource';
 import { AggridFunction } from '../../grid/aggrid-function';
 
 @Component({
@@ -14,7 +14,7 @@ import { AggridFunction } from '../../grid/aggrid-function';
 })
 export class ProgramGridComponent extends AggridFunction implements OnInit {
 
-  protected programList: Program[];
+  protected programList: WebResource[];
 
   @Output()
   rowSelected = new EventEmitter();
@@ -48,14 +48,15 @@ export class ProgramGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '프로그램코드',  field: 'programCode',     width: 150 },
-      {headerName: '프로그램명',    field: 'programName',     width: 200 },
-      {headerName: 'Url',           field: 'url',             width: 200 },
-      {headerName: '설명',          field: 'description',     width: 300 }
+      { headerName: '리소스코드',   field: 'resourceCode',    width: 150 },
+      { headerName: '리소스명',     field: 'resourceName',    width: 200 },
+      { headerName: '리소스타입',   field: 'resourceType',    width: 200 },
+      { headerName: 'Url',          field: 'url',             width: 200 },
+      { headerName: '설명',         field: 'description',     width: 300 }
     ];
 
     this.getRowNodeId = function(data) {
-        return data.programCode;
+        return data.resourceCode;
     };
   }
 
@@ -71,7 +72,7 @@ export class ProgramGridComponent extends AggridFunction implements OnInit {
     this.programService
         .getProgramList(params)
         .subscribe(
-          (model: ResponseList<Program>) => {
+          (model: ResponseList<WebResource>) => {
               if (model.total > 0) {
                   this.programList = model.data;
               } else {
