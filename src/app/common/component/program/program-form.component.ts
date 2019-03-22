@@ -21,6 +21,16 @@ export class ProgramFormComponent implements OnInit {
 
   programForm: FormGroup;
 
+  /**
+   * Xs < 576px span size
+   * Sm >= 576px span size
+   */
+  formLabelXs = 24;
+  formControlXs = 24;
+
+  formLabelSm = 4;
+  fromControlSm = 20;
+
   @Output()
   formSaved = new EventEmitter();
 
@@ -45,9 +55,9 @@ export class ProgramFormComponent implements OnInit {
     });
   }
 
-  public isFieldErrors(fieldName: string): boolean {
-    return this.programForm.get(fieldName).dirty 
-        && this.programForm.get(fieldName).errors ? true : false;
+  public isFieldErrors(fieldName: string, errorName: string): boolean {
+    return this.programForm.get(fieldName).dirty
+        && this.programForm.get(fieldName).hasError(errorName) ? true : false;
   }
 
 

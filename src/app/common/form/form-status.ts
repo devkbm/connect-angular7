@@ -1,0 +1,4 @@
+enum FormStatus {
+    CREATE,
+    UPDATE
+}

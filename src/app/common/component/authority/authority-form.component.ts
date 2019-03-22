@@ -21,6 +21,16 @@ export class AuthorityFormComponent implements OnInit {
 
   authorityForm: FormGroup;
 
+  /**
+   * Xs < 576px span size
+   * Sm >= 576px span size
+   */
+  formLabelXs = 24;
+  formControlXs = 24;
+
+  formLabelSm = 2;
+  fromControlSm = 22;
+
   @Output()
   formSaved = new EventEmitter();
 
@@ -40,6 +50,11 @@ export class AuthorityFormComponent implements OnInit {
       authority     : [ null, [ Validators.required ] ],
       description   : [ null ]
     });
+  }
+
+  public isFieldErrors(fieldName: string): boolean {
+    return this.authorityForm.get(fieldName).dirty
+        && this.authorityForm.get(fieldName).hasError('required') ? true : false;
   }
 
   public getAuthority(): void {

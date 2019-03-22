@@ -22,6 +22,16 @@ export class MenuGroupFormComponent implements OnInit {
 
   menuGroupForm: FormGroup;
 
+  /**
+   * Xs < 576px span size
+   * Sm >= 576px span size
+   */
+  formLabelXs = 24;
+  formControlXs = 24;
+
+  formLabelSm = 4;
+  fromControlSm = 20;
+
   @Output()
   formSaved = new EventEmitter();
 
@@ -41,6 +51,11 @@ export class MenuGroupFormComponent implements OnInit {
       menuGroupName   : [ null, [ Validators.required ] ],
       description     : [ null]
     });
+  }
+
+  public isFieldErrors(fieldName: string, errorName: string): boolean {
+    return this.menuGroupForm.get(fieldName).dirty
+        && this.menuGroupForm.get(fieldName).hasError(errorName) ? true : false;
   }
 
   private getMenuGroup(menuGroupCode: string) {

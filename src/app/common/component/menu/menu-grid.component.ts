@@ -55,7 +55,7 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
         {headerName: '메뉴타입',      field: 'menuType.name',           width: 100 },
         {headerName: '상위메뉴',      field: 'parent.menuCode',         width: 100 },
         {headerName: '순번',          field: 'sequence',                width: 80 },
-        {headerName: '프로그램',      field: 'program.programCode',     width: 100 }
+        {headerName: '프로그램',      field: 'resource.resourceCode',   width: 100 }
       ];
 
       this.getRowNodeId = function(data) {

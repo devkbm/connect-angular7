@@ -1,4 +1,4 @@
-export class CommonCodeHierarchy {    
+export class CommonCodeHierarchy {
     id: string;
     code: string;
     codeName: string;
@@ -8,12 +8,11 @@ export class CommonCodeHierarchy {
     hierarchyLevel: number;
     fixedLengthYn: boolean;
     codeLength: number;
-    cmt: string;    
+    cmt: string;
     parentId: string;
-    
+
     title: string;
     key: string;
     isLeaf: boolean;
     children: CommonCodeHierarchy[];
-
 }

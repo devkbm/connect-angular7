@@ -2,18 +2,18 @@
 <form nz-form [formGroup]="authorityForm" [nzLayout]="'horizontal'">
 
     <nz-form-item>
-        <nz-form-label nzFor="authority" [nzSm]="2" [nzXs]="24" nzRequired>권한</nz-form-label>
-        <nz-form-control [nzSm]="22" [nzXs]="24">
+        <nz-form-label nzFor="authority" [nzXs]="formLabelXs" [nzSm]="formLabelSm" nzRequired>권한</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="authority" formControlName="authority" placeholder="권한코드를 입력해주세요." nzSize="small">             
-            <nz-form-explain *ngIf="authorityForm.get('authority').dirty && authorityForm.get('authority').errors">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors('authority')">The input is Required!</nz-form-explain>
         </nz-form-control>        
     </nz-form-item>
 
     <nz-form-item>
-        <nz-form-label nzFor="description" [nzSm]="2" [nzXs]="24">설명</nz-form-label>
-        <nz-form-control [nzSm]="22" [nzXs]="24">
-            <textarea nz-input id="description" formControlName="description" placeholder="권한에 대한 설명을 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
-            <nz-form-explain *ngIf="authorityForm.get('description').dirty && authorityForm.get('description').errors">The input is Required!</nz-form-explain>
+        <nz-form-label nzFor="description" [nzXs]="formLabelXs" [nzSm]="formLabelSm">설명</nz-form-label>
+        <nz-form-control [nzSm]="fromControlSm" [nzXs]="formControlXs">
+            <textarea nz-input id="description" formControlName="description" placeholder="권한에 대한 설명을 입력해주세요." [nzAutosize]="{ minRows: 10, maxRows: 20 }"></textarea>
+            <nz-form-explain *ngIf="isFieldErrors('description')">The input is Required!</nz-form-explain>
         </nz-form-control>        
     </nz-form-item>    
             

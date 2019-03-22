@@ -31,8 +31,18 @@ export class MenuFormComponent implements OnInit {
 
   /**
    * 상위 메뉴 트리
-  */
+   */
   menuHiererachy: MenuHierarchy[];
+
+  /**
+   * Xs < 576px span size
+   * Sm >= 576px span size
+   */
+  formLabelXs = 24;
+  formControlXs = 24;
+
+  formLabelSm = 4;
+  fromControlSm = 20;
 
   @Input()
   menuGroupCode: string;
@@ -60,12 +70,17 @@ export class MenuFormComponent implements OnInit {
       menuType          : [ null, [ Validators.required ] ],
       parentMenuCode    : [ null ],
       sequence          : [ null ],
-      program           : [ null ]
+      resource          : [ null ]
     });
 
     this.getMenuTypeList();
     this.getProgramList();
     this.getMenuGroupList();
+  }
+
+  public isFieldErrors(fieldName: string, errorName: string): boolean {
+    return this.menuForm.get(fieldName).dirty
+        && this.menuForm.get(fieldName).hasError(errorName) ? true : false;
   }
 
   public getMenu(menuGroupCode: string, menuCode: string) {

@@ -26,14 +26,14 @@ export class CommonCodeFormComponent implements OnInit {
   nodeItems: CommonCodeHierarchy[];
 
   /**
-   * < 576px span size
+   * Xs < 576px span size
+   * Sm >= 576px span size
    */
   formLabelXs = 24;
-
-  /**
-   * >= 576px span size
-   */
   formLabelSm = 4;
+
+  formControlXs = 24;
+  formControlSm = 14;
 
   @Output()
   formSaved = new EventEmitter();
@@ -100,7 +100,7 @@ export class CommonCodeFormComponent implements OnInit {
                 if ( model.total > 0 ) {
                 this.nodeItems = model.data;
                 } else {
-                this.nodeItems = null;
+                this.nodeItems = new Array<CommonCodeHierarchy>(0);
                 }            
             },
             (err) => {

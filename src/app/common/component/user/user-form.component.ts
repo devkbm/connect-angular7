@@ -18,6 +18,7 @@ import { ResponseList } from '../../model/response-list';
 import { Authority } from '../../model/authority';
 import { MenuGroup } from '../../model/menu-group';
 import { UserDuplicationValidatorDirective, existingUserValidator } from '../../validator/user-duplication-validator.directive';
+import { UploadFile } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-user-form',
@@ -26,13 +27,47 @@ import { UserDuplicationValidatorDirective, existingUserValidator } from '../../
 })
 export class UserFormComponent implements OnInit {
 
-  authList;
-  menuGroupList;
-
   public userForm: FormGroup;
+  public authList;
+  public menuGroupList;
 
-  passwordConfirm: String;
+
+  formStatus: FormStatus;
+
+  passwordConfirm: string;
   popup: boolean;
+
+  showUploadList = {
+    showPreviewIcon: true,
+    showRemoveIcon : true,
+    hidePreviewIconInNonImage: true
+  };
+
+  fileList = [
+    /*{
+      uid: -1,
+      name: 'xxx.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    }*/
+  ];
+
+  previewImage: string | undefined = '';
+  previewVisible = false;
+  imageUploadParam;
+
+  imageBase64;
+  isUploadable;
+
+  /**
+   * Xs < 576px span size
+   * Sm >= 576px span size
+   */
+  formLabelXs = 24;
+  formControlXs = 24;
+
+  formLabelSm = 4;
+  fromControlSm = 20;
 
   @Output()
   formSaved = new EventEmitter();
@@ -58,13 +93,19 @@ export class UserFormComponent implements OnInit {
       name            : [ null, [ Validators.required ] ],
       enabled         : [ true ],
       password        : [ null, [ Validators.required ] ],
-      authorityList   : [ null],
-      menuGroupList   : [ null]
+      imageBase64     : [ null ],
+      authorityList   : [ null ],
+      menuGroupList   : [ null ]
     });
 
     this.getAuthorityList();
     this.getMenuGroupList();
 
+  }
+
+  public isFieldErrors(fieldName: string): boolean {
+    return this.userForm.get(fieldName).dirty
+        && this.userForm.get(fieldName).hasError('required') ? true : false;
   }
 
   public getUser(userId: string) {
@@ -74,9 +115,26 @@ export class UserFormComponent implements OnInit {
         (model: ResponseObject<User>) => {
           if (model.total > 0) {
             this.userForm.patchValue(model.data);
+
+            this.imageUploadParam = {userId: model.data.userId};
+            this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
+
+            if (model.data.imageBase64.length > 0) {
+              this.isUploadable = false;
+            } else {
+              this.isUploadable = true;
+            }
+
           } else {
             this.userForm.reset();
           }
+
+          if (model.data.userId == null) {
+            this.formStatus = FormStatus.CREATE;
+          } else {
+            this.formStatus = FormStatus.UPDATE;
+          }
+
           this.appAlarmService.changeMessage(model.message);
         },
         (err) => {
@@ -201,6 +259,11 @@ export class UserFormComponent implements OnInit {
 
   public closeForm() {
     this.formClosed.emit(this.userForm.value);
+  }
+
+  handlePreview = (file: UploadFile) => {
+    this.previewImage = file.url || file.thumbUrl;
+    this.previewVisible = true;
   }
 
 }

@@ -1,50 +1,118 @@
-{{userForm.value | json}}
-
+<!--{{userForm.value | json}}
+{{fileList | json}}-->
+{{isUploadable}}
 <form nz-form [formGroup]="userForm">    
+    
+    <div class="clearfix">
+        <img [src]="imageBase64" [ngStyle]="{ 'width': '200px' }"/>
+
+        <nz-upload
+            nzAction="http://localhost:8090/user/image"
+            nzListType="picture-card"
+            [(nzFileList)]="fileList"
+            [nzShowButton]="isUploadable"
+            [nzShowUploadList]="showUploadList"
+            [nzData]="imageUploadParam"
+            [nzPreview]="handlePreview">
+            <i nz-icon type="plus"></i>
+            <div class="ant-upload-text">Upload</div>
+        </nz-upload>
+
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+            <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+            </ng-template>
+        </nz-modal>
+    </div>
+
+    <!--아이디 필드-->
     <nz-form-item>
-        <nz-form-label nzFor="userId" nzRequired [nzSm]="4" [nzXs]="24">아이디</nz-form-label>
-        <nz-form-control [nzSm]="20" [nzXs]="24" nzHasFeedback>
+        <nz-form-label 
+            nzFor="userId" 
+            nzRequired 
+            [nzXs]="formLabelXs" 
+            [nzSm]="formLabelSm" >
+            아이디
+        </nz-form-label>
+
+        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input style="ime-mode: disabled" nz-input id="userId" formControlName="userId" placeholder="아이디를 입력해주세요.">
-            <nz-form-explain *ngIf="userForm.get('userId').dirty && userForm.get('userId').hasError('required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors('userId')">The input is Required!</nz-form-explain>
             <nz-form-explain *ngIf="userForm.get('userId').dirty && userForm.get('userId').hasError('exists')">{{userForm.get('userId').getError('exists')}}</nz-form-explain>
         </nz-form-control>        
     </nz-form-item>
 
+    <!--이름 필드-->
     <nz-form-item>
-        <nz-form-label nzFor="name" [nzSm]="4" [nzXs]="24" nzRequired>이름</nz-form-label>
-        <nz-form-control [nzSm]="20" [nzXs]="24" nzHasFeedback>
+        <nz-form-label 
+            nzFor="name" 
+            nzRequired
+            [nzXs]="formLabelXs"
+            [nzSm]="formLabelSm">
+            이름
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm" nzHasFeedback>
             <input style="ime-mode: inactive" id="name" nz-input formControlName="name">
-            <nz-form-explain *ngIf="userForm.get('name').dirty && userForm.get('name').hasError('required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors('name')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
+    <!--비밀번호 필드-->
     <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
-        <nz-form-control [nzSm]="20" [nzXs]="24">
+        <nz-form-label 
+            nzFor="password"
+            nzRequired
+            [nzXs]="formLabelXs"
+            [nzSm]="formLabelSm">
+            Password
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input style="ime-mode: inactive" nz-input type="password" id="password" formControlName="password">
-            <nz-form-explain *ngIf="userForm.get('password').dirty && userForm.get('password').hasError('required')">Please input your password!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors('password')">Please input your password!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
+    <!--사용여부 필드-->
     <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="enabled">사용여부</nz-form-label>
-        <nz-form-control [nzSm]="20" [nzXs]="24">
+        <nz-form-label 
+            nzFor="enabled"    
+            [nzXs]="formLabelXs"
+            [nzSm]="formLabelSm">사용여부
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <label id="enabled" nz-checkbox formControlName="enabled"></label>
         </nz-form-control>
     </nz-form-item>
 
+    <!--권한 필드-->
     <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="enabled">권한</nz-form-label>
-        <nz-form-control [nzSm]="20" [nzXs]="24">
+        <nz-form-label 
+            nzFor="authorityList" 
+            [nzXs]="formLabelXs" 
+            [nzSm]="formLabelSm">
+            권한
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <nz-select formControlName="authorityList" [nzSize]="'default'" nzMode="multiple" nzPlaceHolder="Please select">
                 <nz-option *ngFor="let option of authList" [nzLabel]="option.description" [nzValue]="option.authority"></nz-option>
             </nz-select>
         </nz-form-control>
     </nz-form-item>
 
+    <!--메뉴그룹 필드-->
     <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="enabled">메뉴그룹</nz-form-label>
-        <nz-form-control [nzSm]="20" [nzXs]="24">
+        <nz-form-label 
+            nzFor="menuGroupList"
+            [nzXs]="formLabelXs"
+            [nzSm]="formLabelSm">
+            메뉴그룹
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <nz-select formControlName="menuGroupList" [nzSize]="'default'" nzMode="multiple" nzPlaceHolder="Please select">
                 <nz-option *ngFor="let option of menuGroupList" [nzLabel]="option.menuGroupName" [nzValue]="option.menuGroupCode"></nz-option>
             </nz-select>

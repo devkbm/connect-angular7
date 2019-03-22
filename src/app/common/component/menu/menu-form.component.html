@@ -2,12 +2,16 @@
 
 <form nz-form [formGroup]="menuForm">
 
+    <!--메뉴그룹코드 필드-->
     <nz-form-item>
-        <nz-form-label
-            [nzSm]="6" [nzXs]="24"
+        <nz-form-label                        
+            nzFor="menuGroupCode"
             nzRequired
-            nzFor="menuGroupCode">메뉴그룹코드</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm" >
+            메뉴그룹코드
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <nz-select
                 id="menuGroupCode"
                 formControlName="menuGroupCode"
@@ -22,57 +26,60 @@
                 </nz-option>
             </nz-select>
             <nz-form-explain
-                *ngIf="menuForm.get('menuGroupCode').dirty && menuForm.get('menuGroupCode').errors">
+                *ngIf="isFieldErrors('menuGroupCode','required')">
                 The input is Required!
             </nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
+    <!--메뉴코드 필드-->
     <nz-form-item>
         <nz-form-label
             nzFor="menuCode"
             nzRequired
-            [nzSm]="6" [nzXs]="24">메뉴코드
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴코드
         </nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input
                 nz-input
                 id="menuCode"
                 formControlName="menuCode"
                 placeholder="메뉴코드를 입력해주세요.">
             <nz-form-explain
-                *ngIf="menuForm.get('menuCode').dirty && menuForm.get('menuCode').errors">
+                *ngIf="isFieldErrors('menuCode','required')">
                 The input is Required!
             </nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
+    <!--메뉴명 필드-->
     <nz-form-item>
         <nz-form-label
             nzFor="menuName"
             nzRequired
-            [nzSm]="6" [nzXs]="24">메뉴명</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm" >메뉴명</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input
                 nz-input
                 id="menuName"
                 formControlName="menuName"
                 placeholder="메뉴명을 입력해주세요.">
             <nz-form-explain
-                *ngIf="menuForm.get('menuName').dirty && menuForm.get('menuName').errors">
+                *ngIf="isFieldErrors('menuName','required')">
                 The input is Required!
             </nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
+    <!--메뉴타입 필드-->
     <nz-form-item>
         <nz-form-label
-            [nzSm]="6"
-            [nzXs]="24"
-            nzFor="menuType">
+            nzFor="menuType"
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             메뉴타입
         </nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <nz-select
                 id="menuType"
                 formControlName="menuType"
@@ -89,14 +96,14 @@
         </nz-form-control>
     </nz-form-item>
 
+    <!--상위메뉴코드 필드-->
     <nz-form-item>
         <nz-form-label
             nzFor="parentMenuCode"
-            [nzSm]="6"
-            [nzXs]="24">
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             상위 메뉴코드
         </nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm" >
             <nz-tree-select
                 id="parentMenuCode"
                 [nzNodes]="menuHiererachy"
@@ -106,14 +113,15 @@
         </nz-form-control>
     </nz-form-item>
 
+    <!--순번 필드-->
     <nz-form-item>
         <nz-form-label
             nzFor="sequence"
             nzRequired
-            [nzSm]="6" [nzXs]="24">
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             순번
         </nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <nz-input-number
                 id="sequence"
                 formControlName="sequence"
@@ -123,31 +131,31 @@
                 [nzStep]="1">
             </nz-input-number>
             <nz-form-explain
-                *ngIf="menuForm.get('sequence').dirty && menuForm.get('sequence').errors">
+                *ngIf="isFieldErrors('sequence','required')">
                 The input is Required!
             </nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
+    <!--프로그램 필드-->
     <nz-form-item>
         <nz-form-label
-            [nzSm]="6"
-            [nzXs]="24"
-            nzFor="program">
+            nzFor="resource"
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             프로그램
         </nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <nz-select
-                id="program"
-                formControlName="program"
+                id="resource"
+                formControlName="resource"
                 [nzSize]="'default'"
                 nzShowSearch
                 nzAllowClear
                 nzPlaceHolder="프로그램을 선택해주세요.">
                     <nz-option
                         *ngFor="let option of programList"
-                        [nzLabel]="option.programName"
-                        [nzValue]="option.programCode">
+                        [nzLabel]="option.resourceName"
+                        [nzValue]="option.resourceCode">
                     </nz-option>
             </nz-select>
         </nz-form-control>
