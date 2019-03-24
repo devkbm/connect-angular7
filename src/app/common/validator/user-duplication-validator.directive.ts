@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
 export function existingUserValidator(userService: UserService): AsyncValidatorFn {
-  return (control: AbstractControl):  Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+  return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
     return control.value ? userService
               .checkUser(control.value)
               .pipe(
                 map( users => {
                   if ( users.total > 0 ) {
-                    return {'exists': users.message};
+                    return {exists: users.message};
                   } else {
                     return null;
                   }

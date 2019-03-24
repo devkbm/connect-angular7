@@ -11,13 +11,14 @@ import { AppAlarmService } from '../../service/app-alarm.service';
 
 import { ResponseObject } from '../../model/response-object';
 import { Authority } from '../../model/authority';
+import { FormBase } from '../../form/form-base';
 
 @Component({
   selector: 'app-authority-form',
   templateUrl: './authority-form.component.html',
   styleUrls: ['./authority-form.component.css']
 })
-export class AuthorityFormComponent implements OnInit {
+export class AuthorityFormComponent extends FormBase implements OnInit {
 
   authorityForm: FormGroup;
 
@@ -43,18 +44,13 @@ export class AuthorityFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
-              private appAlarmService: AppAlarmService) { }
+              private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {
     this.authorityForm = this.fb.group({
       authority     : [ null, [ Validators.required ] ],
       description   : [ null ]
     });
-  }
-
-  public isFieldErrors(fieldName: string): boolean {
-    return this.authorityForm.get(fieldName).dirty
-        && this.authorityForm.get(fieldName).hasError('required') ? true : false;
   }
 
   public getAuthority(): void {

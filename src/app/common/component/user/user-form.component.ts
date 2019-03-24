@@ -97,11 +97,7 @@ export class UserFormComponent implements OnInit {
       password        : [ null, [ Validators.required ] ],
       imageBase64     : [ null ],
       authorityList   : [ null ],
-<<<<<<< HEAD
       menuGroupList   : [ null ]
-=======
-      menuGroupList   : [ null ] 
->>>>>>> 7f62825dc46adac8bafa32705a2b640afd4660c5
     });
 
     this.getAuthorityList();
@@ -123,13 +119,8 @@ export class UserFormComponent implements OnInit {
             this.userForm.patchValue(model.data);
 
             this.imageUploadParam = {userId: model.data.userId};
-<<<<<<< HEAD
             this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
 
-=======
-            this.imageBase64 = "data:image/jpg;base64,"+model.data.imageBase64;
-            
->>>>>>> 7f62825dc46adac8bafa32705a2b640afd4660c5
             if (model.data.imageBase64.length > 0) {
               this.isUploadable = false;
             } else {
@@ -137,19 +128,15 @@ export class UserFormComponent implements OnInit {
             }
 
           } else {
-            this.userForm.reset();            
+            this.userForm.reset();
           }
 
-<<<<<<< HEAD
           if (model.data.userId == null) {
             this.formStatus = FormStatus.CREATE;
           } else {
             this.formStatus = FormStatus.UPDATE;
           }
 
-=======
-          
->>>>>>> 7f62825dc46adac8bafa32705a2b640afd4660c5
           this.appAlarmService.changeMessage(model.message);
         },
         (err) => {
