@@ -83,10 +83,10 @@ export class MenuFormComponent implements OnInit {
         && this.menuForm.get(fieldName).hasError(errorName) ? true : false;
   }
 
-  public getMenu(menuGroupCode: string, menuCode: string) {
+  public getMenu(menuCode: string) {
 
     this.menuService
-      .getMenu(menuGroupCode, menuCode)
+      .getMenu(menuCode)
       .subscribe(
         (model: ResponseObject<Menu>) => {
           console.log(model);

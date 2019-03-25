@@ -50,7 +50,7 @@ export class MenuComponent implements OnInit {
   menuFormOpen(item): void {
     this.menuFormVisible = true;
 
-    this.menuForm.getMenu(item.menuGroup.menuGroupCode, item.menuCode);
+    this.menuForm.getMenu(item.menuCode);
   }
 
   menuFormClose(): void {
@@ -70,14 +70,16 @@ export class MenuComponent implements OnInit {
   }
 
   getMenuList(): void {
-    let params = null;
-    if ( this.menuQueryValue !== '') {
-      params = new Object();
+    let params = new Object();
+
+    params['menuGroupCode'] = this.selectedMenuGroupCode;
+
+    if ( this.menuQueryValue !== '') {      
       params[this.menuQueryKey] = this.menuQueryValue;      
-    }        
+    }                
 
     this.menuFormClose();
-    this.menuGrid.getMenuList(this.selectedMenuGroupCode, params);
+    this.menuGrid.getMenuList(params);
   }
 
   selectMenuGroup(item): void {

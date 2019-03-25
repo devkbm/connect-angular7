@@ -118,6 +118,7 @@ export class UserFormComponent implements OnInit {
           if (model.total > 0) {
             this.userForm.patchValue(model.data);
 
+            this.previewImage = null;
             this.imageUploadParam = {userId: model.data.userId};
             this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
 

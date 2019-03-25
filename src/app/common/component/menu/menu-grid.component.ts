@@ -23,6 +23,9 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
   @Output()
   editButtonClicked = new EventEmitter();
 
+  @Output()
+  rowDoubleClicked = new EventEmitter();
+
   @Input()
   menuGroupCode: string;
 
@@ -70,10 +73,10 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
     this.editButtonClicked.emit(e.rowData);
   }
 
-  public getMenuList(menuGroupCode: string, params?: any) {
+  public getMenuList(params?: any) {
 
     this.menuService
-        .getMenuList(menuGroupCode, params)
+        .getMenuList(params)
         .subscribe(
           (model: ResponseList<Menu>) => {
               if (model.total > 0) {
@@ -94,5 +97,9 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
     const selectedRows = this.gridApi.getSelectedRows();
 
     this.rowSelected.emit(selectedRows[0]);
+  }
+
+  private rowDbClicked(event) {
+    this.rowDoubleClicked.emit(event.data);
   }
 }

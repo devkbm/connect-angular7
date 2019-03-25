@@ -4,7 +4,7 @@
 
     <nz-form-item>
         <nz-form-label nzFor="menuGroupCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="menuGroupCode" formControlName="menuGroupCode" placeholder="메뉴그룹코드를 입력해주세요.">
             <nz-form-explain *ngIf="isFieldErrors('menuGroupCode','required')">The input is Required!</nz-form-explain>
         </nz-form-control>

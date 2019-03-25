@@ -14,7 +14,7 @@ import { WebResource } from '../model/web-resource';
 export class ProgramService extends DataService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:8090/webresource', http);
+    super('http://localhost:8090/common/webresource', http);
   }
 
   getProgramList(params?: any): Observable<ResponseList<WebResource>> {

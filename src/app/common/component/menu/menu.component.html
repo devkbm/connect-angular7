@@ -44,24 +44,28 @@
 <div class="content">
   <h3>메뉴 그룹 목록</h3>
   <h3>메뉴 목록</h3>
-    <app-menu-group-grid
-      #menuGroupGrid
-      id="menuGroupGrid"
-      (rowSelected)="selectMenuGroup($event)"
-      (editButtonClicked)="menuGroupFormOpen($event)">
-    </app-menu-group-grid>
-    <app-menu-grid
+
+  <app-menu-group-grid
+    #menuGroupGrid
+    id="menuGroupGrid"
+    (rowSelected)="selectMenuGroup($event)"
+    (editButtonClicked)="menuGroupFormOpen($event)"
+    (rowDoubleClicked)="menuGroupFormOpen($event)">
+  </app-menu-group-grid>
+
+  <app-menu-grid
     id="menuGrid"
     #menuGrid
     (rowSelected)="true"
-    (editButtonClicked)="menuFormOpen($event)">
+    (editButtonClicked)="menuFormOpen($event)"
+    (rowDoubleClicked)="menuFormOpen($event)">
   </app-menu-grid>
 </div>
 
 
 <nz-drawer
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
-    [nzMaskClosable]="false"
+    [nzMaskClosable]="true"
     [nzWidth]="720"
     [nzVisible]="menuGroupFormVisible"
     nzTitle="메뉴그룹"
@@ -77,7 +81,7 @@
 
 <nz-drawer
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
-    [nzMaskClosable]="false"
+    [nzMaskClosable]="true"
     [nzWidth]="720"
     [nzVisible]="menuFormVisible"
     nzTitle="메뉴그룹"

@@ -31,7 +31,6 @@ import { MenuGroupGridComponent } from './component/menu/menu-group-grid.compone
 import { MenuGridComponent } from './component/menu/menu-grid.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { ButtonRendererComponent } from './grid/renderer/button-renderer.component';
-import { UserDuplicationValidatorDirective } from './validator/user-duplication-validator.directive';
 import { TermComponent } from './component/terms/term.component';
 import { TermGridComponent } from './component/terms/term-grid.component';
 import { TermFormComponent } from './component/terms/term-form.component';
@@ -40,7 +39,8 @@ import { CommonCodeService } from './service/common-code.service';
 import { CommonCodeGridComponent } from './component/commoncode/common-code-grid.component';
 import { CommonCodeComponent } from './component/commoncode/common-code.component';
 import { CommonCodeTreeComponent } from './component/commoncode/common-code-tree.component';
-import { FormBase } from './form/form-base';
+
+import { UserDuplicationValidatorDirective } from './validator/user-duplication-validator.directive';
 
 
 @NgModule({
@@ -55,7 +55,7 @@ import { FormBase } from './form/form-base';
     AppRoutingModule
   ],
   declarations: [
-    UserDuplicationValidatorDirective,
+    UserDuplicationValidatorDirective,    
     LoginComponent,
     ButtonRendererComponent,
     UserFormComponent,

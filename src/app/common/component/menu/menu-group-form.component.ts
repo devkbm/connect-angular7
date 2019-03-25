@@ -12,6 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 
 import { ResponseObject } from '../../model/response-object';
 import { MenuGroup } from '../../model/menu-group';
+import { existingMenuGroupValidator } from '../../validator/menu-group-duplication-validator.directive';
 
 @Component({
   selector: 'app-menu-group-form',
@@ -47,7 +48,11 @@ export class MenuGroupFormComponent implements OnInit {
 
   ngOnInit() {
     this.menuGroupForm = this.fb.group({
-      menuGroupCode   : [ null, [ Validators.required ] ],
+      menuGroupCode   : new FormControl(null, {
+                                                validators: Validators.required,
+                                                asyncValidators: [existingMenuGroupValidator(this.menuService)],
+                                                updateOn: 'blur'
+                                              }),
       menuGroupName   : [ null, [ Validators.required ] ],
       description     : [ null]
     });

@@ -16,7 +16,7 @@ import { MenuHierarchy } from '../model/menu-hierarchy';
 export class MenuService extends DataService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:8090', http);
+    super('http://localhost:8090/common', http);
   }
 
   getMenuGroupList(params?: any): Observable<ResponseList<MenuGroup>> {
@@ -43,6 +43,16 @@ export class MenuService extends DataService {
               );
   }
 
+  getValidDupMenuGroup(menuGroupCode: string): Observable<ResponseObject<boolean>> {
+    const url = `${this.API_URI}/menugroup/${menuGroupCode}/check`;
+
+    return this.http
+              .get<ResponseObject<boolean>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .pipe(
+                catchError((err) => Observable.throw(err))
+              );
+  }
+
   registerMenuGroup(menuGroup: MenuGroup): Observable<ResponseObject<MenuGroup>> {
     const url = `${this.API_URI}/menugroup/${menuGroup.menuGroupCode}`;
 
@@ -62,8 +72,8 @@ export class MenuService extends DataService {
               );
   }
 
-  getMenu(menuGroupCode: string, menuCode: string): Observable<ResponseObject<Menu>> {
-    const url = `${this.API_URI}/menugroup/${menuGroupCode}/menu/${menuCode}`;
+  getMenu(menuCode: string): Observable<ResponseObject<Menu>> {
+    const url = `${this.API_URI}/menu/${menuCode}`;
     return this.http
               .get<ResponseObject<Menu>>(url, {headers: this.getAuthorizedHttpHeaders()})
               .pipe(
@@ -71,8 +81,8 @@ export class MenuService extends DataService {
               );
   }
 
-  getMenuList(menuGroupCode: String, params?: any): Observable<ResponseList<Menu>> {
-    const url = `${this.API_URI}/menugroup/${menuGroupCode}/menu`;
+  getMenuList(params?: any): Observable<ResponseList<Menu>> {
+    const url = `${this.API_URI}/menu`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       params: params
@@ -113,7 +123,7 @@ export class MenuService extends DataService {
   }
 
   getMenuHierarchy(menuGroupCode: String): Observable<ResponseList<MenuHierarchy>> {
-    const url = `http://localhost:8090/menuhierarchy/${menuGroupCode}`;
+    const url = `http://localhost:8090/common/menuhierarchy/${menuGroupCode}`;
     return this.http
               .get<ResponseList<MenuHierarchy>>(url, {headers: this.getAuthorizedHttpHeaders()})
               .pipe(

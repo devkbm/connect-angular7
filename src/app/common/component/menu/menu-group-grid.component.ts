@@ -22,6 +22,9 @@ export class MenuGroupGridComponent extends AggridFunction implements OnInit {
   @Output()
   editButtonClicked = new EventEmitter();
 
+  @Output()
+  rowDoubleClicked = new EventEmitter();
+
   constructor(private menuService: MenuService,
               private appAlarmService: AppAlarmService) {
 
@@ -100,6 +103,10 @@ export class MenuGroupGridComponent extends AggridFunction implements OnInit {
     const selectedRows = this.gridApi.getSelectedRows();
 
     this.rowSelected.emit(selectedRows[0]);
+  }
+
+  private rowDbClicked(event) {
+    this.rowDoubleClicked.emit(event.data);
   }
 
 }
