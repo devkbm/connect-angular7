@@ -19,6 +19,7 @@ import { Authority } from '../../model/authority';
 import { MenuGroup } from '../../model/menu-group';
 import { UserDuplicationValidatorDirective, existingUserValidator } from '../../validator/user-duplication-validator.directive';
 import { UploadFile } from 'ng-zorro-antd';
+import { FormStatus } from '../../form/form-base';
 
 @Component({
   selector: 'app-user-form',

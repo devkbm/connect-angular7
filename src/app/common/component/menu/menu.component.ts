@@ -39,8 +39,9 @@ export class MenuComponent implements OnInit {
 
   menuGroupFormOpen(item): void {
     this.menuGroupFormVisible = true;
-
-    this.menuGroupForm.menuGroupForm.patchValue(item);
+    //console.log(item);
+    this.menuGroupForm.getMenuGroup(item.menuGroupCode);
+    //this.menuGroupForm.menuGroupForm.patchValue(item);
   }
 
   menuGroupFormClose(): void {

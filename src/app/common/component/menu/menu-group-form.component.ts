@@ -13,13 +13,14 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { ResponseObject } from '../../model/response-object';
 import { MenuGroup } from '../../model/menu-group';
 import { existingMenuGroupValidator } from '../../validator/menu-group-duplication-validator.directive';
+import { FormBase, FormStatus } from '../../form/form-base';
 
 @Component({
   selector: 'app-menu-group-form',
   templateUrl: './menu-group-form.component.html',
   styleUrls: ['./menu-group-form.component.css']
 })
-export class MenuGroupFormComponent implements OnInit {
+export class MenuGroupFormComponent extends FormBase implements OnInit {
 
   menuGroupForm: FormGroup;
 
@@ -44,33 +45,44 @@ export class MenuGroupFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private menuService: MenuService,
-              private appAlarmService: AppAlarmService) { }
+              private appAlarmService: AppAlarmService) { super(); }
 
-  ngOnInit() {
+  ngOnInit() {    
+    this.createForm();
+  }
+
+  public createForm() {
+    this.formStatus = FormStatus.CREATE;
     this.menuGroupForm = this.fb.group({
-      menuGroupCode   : new FormControl(null, {
-                                                validators: Validators.required,
-                                                asyncValidators: [existingMenuGroupValidator(this.menuService)],
-                                                updateOn: 'blur'
-                                              }),
+                          menuGroupCode   : new FormControl(null, {
+                                                                    validators: Validators.required,
+                                                                    asyncValidators: [existingMenuGroupValidator(this.menuService)],
+                                                                    updateOn: 'blur'
+                                                                  }),
+                          menuGroupName   : [ null, [ Validators.required ] ],
+                          description     : [ null]
+                        });    
+  }
+
+  public updateForm() {
+    this.formStatus = FormStatus.UPDATE;
+    this.menuGroupForm =  this.fb.group({
+      menuGroupCode   : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
       menuGroupName   : [ null, [ Validators.required ] ],
-      description     : [ null]
-    });
-  }
+      description     : [ null ]
+    });    
+  }  
 
-  public isFieldErrors(fieldName: string, errorName: string): boolean {
-    return this.menuGroupForm.get(fieldName).dirty
-        && this.menuGroupForm.get(fieldName).hasError(errorName) ? true : false;
-  }
-
-  private getMenuGroup(menuGroupCode: string) {
+  public getMenuGroup(menuGroupCode: string) {
     this.menuService
       .getMenuGroup(menuGroupCode)
       .subscribe(
         (model: ResponseObject<MenuGroup>) => {
           if ( model.total > 0 ) {
+            this.updateForm();            
             this.menuGroupForm.patchValue(model.data);
           } else {
+            this.createForm();
             this.menuGroupForm.reset();
           }
           this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 조회되었습니다.');

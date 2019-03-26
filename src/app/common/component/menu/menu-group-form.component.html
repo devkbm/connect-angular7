@@ -1,34 +1,60 @@
 {{menuGroupForm.value | json}}
-
+{{this.formStatus}}
 <form nz-form [formGroup]="menuGroupForm">
 
-    <nz-form-item>
-        <nz-form-label nzFor="menuGroupCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드</nz-form-label>
+    <!--메뉴그룹코드 필드(생성)-->
+    <nz-form-item *ngIf="this.formStatus == 'CREATE'">
+        <nz-form-label nzFor="menuGroupCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드c</nz-form-label>
         <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="menuGroupCode" formControlName="menuGroupCode" placeholder="메뉴그룹코드를 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('menuGroupCode','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(menuGroupForm,'menuGroupCode','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(menuGroupForm,'menuGroupCode','exists')">기존 메뉴그룹코드가 존재합니다</nz-form-explain>            
         </nz-form-control>
     </nz-form-item>
 
+    <!--메뉴그룹코드 필드(수정)-->
+    <nz-form-item *ngIf="this.formStatus == 'UPDATE'">
+        <nz-form-label nzFor="menuGroupCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드u</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+            <input nz-input id="menuGroupCode" formControlName="menuGroupCode" placeholder="메뉴그룹코드를 입력해주세요." >
+            <nz-form-explain *ngIf="isFieldErrors(menuGroupForm,'menuGroupCode','required')">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <!--메뉴그룹명 필드-->
     <nz-form-item>
         <nz-form-label nzFor="menuGroupName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹명</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="menuGroupName" formControlName="menuGroupName" placeholder="메뉴그룹명을 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('menuGroupName','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(menuGroupForm,'menuGroupName','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
-
+    <!--비고 필드-->
     <nz-form-item>
         <nz-form-label nzFor="description" [nzXs]="formLabelXs" [nzSm]="formLabelSm">비고</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
-            <textarea nz-input id="description" formControlName="description" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+            <textarea nz-input id="description" formControlName="description" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 10, maxRows: 20 }"></textarea>
         </nz-form-control>
     </nz-form-item>
 
 </form>
 
 <div class="footer">
+    <button
+        nz-button
+        (click)="createForm()">
+        <i nz-icon type="form" theme="outline"></i>
+        createform
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button
+        nz-button
+        (click)="updateForm()">
+        <i nz-icon type="form" theme="outline"></i>
+        updateform
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
     <button
         nz-button
         (click)="closeForm()">

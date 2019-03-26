@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -23,6 +23,7 @@ import { ResponseList } from '../common/model/response-list';
 export class CommonLayoutComponent implements OnInit {
 
   isCollapsed: Boolean = false;
+  triggerTemplate: TemplateRef<void> | null = null;
   selectedValue: string;
   message: string;
   menuGroupCode: string;
