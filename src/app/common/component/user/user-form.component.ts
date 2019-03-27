@@ -140,15 +140,13 @@ export class UserFormComponent extends FormBase implements OnInit {
             
             this.previewImage = null;
             this.imageUploadParam = {userId: model.data.userId};
-            if (model.data.imageBase64 != null) {
+            if (model.data.imageBase64.length > 0 ) {
               this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
-            }
-
-            if (model.data.imageBase64.length > 0) {
               this.isUploadable = false;
             } else {
+              this.imageBase64 = null;
               this.isUploadable = true;
-            }
+            }            
 
           } else {
             this.userForm.reset();
@@ -168,13 +166,15 @@ export class UserFormComponent extends FormBase implements OnInit {
 
   public registerUser() {
     
-    for (const i in this.userForm.controls) {
+    /*for (const i in this.userForm.controls) {
       this.userForm.controls[ i ].markAsDirty();
       this.userForm.controls[ i ].updateValueAndValidity();      
-    }    
+    } */
+    
+    console.log(this.userForm);
 
     this.userService
-      .registerUser(this.userForm.value)
+      .registerUser(this.userForm.getRawValue())
       .subscribe(
         (model: ResponseObject<User>) => {
           this.appAlarmService.changeMessage(model.message);
