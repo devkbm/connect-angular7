@@ -19,22 +19,19 @@ import { Authority } from '../../model/authority';
 import { MenuGroup } from '../../model/menu-group';
 import { UserDuplicationValidatorDirective, existingUserValidator } from '../../validator/user-duplication-validator.directive';
 import { UploadFile } from 'ng-zorro-antd';
-import { FormStatus } from '../../form/form-base';
+import { FormType, FormBase } from '../../form/form-base';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent extends FormBase implements OnInit {
 
   public userForm: FormGroup;
   public authList;
   public menuGroupList;
-
-
-  formStatus: FormStatus;
-
+  
   passwordConfirm: string;
   popup: boolean;
 
@@ -83,9 +80,21 @@ export class UserFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
-              private appAlarmService: AppAlarmService) { }
+              private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {
+
+    this.newForm();
+
+    this.getAuthorityList();
+    this.getMenuGroupList();
+
+  }
+
+  public newForm(): void {
+    this.imageBase64 = null;
+    this.previewImage = null;
+    this.formType = FormType.NEW;
 
     this.userForm = this.fb.group({
       userId          : new FormControl(null, {
@@ -100,15 +109,20 @@ export class UserFormComponent implements OnInit {
       authorityList   : [ null ],
       menuGroupList   : [ null ]
     });
-
-    this.getAuthorityList();
-    this.getMenuGroupList();
-
   }
 
-  public isFieldErrors(fieldName: string): boolean {
-    return this.userForm.get(fieldName).dirty
-        && this.userForm.get(fieldName).hasError('required') ? true : false;
+  public modifyForm(): void {
+    this.formType = FormType.MODIFY;
+
+    this.userForm = this.fb.group({
+      userId          : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
+      name            : [ null, [ Validators.required ] ],
+      enabled         : [ true ],
+      password        : [ null, [ Validators.required ] ],
+      imageBase64     : [ null ],
+      authorityList   : [ null ],
+      menuGroupList   : [ null ]
+    });
   }
 
   public getUser(userId: string) {
@@ -117,11 +131,18 @@ export class UserFormComponent implements OnInit {
       .subscribe(
         (model: ResponseObject<User>) => {
           if (model.total > 0) {
-            this.userForm.patchValue(model.data);
-
+            if (model.data.userId == null) {
+              this.newForm();
+            } else {
+              this.modifyForm();            
+              this.userForm.patchValue(model.data);
+            }
+            
             this.previewImage = null;
             this.imageUploadParam = {userId: model.data.userId};
-            this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
+            if (model.data.imageBase64 != null) {
+              this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
+            }
 
             if (model.data.imageBase64.length > 0) {
               this.isUploadable = false;
@@ -131,13 +152,7 @@ export class UserFormComponent implements OnInit {
 
           } else {
             this.userForm.reset();
-          }
-
-          if (model.data.userId == null) {
-            this.formStatus = FormStatus.CREATE;
-          } else {
-            this.formStatus = FormStatus.UPDATE;
-          }
+          }          
 
           this.appAlarmService.changeMessage(model.message);
         },
@@ -152,12 +167,11 @@ export class UserFormComponent implements OnInit {
   }
 
   public registerUser() {
-
-    // tslint:disable-next-line:forin
+    
     for (const i in this.userForm.controls) {
       this.userForm.controls[ i ].markAsDirty();
-      this.userForm.controls[ i ].updateValueAndValidity();
-    }
+      this.userForm.controls[ i ].updateValueAndValidity();      
+    }    
 
     this.userService
       .registerUser(this.userForm.value)
@@ -201,7 +215,7 @@ export class UserFormComponent implements OnInit {
     this.userService
       .checkUser(this.userForm.get('userId').value)
       .subscribe(
-        (model: ResponseObject<User>) => {
+        (model: ResponseObject<boolean>) => {
           this.appAlarmService.changeMessage(model.message);
         },
         (err: AppError) => {

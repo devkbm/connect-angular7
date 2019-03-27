@@ -1,9 +1,9 @@
 {{menuGroupForm.value | json}}
-{{this.formStatus}}
+{{this.formType}}
 <form nz-form [formGroup]="menuGroupForm">
 
     <!--메뉴그룹코드 필드(생성)-->
-    <nz-form-item *ngIf="this.formStatus == 'CREATE'">
+    <nz-form-item *ngIf="this.formType == 'NEW'">
         <nz-form-label nzFor="menuGroupCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드c</nz-form-label>
         <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="menuGroupCode" formControlName="menuGroupCode" placeholder="메뉴그룹코드를 입력해주세요.">
@@ -13,7 +13,7 @@
     </nz-form-item>
 
     <!--메뉴그룹코드 필드(수정)-->
-    <nz-form-item *ngIf="this.formStatus == 'UPDATE'">
+    <nz-form-item *ngIf="this.formType == 'MODIFY'">
         <nz-form-label nzFor="menuGroupCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴그룹코드u</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="menuGroupCode" formControlName="menuGroupCode" placeholder="메뉴그룹코드를 입력해주세요." >

@@ -1,16 +1,16 @@
 import { FormGroup } from '@angular/forms';
 
-export enum FormStatus {
-    CREATE = "CREATE",
-    UPDATE = "UPDATE"
+export enum FormType {
+    NEW = 'NEW',
+    MODIFY = 'MODIFY'
 };
 
 export class FormBase {
     
-    protected formStatus: FormStatus;
+    protected formType: FormType;
 
     constructor() {
-        this.formStatus = FormStatus.CREATE;
+        this.formType = FormType.NEW;
      }
 
     /**

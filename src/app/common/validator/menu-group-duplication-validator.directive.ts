@@ -13,7 +13,7 @@ export function existingMenuGroupValidator(menuService: MenuService): AsyncValid
                           .pipe(
                             map( responseObj => {
                               if ( responseObj.data == false ) {
-                                return {exists: control.value + '가 존재합니다.'};
+                                return {exists: responseObj.message};
                               } else {
                                 return null;
                               }

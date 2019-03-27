@@ -58,7 +58,7 @@ export class UserComponent implements OnInit {
   }
 
   initForm() {
-    this.form.userForm.reset();
+    this.form.newForm();
     this.openDrawer();
   }
 

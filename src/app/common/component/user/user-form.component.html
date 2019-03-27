@@ -1,10 +1,11 @@
 <!--{{userForm.value | json}}
 {{fileList | json}}-->
 {{isUploadable}}
+{{formType}}
 <form nz-form [formGroup]="userForm">    
     
     <div class="clearfix">
-        <img [src]="imageBase64" [ngStyle]="{ 'width': '200px' }"/>
+        <img [src]="imageBase64" [ngStyle]="{ 'width': '150px' }"/>
         
         <nz-upload
             nzAction="http://localhost:8090/user/image"
@@ -25,20 +26,26 @@
         </nz-modal>
     </div>
 
-    <!--아이디 필드-->
-    <nz-form-item>
-        <nz-form-label 
-            nzFor="userId" 
-            nzRequired 
-            [nzXs]="formLabelXs" 
-            [nzSm]="formLabelSm" >
+    <!--아이디 필드(생성)-->
+    <nz-form-item *ngIf="this.formType == 'NEW'">
+        <nz-form-label nzFor="userId" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             아이디
         </nz-form-label>
-
         <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
-            <input style="ime-mode: disabled" nz-input id="userId" formControlName="userId" placeholder="아이디를 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('userId')">The input is Required!</nz-form-explain>
-            <nz-form-explain *ngIf="userForm.get('userId').dirty && userForm.get('userId').hasError('exists')">{{userForm.get('userId').getError('exists')}}</nz-form-explain>
+            <input nz-input id="userId" formControlName="userId" placeholder="아이디를 입력해주세요.">
+            <nz-form-explain *ngIf="isFieldErrors(userForm,'userId','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(userForm,'userId','exists')">{{userForm.get('userId').getError('exists')}}</nz-form-explain>
+        </nz-form-control>        
+    </nz-form-item>
+
+    <!--아이디 필드(수정)-->
+    <nz-form-item *ngIf="this.formType == 'MODIFY'">
+        <nz-form-label nzFor="userId" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">
+            아이디
+        </nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+            <input nz-input id="userId" formControlName="userId" placeholder="아이디를 입력해주세요.">
+            <nz-form-explain *ngIf="isFieldErrors(userForm,'userId','required')">The input is Required!</nz-form-explain>            
         </nz-form-control>        
     </nz-form-item>
 
@@ -54,7 +61,7 @@
 
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm" nzHasFeedback>
             <input style="ime-mode: inactive" id="name" nz-input formControlName="name">
-            <nz-form-explain *ngIf="isFieldErrors('name')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(userForm,'name','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
@@ -70,7 +77,7 @@
 
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input style="ime-mode: inactive" nz-input type="password" id="password" formControlName="password">
-            <nz-form-explain *ngIf="isFieldErrors('password')">Please input your password!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(userForm,'password','required')">Please input your password!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 

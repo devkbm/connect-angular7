@@ -12,9 +12,9 @@ export function existingUserValidator(userService: UserService): AsyncValidatorF
     return control.value ? userService
               .checkUser(control.value)
               .pipe(
-                map( users => {
-                  if ( users.total > 0 ) {
-                    return {exists: users.message};
+                map( responseObj => {
+                  if ( responseObj.data == false ) {
+                    return {exists: responseObj.message};
                   } else {
                     return null;
                   }
