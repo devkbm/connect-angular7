@@ -1,10 +1,19 @@
 {{programForm.value | json}}
 <form nz-form [formGroup]="programForm">
-    <nz-form-item>
+    <nz-form-item *ngIf="this.formType == 'NEW'">
+        <nz-form-label nzFor="resourceCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">리소스코드</nz-form-label>
+        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
+            <input nz-input id="resourceCode" formControlName="resourceCode" placeholder="리소스코드를 입력해주세요.">
+            <nz-form-explain *ngIf="isFieldErrors(programForm,'resourceCode','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(programForm,'resourceCode','exists')">{{programForm.get('resourceCode').getError('exists')}}</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="this.formType == 'MODIFY'">
         <nz-form-label nzFor="resourceCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">리소스코드</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="resourceCode" formControlName="resourceCode" placeholder="리소스코드를 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('resourceCode','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(programForm,'resourceCode','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
@@ -12,7 +21,7 @@
         <nz-form-label nzFor="resourceName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">리소스명</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="resourceName" formControlName="resourceName" placeholder="리소스명을 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('resourceName','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(programForm,'resourceName','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
@@ -20,7 +29,7 @@
         <nz-form-label nzFor="resourceType" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">리소스타입</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="resourceType" formControlName="resourceType" placeholder="리소스타입을 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('resourceType','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(programForm,'resourceType','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
@@ -28,7 +37,7 @@
         <nz-form-label nzFor="url" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">URL 정보</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="url" formControlName="url" placeholder="URL 정보를 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('url'),'required'">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(programForm,'url'),'required'">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 

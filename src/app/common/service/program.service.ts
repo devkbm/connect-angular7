@@ -31,22 +31,43 @@ export class ProgramService extends DataService {
 
   getProgram(id: string): Observable<ResponseObject<WebResource>> {
     const url = `${this.API_URI}/${id}`;
-    return this.http.get<ResponseObject<WebResource>>(url, {headers: this.getAuthorizedHttpHeaders()}).pipe(
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()
+    };
+
+    return this.http.get<ResponseObject<WebResource>>(url, options).pipe(
+      catchError((err) => Observable.throw(err))
+    );
+  }
+
+  getProgramDupCheck(id: string): Observable<ResponseObject<boolean>> {
+    const url = `${this.API_URI}/${id}/check`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()
+    };
+
+    return this.http.get<ResponseObject<boolean>>(url, options).pipe(
       catchError((err) => Observable.throw(err))
     );
   }
 
   registerProgram(program: WebResource): Observable<ResponseObject<WebResource>> {
     const url = `${this.API_URI}`;
-    return this.http.post<ResponseObject<WebResource>>(url, program, {headers: this.getAuthorizedHttpHeaders()}).pipe(
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()
+    };
+    return this.http.post<ResponseObject<WebResource>>(url, program, options).pipe(
       catchError((err) => Observable.throw(err))
     );
   }
 
   deleteProgram(id: string): Observable<ResponseObject<WebResource>> {
     const url = `${this.API_URI}/${id}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()
+    };
     return this.http
-              .delete<ResponseObject<WebResource>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .delete<ResponseObject<WebResource>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );

@@ -79,13 +79,13 @@ export class UserService extends DataService {
         catchError((err) => Observable.throw(err)));
   }
 
-  initializePassword(user: User): Observable<ResponseObject<String>> {
+  initializePassword(user: User): Observable<ResponseObject<string>> {
     const options = {
       headers: this.getAuthorizedHttpHeaders()
     };
 
     return this.http
-      .post<ResponseObject<String>>(this.API_URI + '/' + user.userId + '/initPassword', user, options)
+      .post<ResponseObject<string>>(this.API_URI + '/' + user.userId + '/initPassword', user, options)
       .pipe(
         catchError((err) => Observable.throw(err))
       );
@@ -113,6 +113,19 @@ export class UserService extends DataService {
 
     return this.http
       .get<ResponseObject<Authority>>(url, options)
+      .pipe(
+        catchError((err) => Observable.throw(err))
+      );
+  }
+
+  getAuthorityDupCheck(id: string): Observable<ResponseObject<boolean>> {
+    const url = `${this.AUTHORITY_API_URI}/${id}/check`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()
+    };
+
+    return this.http
+      .get<ResponseObject<boolean>>(url, options)
       .pipe(
         catchError((err) => Observable.throw(err))
       );

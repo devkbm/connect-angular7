@@ -11,7 +11,8 @@ import { AppAlarmService } from '../../service/app-alarm.service';
 
 import { ResponseObject } from '../../model/response-object';
 import { Authority } from '../../model/authority';
-import { FormBase } from '../../form/form-base';
+import { FormBase, FormType } from '../../form/form-base';
+import { existingAuthorityValidator } from '../../validator/authority-duplication-validator.directive';
 
 @Component({
   selector: 'app-authority-form',
@@ -47,21 +48,41 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
               private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {
+    this.newForm();
+  }
+
+  public newForm() {
+    this.formType = FormType.NEW;
+
     this.authorityForm = this.fb.group({
-      authority     : [ null, [ Validators.required ] ],
+      authority     : new FormControl(null, {
+                                              validators: Validators.required,
+                                              asyncValidators: [existingAuthorityValidator(this.userService)],
+                                              updateOn: 'blur'
+                                            }),
       description   : [ null ]
     });
   }
 
-  public getAuthority(): void {
+  public modifyForm(formData: Authority) {
+    this.formType = FormType.MODIFY;
+    this.authorityForm = this.fb.group({
+      authority     : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
+      description   : [ null ]
+    });
+
+    this.authorityForm.patchValue(formData);
+  }
+
+  public getAuthority(id: string): void {
     this.userService
-      .getAuthority(this.authorityForm.get('authority').value)
+      .getAuthority(id)
       .subscribe(
         (model: ResponseObject<Authority>) => {
           if (model.total > 0) {
-            this.authorityForm.patchValue(model.data);
+            this.modifyForm(model.data);
           } else {
-            this.authorityForm.reset();
+            this.newForm();
           }
           this.appAlarmService.changeMessage(model.message);
         },
@@ -74,7 +95,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
 
   public saveAuthority(): void {
     this.userService
-      .registerAuthority(this.authorityForm.value)
+      .registerAuthority(this.authorityForm.getRawValue())
       .subscribe(
         (model: ResponseObject<Authority>) => {
           this.appAlarmService.changeMessage(model.message);

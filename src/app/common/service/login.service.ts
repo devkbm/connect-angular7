@@ -30,8 +30,8 @@ export class LoginService extends DataService {
     return this.http
       .post<UserToken>(this.API_URI, body, options).pipe(
         // tap((userToken: UserToken) => console.log(userToken.token) ),
-        catchError((err) => Observable.throw(err))
-      );      
+        // catchError((err) => Observable.throw(err))
+      );
   }
-  
+
 }

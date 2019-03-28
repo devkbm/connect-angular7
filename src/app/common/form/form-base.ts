@@ -3,10 +3,10 @@ import { FormGroup } from '@angular/forms';
 export enum FormType {
     NEW = 'NEW',
     MODIFY = 'MODIFY'
-};
+}
 
 export class FormBase {
-    
+
     protected formType: FormType;
 
     constructor() {
@@ -14,7 +14,7 @@ export class FormBase {
      }
 
     /**
-     * 
+     *
      * @param formGroup 폼그룹
      * @param fieldName 필드명
      * @param errorName 에러명

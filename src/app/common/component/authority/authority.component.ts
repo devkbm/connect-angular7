@@ -38,7 +38,8 @@ export class AuthorityComponent implements OnInit {
   }
 
   editDrawOpen(item) {
-    this.form.authorityForm.patchValue(item);
+    this.form.getAuthority(item.authority);
+
     this.openDrawer();
   }
 
@@ -58,7 +59,7 @@ export class AuthorityComponent implements OnInit {
   }
 
   initForm() {
-    this.form.authorityForm.reset();
+    this.form.newForm();
     this.openDrawer();
   }
 

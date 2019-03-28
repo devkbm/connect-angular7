@@ -11,13 +11,15 @@ import { AppAlarmService } from '../../service/app-alarm.service';
 
 import { ResponseObject } from '../../model/response-object';
 import { WebResource } from '../../model/web-resource';
+import { FormBase, FormType } from '../../form/form-base';
+import { existingWebResourceValidator } from '../../validator/web-resource-duplication-validator.directive';
 
 @Component({
   selector: 'app-program-form',
   templateUrl: './program-form.component.html',
   styleUrls: ['./program-form.component.css']
 })
-export class ProgramFormComponent implements OnInit {
+export class ProgramFormComponent extends FormBase implements OnInit {
 
   programForm: FormGroup;
 
@@ -42,12 +44,21 @@ export class ProgramFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private programService: ProgramService,
-              private appAlarmService: AppAlarmService) { }
+              private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {
+    this.newForm();
+  }
+
+  public newForm(): void {
+    this.formType = FormType.NEW;
 
     this.programForm = this.fb.group({
-      resourceCode  : [ null, [ Validators.required ] ],
+      resourceCode  : new FormControl(null, {
+                                              validators: Validators.required,
+                                              asyncValidators: [existingWebResourceValidator(this.programService)],
+                                              updateOn: 'blur'
+                                            }),
       resourceName  : [ null, [ Validators.required ] ],
       resourceType  : [ null, [ Validators.required ] ],
       url           : [ null, [ Validators.required ] ],
@@ -55,21 +66,30 @@ export class ProgramFormComponent implements OnInit {
     });
   }
 
-  public isFieldErrors(fieldName: string, errorName: string): boolean {
-    return this.programForm.get(fieldName).dirty
-        && this.programForm.get(fieldName).hasError(errorName) ? true : false;
+  public modifyForm(formData: WebResource): void {
+    this.formType = FormType.MODIFY;
+
+    this.programForm = this.fb.group({
+      resourceCode  : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
+      resourceName  : [ null, [ Validators.required ] ],
+      resourceType  : [ null, [ Validators.required ] ],
+      url           : [ null, [ Validators.required ] ],
+      description   : [ null]
+    });
+
+    this.programForm.patchValue(formData);
   }
 
-
-  public getProgram() {
+  public getProgram(id: string) {
     this.programService
-      .getProgram(this.programForm.get('resourceCode').value)
+      .getProgram(id)
       .subscribe(
         (model: ResponseObject<WebResource>) => {
           if ( model.total > 0 ) {
-            this.programForm.patchValue(model.data);
+            this.modifyForm(model.data);
           } else {
-            this.programForm.reset();
+            this.newForm();
+
           }
           this.appAlarmService.changeMessage(model.message);
         },

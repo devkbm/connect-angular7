@@ -1,14 +1,26 @@
 {{authorityForm.value | json}}
 <form nz-form [formGroup]="authorityForm" [nzLayout]="'horizontal'">
 
-    <nz-form-item>
-        <nz-form-label nzFor="authority" [nzXs]="formLabelXs" [nzSm]="formLabelSm" nzRequired>권한</nz-form-label>
+    <!--권한 필드(신규)-->
+    <nz-form-item *ngIf="this.formType == 'NEW'">
+        <nz-form-label nzFor="authority" [nzXs]="formLabelXs" [nzSm]="formLabelSm" nzRequired>권한C</nz-form-label>
+        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
+            <input nz-input id="authority" formControlName="authority" placeholder="권한코드를 입력해주세요." nzSize="small">             
+            <nz-form-explain *ngIf="isFieldErrors(authorityForm,'authority','required')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(authorityForm,'authority','exists')">{{authorityForm.get('authority').getError('exists')}}</nz-form-explain>
+        </nz-form-control>        
+    </nz-form-item>
+
+    <!--권한 필드(수정)-->
+    <nz-form-item *ngIf="this.formType == 'MODIFY'">
+        <nz-form-label nzFor="authority" [nzXs]="formLabelXs" [nzSm]="formLabelSm" nzRequired>권한U</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="authority" formControlName="authority" placeholder="권한코드를 입력해주세요." nzSize="small">             
             <nz-form-explain *ngIf="isFieldErrors(authorityForm,'authority','required')">The input is Required!</nz-form-explain>
         </nz-form-control>        
     </nz-form-item>
 
+    <!--설명 필드-->
     <nz-form-item>
         <nz-form-label nzFor="description" [nzXs]="formLabelXs" [nzSm]="formLabelSm">설명</nz-form-label>
         <nz-form-control [nzSm]="fromControlSm" [nzXs]="formControlXs">

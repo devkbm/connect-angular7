@@ -31,7 +31,7 @@ export class UserFormComponent extends FormBase implements OnInit {
   public userForm: FormGroup;
   public authList;
   public menuGroupList;
-  
+
   passwordConfirm: string;
   popup: boolean;
 
@@ -109,9 +109,10 @@ export class UserFormComponent extends FormBase implements OnInit {
       authorityList   : [ null ],
       menuGroupList   : [ null ]
     });
+
   }
 
-  public modifyForm(): void {
+  public modifyForm(formData: User): void {
     this.formType = FormType.MODIFY;
 
     this.userForm = this.fb.group({
@@ -123,6 +124,8 @@ export class UserFormComponent extends FormBase implements OnInit {
       authorityList   : [ null ],
       menuGroupList   : [ null ]
     });
+
+    this.userForm.patchValue(formData);
   }
 
   public getUser(userId: string) {
@@ -134,10 +137,9 @@ export class UserFormComponent extends FormBase implements OnInit {
             if (model.data.userId == null) {
               this.newForm();
             } else {
-              this.modifyForm();            
-              this.userForm.patchValue(model.data);
+              this.modifyForm(model.data);
             }
-            
+
             this.previewImage = null;
             this.imageUploadParam = {userId: model.data.userId};
             if (model.data.imageBase64.length > 0 ) {
@@ -146,11 +148,11 @@ export class UserFormComponent extends FormBase implements OnInit {
             } else {
               this.imageBase64 = null;
               this.isUploadable = true;
-            }            
+            }
 
           } else {
             this.userForm.reset();
-          }          
+          }
 
           this.appAlarmService.changeMessage(model.message);
         },
@@ -165,12 +167,12 @@ export class UserFormComponent extends FormBase implements OnInit {
   }
 
   public registerUser() {
-    
+
     /*for (const i in this.userForm.controls) {
       this.userForm.controls[ i ].markAsDirty();
-      this.userForm.controls[ i ].updateValueAndValidity();      
+      this.userForm.controls[ i ].updateValueAndValidity();
     } */
-    
+
     console.log(this.userForm);
 
     this.userService

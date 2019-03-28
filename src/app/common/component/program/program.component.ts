@@ -12,8 +12,8 @@ export class ProgramComponent implements OnInit {
 
   drawerVisible = false;
 
-  queryKey: string = 'resourceCode';
-  queryValue: string = '';
+  queryKey = 'resourceCode';
+  queryValue = '';
 
   @ViewChild('programGrid')
   grid: ProgramGridComponent;
@@ -33,20 +33,20 @@ export class ProgramComponent implements OnInit {
   closeDrawer(): void {
     this.drawerVisible = false;
   }
-    
+
   getProgramList() {
     let params = null;
     if ( this.queryValue !== '') {
       params = new Object();
-      params[this.queryKey] = this.queryValue;      
-    }        
+      params[this.queryKey] = this.queryValue;
+    }
 
     this.closeDrawer();
     this.grid.getProgramList(params);
   }
 
   initForm() {
-    this.form.programForm.reset();
+    this.form.newForm();
     this.openDrawer();
   }
 
@@ -59,12 +59,12 @@ export class ProgramComponent implements OnInit {
   }
 
   selectedItem(item) {
-    this.form.programForm.patchValue(item);     
-  }  
+    // this.form.programForm.patchValue(item);
+  }
 
   editDrawerOpen(item) {
-    this.form.programForm.patchValue(item);  
-    this.openDrawer();   
+    this.form.getProgram(item.resourceCode);
+    this.openDrawer();
   }
 
 }
