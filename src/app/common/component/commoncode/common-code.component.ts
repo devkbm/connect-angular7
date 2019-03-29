@@ -30,7 +30,7 @@ export class CommonCodeComponent implements OnInit {
     }
 
     initForm() {
-
+        this.form.newForm();
     }
 
     saveCommonCode() {
@@ -41,10 +41,8 @@ export class CommonCodeComponent implements OnInit {
         this.form.deleteCommonCode();
     }
 
-    selectedItem(item) {
-        console.log(item.id);        
-        this.form.getCommonCode(item.id);
-        //this.form.getCommonCode(item.id);
+    selectedItem(item) {         
+        this.form.getCommonCode(item.id);        
     }  
     
 }

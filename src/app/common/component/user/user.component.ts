@@ -53,8 +53,8 @@ export class UserComponent implements OnInit {
     this.form.registerUser();
   }
 
-  deleteUser() {
-    this.form.deleteUser();
+  deleteUser() {    
+    this.form.deleteUser(this.grid.getSelectedRow().userId);
   }
 
   initForm() {

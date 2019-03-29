@@ -35,9 +35,12 @@ export class MenuService extends DataService {
 
   getMenuGroup(menuGroupCode: string): Observable<ResponseObject<MenuGroup>> {
     const url = `${this.API_URI}/menugroup/${menuGroupCode}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
 
     return this.http
-              .get<ResponseObject<MenuGroup>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .get<ResponseObject<MenuGroup>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );
@@ -45,9 +48,12 @@ export class MenuService extends DataService {
 
   getValidDupMenuGroup(menuGroupCode: string): Observable<ResponseObject<boolean>> {
     const url = `${this.API_URI}/menugroup/${menuGroupCode}/check`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
 
     return this.http
-              .get<ResponseObject<boolean>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .get<ResponseObject<boolean>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );
@@ -55,9 +61,12 @@ export class MenuService extends DataService {
 
   registerMenuGroup(menuGroup: MenuGroup): Observable<ResponseObject<MenuGroup>> {
     const url = `${this.API_URI}/menugroup/${menuGroup.menuGroupCode}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
 
     return this.http
-              .post<ResponseObject<MenuGroup>>(url, menuGroup, {headers: this.getAuthorizedHttpHeaders()})
+              .post<ResponseObject<MenuGroup>>(url, menuGroup, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );
@@ -65,8 +74,12 @@ export class MenuService extends DataService {
 
   deleteMenuGroup(menuGroupCode: string): Observable<ResponseObject<MenuGroup>> {
     const url = `${this.API_URI}/menugroup/${menuGroupCode}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
+
     return this.http
-              .delete<ResponseObject<MenuGroup>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .delete<ResponseObject<MenuGroup>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );
@@ -74,8 +87,25 @@ export class MenuService extends DataService {
 
   getMenu(menuCode: string): Observable<ResponseObject<Menu>> {
     const url = `${this.API_URI}/menu/${menuCode}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
+
     return this.http
-              .get<ResponseObject<Menu>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .get<ResponseObject<Menu>>(url, options)
+              .pipe(
+                catchError((err) => Observable.throw(err))
+              );
+  }
+
+  getValidDupMenu(menuCode: string): Observable<ResponseObject<boolean>> {
+    const url = `${this.API_URI}/menu/${menuCode}/check`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
+
+    return this.http
+              .get<ResponseObject<boolean>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );
@@ -97,8 +127,12 @@ export class MenuService extends DataService {
 
   getMenuTypeList(): Observable<ResponseObject<any>> {
     const url = `${this.API_URI}/menu/menutype`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
+
     return this.http
-              .get<ResponseObject<any>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .get<ResponseObject<any>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );
@@ -106,8 +140,12 @@ export class MenuService extends DataService {
 
   registerMenu(menu: Menu): Observable<ResponseObject<Menu>> {
     const url = `${this.API_URI}/menu/${menu.menuCode}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
+
     return this.http
-              .post<ResponseObject<Menu>>(url, menu, {headers: this.getAuthorizedHttpHeaders()})
+              .post<ResponseObject<Menu>>(url, menu, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );
@@ -115,8 +153,12 @@ export class MenuService extends DataService {
 
   deleteMenu(menu: Menu): Observable<ResponseObject<Menu>> {
     const url = `${this.API_URI}/menu/${menu.menuCode}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
+
     return this.http
-              .delete<ResponseObject<Menu>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .delete<ResponseObject<Menu>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );
@@ -124,8 +166,12 @@ export class MenuService extends DataService {
 
   getMenuHierarchy(menuGroupCode: String): Observable<ResponseList<MenuHierarchy>> {
     const url = `http://localhost:8090/common/menuhierarchy/${menuGroupCode}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders()      
+    };
+
     return this.http
-              .get<ResponseList<MenuHierarchy>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .get<ResponseList<MenuHierarchy>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );

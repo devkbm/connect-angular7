@@ -9,38 +9,26 @@
     </ng-template>
   </div>
   <div nz-col [nzSpan]="12" style="text-align: right;">    
-    <button
-      nz-button
-      (click)="getCommonCodeTree()">
+    <button nz-button (click)="getCommonCodeTree()">
       <i nz-icon type="search"></i>
       조회
     </button>
     <nz-divider nzType="vertical"></nz-divider>
-    <button
-      nz-button
-      (click)="initForm()">
+    <button nz-button (click)="initForm()">
       <i nz-icon type="form" theme="outline"></i>
       신규
     </button>
     <nz-divider nzType="vertical"></nz-divider>
-    <button 
-      nz-button 
-      nzType="primary" 
-      nz-popconfirm 
-      nzTitle="저장하시겠습니까?" 
-      (nzOnConfirm)="saveCommonCode()" 
-      (nzOnCancel)="false">
+    <button nz-button nzType="primary" 
+      nz-popconfirm nzTitle="저장하시겠습니까?" 
+      (nzOnConfirm)="saveCommonCode()" (nzOnCancel)="false">
       <i nz-icon type="save" theme="outline"></i>
       저장
     </button> 
     <nz-divider nzType="vertical"></nz-divider>          
-    <button 
-      nz-button 
-      nzType="danger" 
-      nz-popconfirm 
-      nzTitle="삭제하시겠습니까?" 
-      (nzOnConfirm)="deleteCommonCode()" 
-      (nzOnCancel)="false">
+    <button nz-button nzType="danger" 
+      nz-popconfirm nzTitle="삭제하시겠습니까?" 
+      (nzOnConfirm)="deleteCommonCode()" (nzOnCancel)="false">
       <i nz-icon type="delete" theme="outline"></i>
       삭제
     </button>    

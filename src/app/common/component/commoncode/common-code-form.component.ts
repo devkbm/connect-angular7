@@ -13,6 +13,7 @@ import { ResponseObject } from '../../model/response-object';
 import { CommonCode } from '../../model/common-code';
 import { CommonCodeHierarchy } from '../../model/common-code-hierarchy';
 import { ResponseList } from '../../model/response-list';
+import { FormBase, FormType } from '../../form/form-base';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { ResponseList } from '../../model/response-list';
   templateUrl: './common-code-form.component.html',
   styleUrls: ['./common-code-form.component.css']
 })
-export class CommonCodeFormComponent implements OnInit {
+export class CommonCodeFormComponent extends FormBase implements OnInit {
 
   codeForm: FormGroup;
   nodeItems: CommonCodeHierarchy[];
@@ -33,7 +34,7 @@ export class CommonCodeFormComponent implements OnInit {
   formLabelSm = 4;
 
   formControlXs = 24;
-  formControlSm = 14;
+  formControlSm = 20;
 
   @Output()
   formSaved = new EventEmitter();
@@ -46,31 +47,51 @@ export class CommonCodeFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private commonCodeService: CommonCodeService,
-              private appAlarmService: AppAlarmService) { }
+              private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {
+    this.newForm();
+    this.getCommonCodeHierarchy();
+  }  
+
+  public newForm(): void {
+    this.formType = FormType.NEW;
 
     this.codeForm = this.fb.group({
-        id                      : [ null ],  
-        parentId                : [ null ],  
-        code                    : [ null, [ Validators.required ] ],
-        codeName                : [ null, [ Validators.required ] ],
-        codeNameAbbreviation    : [ null ],  
-        fromDate                : [ null ],  
-        toDate                  : [ null ],  
-        seq                     : [ 1    ],  
-        hierarchyLevel          : [ 1    ],          
-        fixedLengthYn           : [ null ],  
-        codeLength              : [ null ],  
-        cmt                     : [ null ]
+      id                      : [ null ],  
+      parentId                : [ null ],  
+      code                    : [ null, [ Validators.required ] ],
+      codeName                : [ null, [ Validators.required ] ],
+      codeNameAbbreviation    : [ null ],  
+      fromDate                : [ null ],  
+      toDate                  : [ null ],  
+      seq                     : [ 1    ],  
+      hierarchyLevel          : [ 1    ],          
+      fixedLengthYn           : [ null ],  
+      codeLength              : [ null ],  
+      cmt                     : [ null ]
     });
-
-    this.getCommonCodeHierarchy();
   }
 
-  public isFieldErrors(fieldName: string): boolean {
-    return this.codeForm.get(fieldName).dirty 
-        && this.codeForm.get(fieldName).errors ? true : false;
+  public modifyForm(formData: CommonCode): void {
+    this.formType = FormType.MODIFY;
+
+    this.codeForm = this.fb.group({
+      id                      : [ null ],  
+      parentId                : [ null ],  
+      code                    : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
+      codeName                : [ null, [ Validators.required ] ],
+      codeNameAbbreviation    : [ null ],  
+      fromDate                : [ null ],  
+      toDate                  : [ null ],  
+      seq                     : [ 1    ],  
+      hierarchyLevel          : [ 1    ],          
+      fixedLengthYn           : [ null ],  
+      codeLength              : [ null ],  
+      cmt                     : [ null ]
+    });
+
+    this.codeForm.patchValue(formData);
   }
 
   public getCommonCode(id: string) {
@@ -78,10 +99,10 @@ export class CommonCodeFormComponent implements OnInit {
         .getCommonCode(id)
         .subscribe(
             (model: ResponseObject<CommonCode>) => {
-              if ( model.total > 0 ) {                   
-                this.codeForm.patchValue(model.data);
+              if ( model.total > 0 ) {        
+                this.modifyForm(model.data);                           
               } else {
-                this.codeForm.reset();
+                this.newForm();
               }
               this.appAlarmService.changeMessage(model.message);
             },

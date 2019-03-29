@@ -1,11 +1,9 @@
 <!--{{userForm.value | json}}
 {{fileList | json}}-->
-{{isUploadable}}
-{{formType}}
 <form nz-form [formGroup]="userForm">    
     
     <div class="clearfix">
-        <img [src]="imageBase64" [ngStyle]="{ 'width': '150px' }"/>
+        <img *ngIf="imageBase64 != null" [src]="imageBase64" [ngStyle]="{ 'width': '150px' }"/>
         
         <nz-upload
             nzAction="http://localhost:8090/user/image"
@@ -14,7 +12,9 @@
             [nzShowButton]="isUploadable"
             [nzShowUploadList]="showUploadList"
             [nzData]="imageUploadParam"
-            [nzPreview]="handlePreview">
+            [nzPreview]="handlePreview"         
+            [nzRemove]="handleRemove"
+            (nzChange)="fileUploadChange($event)">
             <i nz-icon type="plus"></i>
             <div class="ant-upload-text">Upload</div>
         </nz-upload>
@@ -152,7 +152,7 @@
       nzType="danger"
       nz-popconfirm
       nzTitle="삭제하시겠습니까?"
-      (nzOnConfirm)="deleteUser()"
+      (nzOnConfirm)="deleteUser(this.userForm.get('userId').value)"
       (nzOnCancel)="false">
       <i nz-icon type="delete" theme="outline"></i>
       삭제

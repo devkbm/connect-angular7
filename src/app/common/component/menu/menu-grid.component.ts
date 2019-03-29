@@ -53,11 +53,11 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
           cellStyle: {'text-align': 'center'}
         },
         {headerName: '메뉴그룹코드',  field: 'menuGroup.menuGroupCode', width: 80 },
-        {headerName: '메뉴코드',      field: 'menuCode',                width: 100 },
-        {headerName: '메뉴명',        field: 'menuName',                width: 150 },
+        {headerName: '메뉴코드',      field: 'menuCode',                width: 100, sortable: true },
+        {headerName: '메뉴명',        field: 'menuName',                width: 150, sortable: true },
         {headerName: '메뉴타입',      field: 'menuType.name',           width: 100 },
         {headerName: '상위메뉴',      field: 'parent.menuCode',         width: 100 },
-        {headerName: '순번',          field: 'sequence',                width: 80 },
+        {headerName: '순번',          field: 'sequence',                width: 80, sortable: true },
         {headerName: '프로그램',      field: 'resource.resourceCode',   width: 100 }
       ];
 

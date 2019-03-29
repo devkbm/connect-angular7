@@ -10,8 +10,8 @@
 .content {
   height: calc(100% - 64px);
   display: grid;
-  grid-template-rows: 24px 1fr;
-  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 24px 1fr 24px 1fr;
+  grid-template-columns: 1fr;
 }
 
 .footer {

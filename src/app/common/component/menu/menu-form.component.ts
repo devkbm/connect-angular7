@@ -16,13 +16,15 @@ import { Menu } from '../../model/menu';
 import { WebResource } from '../../model/web-resource';
 import { MenuHierarchy } from '../../model/menu-hierarchy';
 import { MenuGroup } from '../../model/menu-group';
+import { FormBase, FormType } from '../../form/form-base';
+import { existingMenuValidator } from '../../validator/menu-duplication-validator.directive';
 
 @Component({
   selector: 'app-menu-form',
   templateUrl: './menu-form.component.html',
   styleUrls: ['./menu-form.component.css']
 })
-export class MenuFormComponent implements OnInit {
+export class MenuFormComponent extends FormBase implements OnInit {
 
   protected menuForm: FormGroup;
   protected programList;
@@ -59,13 +61,43 @@ export class MenuFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private menuService: MenuService,
               private programService: ProgramService,
-              private appAlarmService: AppAlarmService) { }
+              private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {
 
+    this.newForm(null);    
+
+    this.getMenuTypeList();
+    this.getProgramList();
+    this.getMenuGroupList();
+  }  
+
+  public newForm(menuGroupCode: string): void {
+    this.formType = FormType.NEW;
+
+    this.menuForm = this.fb.group({
+      menuGroupCode     : [ menuGroupCode, [ Validators.required ] ],
+      menuCode          : new FormControl(null, {
+                                                  validators: Validators.required,
+                                                  asyncValidators: [existingMenuValidator(this.menuService)],
+                                                  updateOn: 'blur'
+                                                }),
+      menuName          : [ null, [ Validators.required ] ],
+      menuType          : [ null, [ Validators.required ] ],
+      parentMenuCode    : [ null ],
+      sequence          : [ null ],
+      resource          : [ null ]
+    });
+  }
+
+  public modifyForm(formData: Menu): void {
+    this.formType = FormType.MODIFY;    
+
+    this.getMenuHierarchy(formData.menuGroupCode);    
+
     this.menuForm = this.fb.group({
       menuGroupCode     : [ null, [ Validators.required ] ],
-      menuCode          : [ null, [ Validators.required ] ],
+      menuCode          : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
       menuName          : [ null, [ Validators.required ] ],
       menuType          : [ null, [ Validators.required ] ],
       parentMenuCode    : [ null ],
@@ -73,14 +105,7 @@ export class MenuFormComponent implements OnInit {
       resource          : [ null ]
     });
 
-    this.getMenuTypeList();
-    this.getProgramList();
-    this.getMenuGroupList();
-  }
-
-  public isFieldErrors(fieldName: string, errorName: string): boolean {
-    return this.menuForm.get(fieldName).dirty
-        && this.menuForm.get(fieldName).hasError(errorName) ? true : false;
+    this.menuForm.patchValue(formData);    
   }
 
   public getMenu(menuCode: string) {
@@ -88,12 +113,11 @@ export class MenuFormComponent implements OnInit {
     this.menuService
       .getMenu(menuCode)
       .subscribe(
-        (model: ResponseObject<Menu>) => {
-          console.log(model);
+        (model: ResponseObject<Menu>) => {          
           if ( model.total > 0 ) {
-            this.menuForm.patchValue(model.data);
+            this.modifyForm(model.data)            
           } else {
-            this.menuForm.reset();
+            this.newForm(null);            
           }
           this.appAlarmService.changeMessage(model.message);
         },

@@ -48,29 +48,31 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
               private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {    
-    this.createForm();
+    this.newForm();
   }
 
-  public createForm() {
+  public newForm(): void {
     this.formType = FormType.NEW;
     this.menuGroupForm = this.fb.group({
-                          menuGroupCode   : new FormControl(null, {
-                                                                    validators: Validators.required,
-                                                                    asyncValidators: [existingMenuGroupValidator(this.menuService)],
-                                                                    updateOn: 'blur'
-                                                                  }),
-                          menuGroupName   : [ null, [ Validators.required ] ],
-                          description     : [ null]
-                        });    
+      menuGroupCode   : new FormControl(null, {
+                                                validators: Validators.required,
+                                                asyncValidators: [existingMenuGroupValidator(this.menuService)],
+                                                updateOn: 'blur'
+                                              }),
+      menuGroupName   : [ null, [ Validators.required ] ],
+      description     : [ null]
+    });    
   }
 
-  public updateForm() {
+  public modifyForm(formData: MenuGroup): void {
     this.formType = FormType.MODIFY;
     this.menuGroupForm =  this.fb.group({
       menuGroupCode   : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
       menuGroupName   : [ null, [ Validators.required ] ],
       description     : [ null ]
     });    
+
+    this.menuGroupForm.patchValue(formData);
   }  
 
   public getMenuGroup(menuGroupCode: string) {
@@ -79,11 +81,9 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
       .subscribe(
         (model: ResponseObject<MenuGroup>) => {
           if ( model.total > 0 ) {
-            this.updateForm();            
-            this.menuGroupForm.patchValue(model.data);
+            this.modifyForm(model.data);                        
           } else {
-            this.createForm();
-            this.menuGroupForm.reset();
+            this.newForm();            
           }
           this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 조회되었습니다.');
         },

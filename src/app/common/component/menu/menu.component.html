@@ -31,20 +31,28 @@
   </div>
 
   <div nz-col [nzSpan]="8" style="text-align: right;">
-      <button
-          nz-button
-          (click)="getMenuGroupList()">
-          <i nz-icon type="search"></i>
-          조회
-      </button>
-      <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="newMenuGroupForm()">
+      <i nz-icon type="search"></i>
+      메뉴그룹등록
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+
+    <button nz-button (click)="newMenu()">
+      <i nz-icon type="search"></i>
+      메뉴등록
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+
+    <button nz-button (click)="getMenuGroupList()">
+      <i nz-icon type="search"></i>
+      조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
   </div>
 </div>
 
 <div class="content">
-  <h3>메뉴 그룹 목록</h3>
-  <h3>메뉴 목록</h3>
-
+  <h3>메뉴 그룹 목록</h3>  
   <app-menu-group-grid
     #menuGroupGrid
     id="menuGroupGrid"
@@ -53,6 +61,7 @@
     (rowDoubleClicked)="menuGroupFormOpen($event)">
   </app-menu-group-grid>
 
+  <h3>메뉴 목록</h3>
   <app-menu-grid
     id="menuGrid"
     #menuGrid

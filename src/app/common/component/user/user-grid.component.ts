@@ -98,4 +98,9 @@ export class UserGridComponent extends AggridFunction implements OnInit {
     this.rowDoubleClicked.emit(event.data);
   }
 
+  public getSelectedRow() {
+    return this.gridApi.getSelectedRows()[0];
+  }
+  
+
 }

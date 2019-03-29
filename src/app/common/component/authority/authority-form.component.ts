@@ -61,7 +61,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
                                               updateOn: 'blur'
                                             }),
       description   : [ null ]
-    });
+    });    
   }
 
   public modifyForm(formData: Authority) {

@@ -69,13 +69,13 @@ export class UserService extends DataService {
         catchError((err) => Observable.throw(err)));
   }
 
-  deleteUser(user: User): Observable<ResponseObject<User>> {
+  deleteUser(userId: string): Observable<ResponseObject<User>> {
     const options = {
       headers: this.getAuthorizedHttpHeaders()
     };
 
     return this.http
-      .delete<ResponseObject<User>>(this.API_URI + '/' + user.userId, options).pipe(
+      .delete<ResponseObject<User>>(this.API_URI + '/' + userId, options).pipe(
         catchError((err) => Observable.throw(err)));
   }
 

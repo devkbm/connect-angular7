@@ -17,8 +17,8 @@ import { UserNotFoundError } from '../../error/user-not-found-error';
 import { ResponseList } from '../../model/response-list';
 import { Authority } from '../../model/authority';
 import { MenuGroup } from '../../model/menu-group';
-import { UserDuplicationValidatorDirective, existingUserValidator } from '../../validator/user-duplication-validator.directive';
-import { UploadFile } from 'ng-zorro-antd';
+import { existingUserValidator } from '../../validator/user-duplication-validator.directive';
+import { UploadFile, UploadChangeParam } from 'ng-zorro-antd';
 import { FormType, FormBase } from '../../form/form-base';
 
 @Component({
@@ -38,8 +38,7 @@ export class UserFormComponent extends FormBase implements OnInit {
 
   showUploadList = {
     showPreviewIcon: true,
-    showRemoveIcon : true,
-    hidePreviewIconInNonImage: true
+    showRemoveIcon : false
   };
 
   fileList = [
@@ -94,6 +93,7 @@ export class UserFormComponent extends FormBase implements OnInit {
   public newForm(): void {
     this.imageBase64 = null;
     this.previewImage = null;
+    this.fileList = null;
     this.formType = FormType.NEW;
 
     this.userForm = this.fb.group({
@@ -114,6 +114,7 @@ export class UserFormComponent extends FormBase implements OnInit {
 
   public modifyForm(formData: User): void {
     this.formType = FormType.MODIFY;
+    this.fileList = null;
 
     this.userForm = this.fb.group({
       userId          : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
@@ -191,9 +192,9 @@ export class UserFormComponent extends FormBase implements OnInit {
       );
   }
 
-  public deleteUser() {
+  public deleteUser(userId: string) {
     this.userService
-      .deleteUser(this.userForm.value)
+      .deleteUser(userId)
       .subscribe(
         (model: ResponseObject<User>) => {
           this.appAlarmService.changeMessage(model.message);
@@ -281,9 +282,21 @@ export class UserFormComponent extends FormBase implements OnInit {
     this.formClosed.emit(this.userForm.value);
   }
 
+  // 미리보기 버튼 클릭시
   handlePreview = (file: UploadFile) => {
-    this.previewImage = file.url || file.thumbUrl;
+    this.previewImage = file.url || file.thumbUrl;        
     this.previewVisible = true;
+  }
+
+  // 삭제버튼 클릭스
+  handleRemove = (file: UploadFile) => {
+    console.log(file);
+  }
+
+  fileUploadChange(param: UploadChangeParam) {
+    if (param.type == 'success') {
+      this.isUploadable = false;      
+    } 
   }
 
 }

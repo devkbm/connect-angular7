@@ -3,7 +3,7 @@
 
     <!--상위 공통코드 필드-->
     <nz-form-item class="form-item">
-        <nz-form-label nzFor="code" [nzXs]="formLabelXs" [nzSm]="formLabelSm">상위 공통코드</nz-form-label>
+        <nz-form-label nzFor="parentId" [nzXs]="formLabelXs" [nzSm]="formLabelSm">상위 공통코드</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-tree-select
                 style="width: 250px"                
@@ -16,12 +16,21 @@
         </nz-form-control>
     </nz-form-item>
 
-    <!--공통코드 필드-->
-    <nz-form-item class="form-item">
-        <nz-form-label nzFor="code" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드</nz-form-label>
+    <!--공통코드 필드 (생성)-->
+    <nz-form-item class="form-item" *ngIf="formType == 'NEW'">
+        <nz-form-label nzFor="code" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드C</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="code" formControlName="code" placeholder="공통코드를 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('code')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(codeForm,'code','required')">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <!--공통코드 필드 (수정)-->
+    <nz-form-item class="form-item" *ngIf="formType == 'MODIFY'">
+        <nz-form-label nzFor="code" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드U</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <input nz-input id="code" formControlName="code" placeholder="공통코드를 입력해주세요.">
+            <nz-form-explain *ngIf="isFieldErrors(codeForm,'code','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
 
@@ -30,16 +39,16 @@
         <nz-form-label nzFor="codeName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드명</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="codeName" formControlName="codeName" placeholder="공통코드명을 입력해주세요.">
-            <nz-form-explain *ngIf="isFieldErrors('codeName')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(codeForm,'codeName','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>
     
     <!--공통코드 약어 필드-->
     <nz-form-item class="form-item">
-        <nz-form-label nzFor="codeNameAbbreviation" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드 약어</nz-form-label>
+        <nz-form-label nzFor="codeNameAbbreviation" [nzXs]="formLabelXs" [nzSm]="formLabelSm">공통코드 약어</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="codeNameAbbreviation" formControlName="codeNameAbbreviation" placeholder="공통코드 약어를 입력해주세요.">            
-            <nz-form-explain *ngIf="isFieldErrors('codeNameAbbreviation')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(codeForm,'codeNameAbbreviation','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>    
 
@@ -64,7 +73,7 @@
         <nz-form-label nzFor="seq" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">출력 순번</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-input-number id="seq" formControlName="seq" [nzMin]="0" [nzMax]="9999" [nzStep]="1"></nz-input-number>            
-            <nz-form-explain *ngIf="isFieldErrors('seq')">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(codeForm,'seq','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
     </nz-form-item>    
 

@@ -37,21 +37,28 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  menuGroupFormOpen(item): void {
-    this.menuGroupFormVisible = true;
-    //console.log(item);
+  newMenuGroupForm(): void {
+    this.menuGroupForm.newForm();
+    this.menuGroupFormVisible = true;    
+  }
+
+  menuGroupFormOpen(item): void {        
     this.menuGroupForm.getMenuGroup(item.menuGroupCode);
-    //this.menuGroupForm.menuGroupForm.patchValue(item);
+    this.menuGroupFormVisible = true;    
   }
 
   menuGroupFormClose(): void {
     this.menuGroupFormVisible = false;
   }
 
-  menuFormOpen(item): void {
+  newMenu(): void {
+    this.menuForm.newForm(this.selectedMenuGroupCode);
     this.menuFormVisible = true;
+  }
 
+  menuFormOpen(item): void {    
     this.menuForm.getMenu(item.menuCode);
+    this.menuFormVisible = true;
   }
 
   menuFormClose(): void {

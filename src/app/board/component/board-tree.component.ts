@@ -51,11 +51,8 @@ export class BoardTreeComponent implements OnInit {
   }
 
   nzClick(event: NzFormatEmitEvent): void {
-     const node = event.nodes[0].origin;
-    // console.log(event, event.selectedKeys, event.keys, event.nodes);
-     console.log(node);
-    //console.log(event.nodes[0]);
-
+    const node = event.node.origin;    
+     
     this.itemSelected.emit(node.key);
   }
 
