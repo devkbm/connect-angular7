@@ -12,13 +12,14 @@ import { ResponseObject } from '../../common/model/response-object';
 import { Board } from '.././model/board';
 import { BoardHierarchy } from '../model/board-hierarchy';
 import { ResponseList } from 'src/app/common/model/response-list';
+import { FormBase } from 'src/app/common/form/form-base';
 
 @Component({
-  selector: 'app-board',
+  selector: 'app-board-form',
   templateUrl: './board-form.component.html',
   styleUrls: ['./board-form.component.css']
 })
-export class BoardFormComponent implements OnInit {
+export class BoardFormComponent extends FormBase implements OnInit {
 
   boardForm: FormGroup;
 
@@ -27,7 +28,7 @@ export class BoardFormComponent implements OnInit {
   boardTypeList;
 
   constructor(private fb: FormBuilder,
-              private boardService: BoardService) { }
+              private boardService: BoardService) { super(); }
 
   ngOnInit() {
 

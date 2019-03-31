@@ -54,20 +54,20 @@ export class CommonCodeGridComponent extends AggridFunction implements OnInit {
       { headerName: '공통코드명',    field: 'codeName',              width: 200 },
       { headerName: '약어',          field: 'codeNameAbbreviation',  width: 200 },
       { 
-        headerName: '시작일',        
-        cellRenderer: (data) => {      
+        headerName: '시작일',
+        cellRenderer: (data) => {
           return new Date(data.value).toLocaleString();
         },
-        field: 'fromDate',              
-        width: 200 
+        field: 'fromDate',
+        width: 200
       },
       {
-        headerName: '종료일',        
-        cellRenderer: (data) => {      
+        headerName: '종료일',
+        cellRenderer: (data) => {
           return new Date(data.value).toLocaleString();
         },
-        field: 'toDate',                
-        width: 200 
+        field: 'toDate',
+        width: 200
       },
       { headerName: 'Url',           field: 'url',                   width: 200 },
       { headerName: '설명',          field: 'cmt',                   width: 300 }
@@ -106,7 +106,7 @@ export class CommonCodeGridComponent extends AggridFunction implements OnInit {
   }
 
   private selectionChanged(event) {
-    const selectedRows = this.gridApi.getSelectedRows();    
+    const selectedRows = this.gridApi.getSelectedRows();
     this.rowSelected.emit(selectedRows[0]);
   }
 

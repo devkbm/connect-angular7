@@ -34,7 +34,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
             {
                 headerName: '',
                 width: 34,
-                cellStyle: {'text-align': 'center', 'padding': '0px'},
+                cellStyle: {'text-align': 'center', padding: '0px'},
                 cellRenderer: 'buttonRenderer',
                 cellRendererParams: {
                   onClick: this.onEditButtonClick.bind(this),

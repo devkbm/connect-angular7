@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ArticleGridComponent } from './article-grid.component';
+import { BoardFormComponent } from './board-form.component';
 
 @Component({
   selector: 'app-board',
@@ -7,8 +8,12 @@ import { ArticleGridComponent } from './article-grid.component';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
+  drawerVisible = false;
 
   selectedBoard;
+
+  @ViewChild('boardForm')
+  boardForm: BoardFormComponent;
 
   constructor() { }
 
@@ -18,6 +23,14 @@ export class BoardComponent implements OnInit {
   setBoardSelect(item, grid: ArticleGridComponent) {
     this.selectedBoard = item;
     grid.getArticleList(item);
+  }
+
+  openDrawer(): void {
+    this.drawerVisible = true;
+  }
+
+  closeDrawer(): void {
+    this.drawerVisible = false;
   }
 
 }

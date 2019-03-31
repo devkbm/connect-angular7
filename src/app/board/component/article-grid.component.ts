@@ -40,19 +40,25 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           width: 500
       },
       {
-          headerName: '등록일자',
-          field: 'createdDt',
-          width: 100
+        headerName: '등록일자',
+        cellRenderer: (data) => {
+          return new Date(data.value).toLocaleString();
+        },
+        field: 'createdDt',
+        width: 200
       },
       {
-          headerName: '수정일자',
-          field: 'modifiedDt',
-          width: 100
+        headerName: '수정일자',
+        cellRenderer: (data) => {
+          return new Date(data.value).toLocaleString();
+        },
+        field: 'modifiedDt',
+        width: 200
       }
     ];
 
     this.getRowNodeId = function(data) {
-        return data.authority;
+        return data.pkArticle;
     };
   }
 
@@ -77,6 +83,17 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           },
           () => {}
         );
+  }
+
+  private selectionChanged(event) {
+    const selectedRows = this.gridApi.getSelectedRows();
+
+    this.rowSelected.emit(selectedRows[0]);
+  }
+
+  private rowDbClicked(event) {
+    console.log(event.data);
+    this.rowDoubleClicked.emit(event.data);
   }
 
 }

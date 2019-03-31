@@ -52,23 +52,23 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
   ngOnInit() {
     this.newForm();
     this.getCommonCodeHierarchy();
-  }  
+  }
 
   public newForm(): void {
     this.formType = FormType.NEW;
 
     this.codeForm = this.fb.group({
-      id                      : [ null ],  
-      parentId                : [ null ],  
+      id                      : [ null ],
+      parentId                : [ null ],
       code                    : [ null, [ Validators.required ] ],
       codeName                : [ null, [ Validators.required ] ],
-      codeNameAbbreviation    : [ null ],  
-      fromDate                : [ null ],  
-      toDate                  : [ null ],  
-      seq                     : [ 1    ],  
-      hierarchyLevel          : [ 1    ],          
-      fixedLengthYn           : [ null ],  
-      codeLength              : [ null ],  
+      codeNameAbbreviation    : [ null ],
+      fromDate                : [ null ],
+      toDate                  : [ null ],
+      seq                     : [ 1    ],
+      hierarchyLevel          : [ 1    ],
+      fixedLengthYn           : [ null ],
+      codeLength              : [ null ],
       cmt                     : [ null ]
     });
   }
@@ -77,17 +77,17 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
     this.formType = FormType.MODIFY;
 
     this.codeForm = this.fb.group({
-      id                      : [ null ],  
-      parentId                : [ null ],  
+      id                      : [ null ],
+      parentId                : [ null ],
       code                    : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
       codeName                : [ null, [ Validators.required ] ],
-      codeNameAbbreviation    : [ null ],  
-      fromDate                : [ null ],  
-      toDate                  : [ null ],  
-      seq                     : [ 1    ],  
-      hierarchyLevel          : [ 1    ],          
-      fixedLengthYn           : [ null ],  
-      codeLength              : [ null ],  
+      codeNameAbbreviation    : [ null ],
+      fromDate                : [ null ],
+      toDate                  : [ null ],
+      seq                     : [ 1    ],
+      hierarchyLevel          : [ 1    ],
+      fixedLengthYn           : [ null ],
+      codeLength              : [ null ],
       cmt                     : [ null ]
     });
 
@@ -99,8 +99,8 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
         .getCommonCode(id)
         .subscribe(
             (model: ResponseObject<CommonCode>) => {
-              if ( model.total > 0 ) {        
-                this.modifyForm(model.data);                           
+              if ( model.total > 0 ) {
+                this.modifyForm(model.data);
               } else {
                 this.newForm();
               }
@@ -122,7 +122,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
                 this.nodeItems = model.data;
                 } else {
                 this.nodeItems = new Array<CommonCodeHierarchy>(0);
-                }            
+                }
             },
             (err) => {
             console.log(err);
@@ -135,7 +135,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
 
   public submitCommonCode() {
     this.commonCodeService
-        .registerCommonCode(this.codeForm.value)        
+        .registerCommonCode(this.codeForm.value)
         .subscribe(
           (model: ResponseObject<CommonCode>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -150,7 +150,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
 
   public deleteCommonCode() {
     this.commonCodeService
-        .deleteCommonCode(this.codeForm.get('id').value)      
+        .deleteCommonCode(this.codeForm.get('id').value)
         .subscribe(
             (model: ResponseObject<CommonCode>) => {
             this.appAlarmService.changeMessage(model.message);

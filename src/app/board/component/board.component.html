@@ -1,3 +1,4 @@
+<button nz-button (click)="openDrawer($event)">dd</button>
 <div class="content">
   <h3>게시판 목록</h3>
   <h3>게시글 + {{this.selectedBoard}}</h3>
@@ -12,3 +13,20 @@
   </nz-tabset>
   
 </div>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="720"
+    [nzVisible]="drawerVisible"
+    nzTitle="리소스 등록"
+    (nzOnClose)="closeDrawer()">
+    <app-board-form
+        id="boardForm"
+        #boardForm
+        (formSaved)="getProgramList()"
+        (formDeleted)="getProgramList()"
+        (formClosed)="closeDrawer()">
+    </app-board-form>
+</nz-drawer>
