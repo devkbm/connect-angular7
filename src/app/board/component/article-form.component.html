@@ -1,27 +1,34 @@
-<form nz-form [formGroup]="articleForm">  
-    {{articleForm.value | json}}
+{{articleForm.getRawValue() | json}}
+{{fileList | json}}
+<form nz-form [formGroup]="articleForm">      
 
     <input type="text" formControlName="fkBoard">
     <input type="text" formControlName="pkArticle">
     <input type="hidden" formControlName="ppkArticle">         
 
-    <div *ngFor="let attach of article.attachFile">
-        <a [href]="'http://localhost:8090/file/' + attach.fileId" target="_blank" >{{attach.fileName}}</a>
+    <!--<div *ngFor="let attach of articleForm.get('attachFile').value">
+        <a [href]="'http://localhost:8090/common/file/' + attach.fileId" target="_blank" >{{attach.fileName}}</a>
     </div>
-    <input type="file" accept="image/*" (change)="onFileChange(fileInput.files)" #fileInput>
+    <input type="file" accept="image/*" (change)="onFileChange(fileInput.files)" #fileInput>-->
+
+    <nz-upload nzAction="http://localhost:8090/common/file/" 
+        [(nzFileList)]="fileList"
+        (nzChange)="fileUploadChange($event)">
+        <button nz-button><i nz-icon type="upload"></i><span>Upload</span></button>
+    </nz-upload>
 
     <nz-form-item>
-        <nz-form-label nzFor="title" nzRequired [nzSm]="6" [nzXs]="24">제목</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-form-label nzFor="title" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">제목</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <input nz-input id="title" formControlName="title" placeholder="제목을 입력해주세요.">             
-            <nz-form-explain *ngIf="articleForm.get('menuCode').dirty && articleForm.get('menuCode').errors">The input is Required!</nz-form-explain>
+            <nz-form-explain *ngIf="isFieldErrors(articleForm,'title','required')">The input is Required!</nz-form-explain>
         </nz-form-control>        
     </nz-form-item>
 
     <nz-form-item>
-        <nz-form-label nzFor="contents" [nzSm]="6" [nzXs]="24">내용</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
-            <textarea nz-input id="contents" formControlName="contents" placeholder="내용을 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+        <nz-form-label nzFor="contents" [nzXs]="formLabelXs" [nzSm]="formLabelSm">내용</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+            <textarea nz-input id="contents" formControlName="contents" placeholder="내용을 입력해주세요." [nzAutosize]="{ minRows: 10, maxRows: 20 }"></textarea>
         </nz-form-control>        
     </nz-form-item>    
     

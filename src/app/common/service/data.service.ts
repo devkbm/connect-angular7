@@ -28,7 +28,7 @@ export class DataService {
 
     protected getAuthorizedMultiPartHeaders(): HttpHeaders {
         const headers = new HttpHeaders()
-        // .set('Content-Type', 'multipart/form-data')
+        //.set('Content-Type', 'multipart/form-data')
         .set('Accept', 'application/json')
         .set('x-auth-token', sessionStorage.getItem('token'));
 

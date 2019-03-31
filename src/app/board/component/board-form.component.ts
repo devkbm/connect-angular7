@@ -27,6 +27,16 @@ export class BoardFormComponent extends FormBase implements OnInit {
 
   boardTypeList;
 
+  /**
+   * Xs < 576px span size
+   * Sm >= 576px span size
+   */
+  formLabelXs = 24;
+  formControlXs = 24;
+
+  formLabelSm = 4;
+  fromControlSm = 20;
+
   constructor(private fb: FormBuilder,
               private boardService: BoardService) { super(); }
 
@@ -61,10 +71,10 @@ export class BoardFormComponent extends FormBase implements OnInit {
   }
 
   public modifyForm(formData: Board): void {
-    this.formType = FormType.NEW;
+    this.formType = FormType.MODIFY;
 
     this.boardForm = this.fb.group({
-      pkBoard         : [ null ],
+      pkBoard         : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
       ppkBoard        : [ null ],
       boardName       : [ null, [ Validators.required ] ],
       boardType       : [ null, [ Validators.required ] ],
@@ -76,7 +86,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
     this.boardForm.patchValue(formData);
   }
   
-  getBoardTypeList() {
+  public getBoardTypeList(): void {
     this.boardService
         .getBoardTypeList()
         .subscribe(
@@ -92,7 +102,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
         )
   }
 
-  public getBoard(id: number): void {
+  public getBoard(id: string): void {
     this.boardService.getBoard(id)
       .subscribe(
         (model: ResponseObject<Board>) => {
@@ -107,13 +117,14 @@ export class BoardFormComponent extends FormBase implements OnInit {
     );
   }
 
-  private saveBoard() {
+  public saveBoard(): void {
 
     this.boardService
-      .saveBoard(this.boardForm.value)
+      .saveBoard(this.boardForm.getRawValue())
       .subscribe(
         (model: ResponseObject<Board>) => {
           console.log(model);
+          this.formSaved.emit(this.boardForm.getRawValue());
         },
         (err) => {
           console.log(err);
@@ -124,12 +135,13 @@ export class BoardFormComponent extends FormBase implements OnInit {
       );
   }
 
-  private deleteBoard() {
+  public deleteBoard(): void {
     this.boardService
-      .deleteBoard(this.boardForm.value)
+      .deleteBoard(this.boardForm.getRawValue())
       .subscribe(
         (model: ResponseObject<Board>) => {
           console.log(model);
+          this.formDeleted.emit(this.boardForm.getRawValue());
         },
         (err) => {
           console.log(err);
@@ -140,7 +152,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
       );
   }
 
-  getboardHierarchy() {
+  public getboardHierarchy(): void {
     this.boardService
       .getBoardHierarchy()
       .subscribe(
@@ -163,6 +175,10 @@ export class BoardFormComponent extends FormBase implements OnInit {
           console.log('완료');
         }
       );
+  }
+
+  public closeForm() {
+    this.formClosed.emit(this.boardForm.getRawValue());
   }
 
 }

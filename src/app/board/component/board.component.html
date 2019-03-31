@@ -1,8 +1,10 @@
-<button nz-button (click)="openDrawer($event)">dd</button>
+<button nz-button (click)="openArticleDrawer($event)">dd</button>
 <div class="content">
   <h3>게시판 목록</h3>
   <h3>게시글 + {{this.selectedBoard}}</h3>
   <app-board-tree 
+    id="boardTree"
+    #boardTree
     (itemSelected)="setBoardSelect($event, grid)"
     (itemDbClicked)="modifyBoard($event)">
   </app-board-tree>
@@ -23,13 +25,29 @@
     [nzMaskClosable]="true"
     [nzWidth]="720"
     [nzVisible]="drawerVisible"
-    nzTitle="리소스 등록"
+    nzTitle="게시판 등록"
     (nzOnClose)="closeDrawer()">
     <app-board-form
         id="boardForm"
         #boardForm
-        (formSaved)="getProgramList()"
-        (formDeleted)="getProgramList()"
+        (formSaved)="getBoardTree()"
+        (formDeleted)="getBoardTree()"
         (formClosed)="closeDrawer()">
     </app-board-form>
+</nz-drawer>
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="720"
+    [nzVisible]="articleDrawerVisible"
+    nzTitle="게시글 등록"
+    (nzOnClose)="closeDrawer()">
+    <app-article-form
+        id="articleForm"
+        #articleForm
+        (formSaved)="getBoardTree()"
+        (formDeleted)="getBoardTree()"
+        (formClosed)="closeDrawer()">
+    </app-article-form>
 </nz-drawer>

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ArticleGridComponent } from './article-grid.component';
 import { BoardFormComponent } from './board-form.component';
+import { BoardTreeComponent } from './board-tree.component';
+import { ArticleFormComponent } from './article-form.component';
 
 @Component({
   selector: 'app-board',
@@ -9,12 +11,19 @@ import { BoardFormComponent } from './board-form.component';
 })
 export class BoardComponent implements OnInit {
   drawerVisible = false;
+  articleDrawerVisible = false;
 
   selectedBoard;
+
+  @ViewChild('boardTree')
+  boardTree: BoardTreeComponent;
 
   @ViewChild('boardForm')
   boardForm: BoardFormComponent;
 
+  @ViewChild('articleForm')
+  articleForm: ArticleFormComponent;
+  
   constructor() { }
 
   ngOnInit() {
@@ -33,10 +42,24 @@ export class BoardComponent implements OnInit {
     this.drawerVisible = false;
   }
 
+  openArticleDrawer(): void {
+    this.articleDrawerVisible = true;
+  }
+
+  closeArticleDrawer(): void {
+    this.articleDrawerVisible = false;
+  }
+
   modifyBoard(item): void {
     console.log(item);
-    this.boardForm.getBoard(item.key);
-    this.drawerVisible = true;
+    this.boardForm.getBoard(item.key);    
+    this.openDrawer();
+  }
+
+  public getBoardTree(): void {
+    this.closeDrawer();
+    this.boardTree.getboardHierarchy();
+    //getboardHierarchy
   }
 
 }
