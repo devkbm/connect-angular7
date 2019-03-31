@@ -33,4 +33,10 @@ export class BoardComponent implements OnInit {
     this.drawerVisible = false;
   }
 
+  modifyBoard(item): void {
+    console.log(item);
+    this.boardForm.getBoard(item.key);
+    this.drawerVisible = true;
+  }
+
 }

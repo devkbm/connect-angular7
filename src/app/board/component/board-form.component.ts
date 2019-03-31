@@ -12,7 +12,7 @@ import { ResponseObject } from '../../common/model/response-object';
 import { Board } from '.././model/board';
 import { BoardHierarchy } from '../model/board-hierarchy';
 import { ResponseList } from 'src/app/common/model/response-list';
-import { FormBase } from 'src/app/common/form/form-base';
+import { FormBase, FormType } from 'src/app/common/form/form-base';
 
 @Component({
   selector: 'app-board-form',
@@ -46,6 +46,36 @@ export class BoardFormComponent extends FormBase implements OnInit {
     this.getBoardTypeList();
   }
 
+  public newForm(): void {
+    this.formType = FormType.NEW;
+
+    this.boardForm = this.fb.group({
+      pkBoard         : [ null ],
+      ppkBoard        : [ null ],
+      boardName       : [ null, [ Validators.required ] ],
+      boardType       : [ null, [ Validators.required ] ],
+      boardDescription: [ null ],
+      fromDate        : [ new Date() ],
+      toDate          : [ new Date(9999, 11, 31) ]
+    });
+  }
+
+  public modifyForm(formData: Board): void {
+    this.formType = FormType.NEW;
+
+    this.boardForm = this.fb.group({
+      pkBoard         : [ null ],
+      ppkBoard        : [ null ],
+      boardName       : [ null, [ Validators.required ] ],
+      boardType       : [ null, [ Validators.required ] ],
+      boardDescription: [ null ],
+      fromDate        : [ new Date() ],
+      toDate          : [ new Date(9999, 11, 31) ]
+    });
+
+    this.boardForm.patchValue(formData);
+  }
+  
   getBoardTypeList() {
     this.boardService
         .getBoardTypeList()
@@ -62,14 +92,14 @@ export class BoardFormComponent extends FormBase implements OnInit {
         )
   }
 
-  getBoard() {
-    this.boardService.getBoard(this.boardForm.get('pkBoard').value)
+  public getBoard(id: number): void {
+    this.boardService.getBoard(id)
       .subscribe(
         (model: ResponseObject<Board>) => {
           if (model.data) {
-            this.boardForm.patchValue(model.data);
+            this.modifyForm(model.data);            
           } else {
-            this.boardForm.reset();
+            this.newForm();            
           }
         },
         (err) => {},

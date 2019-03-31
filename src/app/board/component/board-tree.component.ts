@@ -19,6 +19,9 @@ export class BoardTreeComponent implements OnInit {
   @Output()
   itemSelected = new EventEmitter();
 
+  @Output()
+  itemDbClicked = new EventEmitter();
+
   constructor(private boardService: BoardService) { }
 
   ngOnInit() {
@@ -54,6 +57,12 @@ export class BoardTreeComponent implements OnInit {
     const node = event.node.origin;    
      
     this.itemSelected.emit(node.key);
+  }
+
+  public nzDbClick(event: NzFormatEmitEvent): void {
+    const node = event.node.origin;    
+
+    this.itemDbClicked.emit(node);
   }
 
 }
