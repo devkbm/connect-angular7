@@ -1,5 +1,4 @@
 import { ArticleCheck } from './article-check';
-import { AttachFile } from './attach-file';
 
 export class Article {
     pkArticle: number;
@@ -14,6 +13,6 @@ export class Article {
     seq: number;
     depth: number;
     articleChecks: ArticleCheck[];
-    attachFile: AttachFile[];
+    attachFile: string[];
     file: File;
 }

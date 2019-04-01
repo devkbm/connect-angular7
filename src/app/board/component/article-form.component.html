@@ -13,6 +13,7 @@
 
     <nz-upload nzAction="http://localhost:8090/common/file/" 
         [(nzFileList)]="fileList"
+        [nzData]="imageUploadParam"
         (nzChange)="fileUploadChange($event)">
         <button nz-button><i nz-icon type="upload"></i><span>Upload</span></button>
     </nz-upload>

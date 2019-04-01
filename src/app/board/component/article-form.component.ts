@@ -24,7 +24,8 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   fileList = Array<any>();
 
   articleForm: FormGroup;
-
+  imageUploadParam;
+  
   /**
    * Xs < 576px span size
    * Sm >= 576px span size
@@ -39,6 +40,7 @@ export class ArticleFormComponent extends FormBase implements OnInit {
               private boardService: BoardService) { super(); }
 
   ngOnInit() {
+    this.imageUploadParam = {pgmId: 'board'};
     this.newForm();  
   }
 
@@ -84,6 +86,16 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   }
 
   private saveBoard() {
+
+    //console.log(this.fileList);
+    //console.log(this.fileList[0].response[0].uid);
+    let fileList = new Array<string>();
+    for (let val in this.fileList) {
+      console.log(this.fileList[val].response[0].uid);
+      fileList.push(this.fileList[val].response[0].uid);
+    }
+    
+    this.articleForm.get('attachFile').setValue(fileList);
     this.boardService
       .saveArticleJson(this.articleForm.getRawValue())
       .subscribe(
