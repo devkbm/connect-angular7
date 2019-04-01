@@ -12,7 +12,9 @@
   <nz-tabset>
     <nz-tab nzTitle="Tab 1">
       <div>
-        <app-article-grid #grid></app-article-grid>
+        <app-article-grid id="articleGrid" #grid
+          (rowDoubleClicked)="editArticle($event)">
+        </app-article-grid>
       </div>
     </nz-tab>
   </nz-tabset>

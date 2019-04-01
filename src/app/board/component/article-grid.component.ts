@@ -91,8 +91,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
     this.rowSelected.emit(selectedRows[0]);
   }
 
-  private rowDbClicked(event) {
-    console.log(event.data);
+  private rowDbClicked(event) {    
     this.rowDoubleClicked.emit(event.data);
   }
 

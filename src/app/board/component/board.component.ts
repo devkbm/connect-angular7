@@ -62,4 +62,11 @@ export class BoardComponent implements OnInit {
     //getboardHierarchy
   }
 
+  public editArticle(item): void {
+    console.log(item);
+
+    this.articleForm.getArticle(item.pkArticle);
+    this.openArticleDrawer();
+  }
+
 }

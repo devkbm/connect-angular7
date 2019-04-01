@@ -86,12 +86,10 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   }
 
   private saveBoard() {
-
-    //console.log(this.fileList);
-    //console.log(this.fileList[0].response[0].uid);
+    
     let fileList = new Array<string>();
     for (let val in this.fileList) {
-      console.log(this.fileList[val].response[0].uid);
+      //console.log(this.fileList[val].response[0].uid);
       fileList.push(this.fileList[val].response[0].uid);
     }
     
@@ -100,7 +98,7 @@ export class ArticleFormComponent extends FormBase implements OnInit {
       .saveArticleJson(this.articleForm.getRawValue())
       .subscribe(
         (model: ResponseObject<Article>) => {
-          console.log(model);
+          console.log(model);   
         },
         (err) => {
           console.log(err);
