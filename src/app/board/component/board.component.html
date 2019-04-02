@@ -2,17 +2,15 @@
 <div class="content">
   <h3>게시판 목록</h3>
   <h3>게시글 + {{this.selectedBoard}}</h3>
-  <app-board-tree 
-    id="boardTree"
-    #boardTree
-    (itemSelected)="setBoardSelect($event, grid)"
+  <app-board-tree id="boardTree" #boardTree
+    (itemSelected)="setBoardSelect($event)"
     (itemDbClicked)="modifyBoard($event)">
   </app-board-tree>
   
   <nz-tabset>
     <nz-tab nzTitle="Tab 1">
       <div>
-        <app-article-grid id="articleGrid" #grid
+        <app-article-grid id="articleGrid" #articleGrid
           (rowDoubleClicked)="editArticle($event)">
         </app-article-grid>
       </div>
@@ -29,9 +27,7 @@
     [nzVisible]="drawerVisible"
     nzTitle="게시판 등록"
     (nzOnClose)="closeDrawer()">
-    <app-board-form
-        id="boardForm"
-        #boardForm
+    <app-board-form id="boardForm" #boardForm
         (formSaved)="getBoardTree()"
         (formDeleted)="getBoardTree()"
         (formClosed)="closeDrawer()">
@@ -45,11 +41,9 @@
     [nzVisible]="articleDrawerVisible"
     nzTitle="게시글 등록"
     (nzOnClose)="closeArticleDrawer()">
-    <app-article-form
-        id="articleForm"
-        #articleForm
-        (formSaved)="getBoardTree()"
-        (formDeleted)="getBoardTree()"
-        (formClosed)="closeDrawer()">
+    <app-article-form id="articleForm" #articleForm
+        (formSaved)="getArticleGridData()"
+        (formDeleted)="getArticleGridData()"
+        (formClosed)="closeArticleDrawer()">
     </app-article-form>
 </nz-drawer>

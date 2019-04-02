@@ -1,4 +1,4 @@
-{{articleForm.getRawValue() | json}}
+<!--{{articleForm.getRawValue() | json}}-->
 {{fileList | json}}
 <form nz-form [formGroup]="articleForm">      
 
@@ -12,8 +12,11 @@
     <input type="file" accept="image/*" (change)="onFileChange(fileInput.files)" #fileInput>-->
 
     <nz-upload nzAction="http://localhost:8090/common/file/" 
-        [(nzFileList)]="fileList"
+        #upload
+        nzMultiple
+        [nzListType]="'text'"        
         [nzData]="imageUploadParam"
+        [nzFileList]="fileList"
         (nzChange)="fileUploadChange($event)">
         <button nz-button><i nz-icon type="upload"></i><span>Upload</span></button>
     </nz-upload>

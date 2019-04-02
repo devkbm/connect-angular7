@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -11,7 +11,7 @@ import { BoardService } from '.././service/board.service';
 import { ResponseObject } from '../../common/model/response-object';
 import { Article } from '.././model/article';
 import { FormBase, FormType } from 'src/app/common/form/form-base';
-import { UploadChangeParam } from 'ng-zorro-antd';
+import { UploadChangeParam, NzUploadComponent } from 'ng-zorro-antd';
 import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
@@ -21,11 +21,45 @@ import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 })
 export class ArticleFormComponent extends FormBase implements OnInit {
 
-  fileList = Array<any>();
+  //#region fields
+  fileList = [
+    /*{
+      uid: '1',
+      name: 'xxx.png',
+      status: 'done',
+      response: 'Server Error 500', // custom error message to show
+      url: 'http://www.baidu.com/xxx.png'
+    },
+
+    {
+      uid: '2',
+      name: 'yyy.png',
+      status: 'done',
+      url: 'http://www.baidu.com/yyy.png'
+    },
+
+    {
+      uid: '3',
+      name: 'zzz.png',
+      status: 'error',
+      response: 'Server Error 500', // custom error message to show
+      url: 'http://www.baidu.com/zzz.png'
+    },
+    { 
+      uid: "NiyNWPs6R-KYESIP58T46A==337768679545200",
+      name:"20190402_정재원_2.PNG",
+      status:"done",
+      response:"success",
+      url:"http://localhost:8090/common/file/NiyNWPs6R-KYESIP58T46A==337768679545200"
+    }*/
+  ];
 
   articleForm: FormGroup;
   imageUploadParam;
-  
+
+  @ViewChild('upload')
+  upload: NzUploadComponent;
+
   /**
    * Xs < 576px span size
    * Sm >= 576px span size
@@ -36,13 +70,17 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   formLabelSm = 4;
   fromControlSm = 20;
 
+  //#endregion
+
   constructor(private fb: FormBuilder,
               private boardService: BoardService) { super(); }
 
   ngOnInit() {
     this.imageUploadParam = {pgmId: 'board'};
-    this.newForm();  
+    this.newForm();
   }
+
+  //#region methods
 
   public newForm(): void {
     this.formType = FormType.NEW;
@@ -74,8 +112,9 @@ export class ArticleFormComponent extends FormBase implements OnInit {
     this.boardService.getArticle(id)
       .subscribe(
         (model: ResponseObject<Article>) => {
-          if (model.data) {      
-            this.modifyForm(model.data);            
+          if (model.data) {
+            this.modifyForm(model.data);
+            this.fileList = model.data.fileList;
           } else {
             this.newForm();
           }
@@ -86,19 +125,22 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   }
 
   private saveBoard() {
-    
-    let fileList = new Array<string>();
-    for (let val in this.fileList) {
-      //console.log(this.fileList[val].response[0].uid);
-      fileList.push(this.fileList[val].response[0].uid);
+
+    let attachFileIdList = [];
+
+    // tslint:disable-next-line: forin
+    for (const val in this.fileList) {
+      // console.log(this.fileList[val].response[0].uid);
+      attachFileIdList.push(String(this.fileList[val].uid));
     }
-    
-    this.articleForm.get('attachFile').setValue(fileList);
+    this.articleForm.get('attachFile').setValue(attachFileIdList);
+
     this.boardService
       .saveArticleJson(this.articleForm.getRawValue())
       .subscribe(
         (model: ResponseObject<Article>) => {
-          console.log(model);   
+          console.log(model);
+          this.formSaved.emit(this.articleForm.getRawValue());
         },
         (err) => {
           console.log(err);
@@ -107,22 +149,25 @@ export class ArticleFormComponent extends FormBase implements OnInit {
           console.log('완료');
         }
       );
-  }  
+  }
 
   fileDown() {
     //this.boardService.downloadFile(this.article.attachFile[0].fileId, this.article.attachFile[0].fileName);
   }
 
   fileUploadChange(param: UploadChangeParam) {
-    if (param.type == 'success') {      
+    if (param.type === 'success') {
       //this.fileList = param.file.response;
-      //this.fileList = param.fileList;
-      
-      console.log(param);
-      console.log(this.fileList);
+      this.fileList.push(param.file.response[0]);
       console.log(param.file.response);
+      //this.fileList.push(param.file.response[0]);
+      //this.fileList = param.fileList;
 
-    } 
+      //console.log(param);
+      //console.log(this.fileList);
+      //console.log(param.file.response);
+    }
   }
 
+  //#endregion
 }

@@ -9,15 +9,10 @@ export enum FormType {
 export class FormBase {
 
     protected formType: FormType;
-    
-    @Output()
-    formSaved = new EventEmitter();
-  
-    @Output()
-    formDeleted = new EventEmitter();
-  
-    @Output()
-    formClosed = new EventEmitter();
+
+    @Output() formSaved = new EventEmitter();
+    @Output() formDeleted = new EventEmitter();
+    @Output() formClosed = new EventEmitter();
 
     constructor() {
         this.formType = FormType.NEW;

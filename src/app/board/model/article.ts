@@ -13,6 +13,6 @@ export class Article {
     seq: number;
     depth: number;
     articleChecks: ArticleCheck[];
-    attachFile: string[];
+    fileList: string[];
     file: File;
 }

@@ -21,50 +21,54 @@ export class BoardComponent implements OnInit {
   @ViewChild('boardForm')
   boardForm: BoardFormComponent;
 
+  @ViewChild('articleGrid')
+  articleGrid: ArticleGridComponent;
+
   @ViewChild('articleForm')
   articleForm: ArticleFormComponent;
-  
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  setBoardSelect(item, grid: ArticleGridComponent) {
+  public setBoardSelect(item): void {
     this.selectedBoard = item;
-    grid.getArticleList(item);
+    this.getArticleGridData();
   }
 
-  openDrawer(): void {
+  public getArticleGridData(): void {
+    this.closeArticleDrawer();
+    this.articleGrid.getArticleList(this.selectedBoard);
+  }
+
+  public openDrawer(): void {
     this.drawerVisible = true;
   }
 
-  closeDrawer(): void {
+  public closeDrawer(): void {
     this.drawerVisible = false;
   }
 
-  openArticleDrawer(): void {
+  public openArticleDrawer(): void {
     this.articleDrawerVisible = true;
   }
 
-  closeArticleDrawer(): void {
+  public closeArticleDrawer(): void {
     this.articleDrawerVisible = false;
   }
 
   modifyBoard(item): void {
-    console.log(item);
-    this.boardForm.getBoard(item.key);    
+    this.boardForm.getBoard(item.key);
     this.openDrawer();
   }
 
   public getBoardTree(): void {
     this.closeDrawer();
     this.boardTree.getboardHierarchy();
-    //getboardHierarchy
   }
 
   public editArticle(item): void {
-    console.log(item);
-
     this.articleForm.getArticle(item.pkArticle);
     this.openArticleDrawer();
   }
