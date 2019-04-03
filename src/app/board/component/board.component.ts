@@ -58,7 +58,12 @@ export class BoardComponent implements OnInit {
     this.articleDrawerVisible = false;
   }
 
-  modifyBoard(item): void {
+  public newBoard(): void {
+    this.boardForm.newForm();
+    this.openDrawer();
+  }
+
+  public modifyBoard(item): void {
     this.boardForm.getBoard(item.key);
     this.openDrawer();
   }
@@ -68,9 +73,18 @@ export class BoardComponent implements OnInit {
     this.boardTree.getboardHierarchy();
   }
 
+  public newArticle(): void {
+    this.articleForm.newForm(this.selectedBoard);
+    this.openArticleDrawer();
+  }
+
   public editArticle(item): void {
     this.articleForm.getArticle(item.pkArticle);
     this.openArticleDrawer();
+  }
+
+  public print(item): void {
+    console.log(item);
   }
 
 }

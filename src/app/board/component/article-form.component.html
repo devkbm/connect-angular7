@@ -1,9 +1,30 @@
-<!--{{articleForm.getRawValue() | json}}-->
-{{fileList | json}}
-<form nz-form [formGroup]="articleForm">      
+{{articleForm.getRawValue() | json}}
+{{textData}}
+<!--{{fileList | json}}-->
+<div class="footer">
+    <button nz-button (click)="closeForm()">
+        <i nz-icon type="close" theme="outline"></i>
+        닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" nz-popconfirm nzTitle="저장하시겠습니까?" 
+        (nzOnConfirm)="saveBoard()" (nzOnCancel)="false">
+        <i nz-icon type="save" theme="outline"></i>
+        저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="danger" nz-popconfirm nzTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="true" (nzOnCancel)="false">
+        <i nz-icon type="delete" theme="outline"></i>
+        삭제
+    </button>    
+</div>
 
-    <input type="text" formControlName="fkBoard">
-    <input type="text" formControlName="pkArticle">
+
+<form nz-form [formGroup]="articleForm" [nzLayout]="'vertical'">      
+
+    <input type="hidden" formControlName="fkBoard">
+    <input type="hidden" formControlName="pkArticle">
     <input type="hidden" formControlName="ppkArticle">         
 
     <!--<div *ngFor="let attach of articleForm.get('attachFile').value">
@@ -11,8 +32,8 @@
     </div>
     <input type="file" accept="image/*" (change)="onFileChange(fileInput.files)" #fileInput>-->
 
-    <nz-upload nzAction="http://localhost:8090/common/file/" 
-        #upload
+    <nz-upload #upload 
+        nzAction="http://localhost:8090/common/file/"         
         nzMultiple
         [nzListType]="'text'"        
         [nzData]="imageUploadParam"
@@ -32,13 +53,14 @@
     <nz-form-item>
         <nz-form-label nzFor="contents" [nzXs]="formLabelXs" [nzSm]="formLabelSm">내용</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
-            <textarea nz-input id="contents" formControlName="contents" placeholder="내용을 입력해주세요." [nzAutosize]="{ minRows: 10, maxRows: 20 }"></textarea>
+            <!--<textarea nz-input id="contents" formControlName="contents" placeholder="내용을 입력해주세요." [nzAutosize]="{ minRows: 13, maxRows: 20 }"></textarea>-->
+            <!--<ckeditor id="contents2" name="contents" [editor]="Editor" tagName="textarea" [formControl]="contents" (change)="textChange($event)" style="width: 100%"></ckeditor>-->
+            <ckeditor #ckEditor id="contents" name="contents" [editor]="Editor" tagName="textarea" 
+              
+                (change)="textChange($event)" style="width: 100%; height: 100%;">
+            </ckeditor>
         </nz-form-control>        
     </nz-form-item>    
-    
-    <button class="btn btn-primary" (click)="getArticle()">조회</button>
-    <button class="btn btn-primary" (click)="saveBoard()">등록</button>
-    <button class="btn btn-primary" (click)="fileDown()">첨부파일</button>
-    <!--<button class="btn btn-primary" (click)="deleteBoard()">삭제</button>-->
+    <!--  [config]="{ toolbar: ['heading', '|', 'bold', 'italic', 'font', '|', 'undo', 'redo' ] }"-->
   
 </form>

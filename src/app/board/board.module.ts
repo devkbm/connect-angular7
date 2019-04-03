@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonFuncModule } from '../common/common-func.module';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { BoardService } from './service/board.service';
 
@@ -23,7 +24,8 @@ import { ButtonRendererComponent } from '../common/grid/renderer/button-renderer
     ReactiveFormsModule,
     CommonFuncModule,
     NgZorroAntdModule,
-    AgGridModule.withComponents([ButtonRendererComponent])
+    AgGridModule.withComponents([ButtonRendererComponent]),
+    CKEditorModule
   ],
   declarations: [
     BoardTreeComponent,

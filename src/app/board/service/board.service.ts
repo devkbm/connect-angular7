@@ -92,7 +92,6 @@ export class BoardService extends DataService {
         .pipe(
           catchError((err) => Observable.throw(err))
         );
-        
     }
 
     getArticleList(fkBoard: string, title?: string, contents?: string): Observable<ResponseList<Article>> {
@@ -112,7 +111,7 @@ export class BoardService extends DataService {
 
       return this.http
         .get<ResponseList<Article>>(url, options)
-        .pipe(                
+        .pipe(
             catchError((err) => Observable.throw(err))
         );
     }
@@ -121,12 +120,11 @@ export class BoardService extends DataService {
       const url = `${this.API_URI}/boards/articles/${id}`;
       const options = {
           headers: this.getAuthorizedHttpHeaders()
-          //params: params
         };
-      
+
       return this.http
         .get<ResponseObject<Article>>(url, options)
-        .pipe(                
+        .pipe(
             catchError((err) => Observable.throw(err))
         );
     }
@@ -175,28 +173,38 @@ export class BoardService extends DataService {
       );
   }
 
-    downloadFile(fileId: string, fileName: string) {
-      const url = `http://localhost:8090/file/${fileId}`;
-      const options = {
-        headers: this.getAuthorizedMultiPartHeaders(),
-        responseType: 'blob'
-      };
+  deleteArticle(article: Article): Observable<ResponseObject<Article>> {
+    const url = `${this.API_URI}/board/article/${article.pkArticle}`;
 
-      this.http.get(url, {headers: this.getAuthorizedMultiPartHeaders(), responseType: 'blob'})
-      .subscribe(
-          (model: Blob) => {
+    return this.http
+      .delete<ResponseObject<Article>>(url, {headers: this.getAuthorizedHttpHeaders()})
+      .pipe(
+        catchError((err) => Observable.throw(err))
+      );
+  }
 
-              // const blob = new Blob([model], { type: 'application/octet-stream' });
+  downloadFile(fileId: string, fileName: string) {
+    const url = `http://localhost:8090/file/${fileId}`;
+    const options = {
+      headers: this.getAuthorizedMultiPartHeaders(),
+      responseType: 'blob'
+    };
 
-              // FileSaver.saveAs(blob, fileName);
-            },
-            (err) => {
-              console.log(err);
-            },
-            () => {
-              console.log('완료');
-            }
-          );
+    this.http.get(url, {headers: this.getAuthorizedMultiPartHeaders(), responseType: 'blob'})
+    .subscribe(
+        (model: Blob) => {
+
+            // const blob = new Blob([model], { type: 'application/octet-stream' });
+
+            // FileSaver.saveAs(blob, fileName);
+          },
+          (err) => {
+            console.log(err);
+          },
+          () => {
+            console.log('완료');
+          }
+        );
     }
 
 

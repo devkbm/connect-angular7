@@ -5,6 +5,8 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
 import { BoardService } from '.././service/board.service';
 
@@ -12,12 +14,11 @@ import { ResponseObject } from '../../common/model/response-object';
 import { Article } from '.././model/article';
 import { FormBase, FormType } from 'src/app/common/form/form-base';
 import { UploadChangeParam, NzUploadComponent } from 'ng-zorro-antd';
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
   selector: 'app-article-form',
   templateUrl: './article-form.component.html',
-  styles: ['']
+  styles: ['./article-form.component.css']
 })
 export class ArticleFormComponent extends FormBase implements OnInit {
 
@@ -45,7 +46,7 @@ export class ArticleFormComponent extends FormBase implements OnInit {
       response: 'Server Error 500', // custom error message to show
       url: 'http://www.baidu.com/zzz.png'
     },
-    { 
+    {
       uid: "NiyNWPs6R-KYESIP58T46A==337768679545200",
       name:"20190402_정재원_2.PNG",
       status:"done",
@@ -55,10 +56,17 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   ];
 
   articleForm: FormGroup;
-  imageUploadParam;
+  imageUploadParam = {pgmId: 'board'};
+  public Editor = ClassicEditor;
+  //contents = new FormControl(null, {});
+
+  textData;
 
   @ViewChild('upload')
   upload: NzUploadComponent;
+
+  @ViewChild('ckEditor')
+  ckEditor: any;
 
   /**
    * Xs < 576px span size
@@ -67,8 +75,8 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   formLabelXs = 24;
   formControlXs = 24;
 
-  formLabelSm = 4;
-  fromControlSm = 20;
+  formLabelSm = 24;
+  fromControlSm = 24;
 
   //#endregion
 
@@ -76,20 +84,19 @@ export class ArticleFormComponent extends FormBase implements OnInit {
               private boardService: BoardService) { super(); }
 
   ngOnInit() {
-    this.imageUploadParam = {pgmId: 'board'};
-    this.newForm();
+    this.newForm(null);
   }
 
-  //#region methods
+  //#region public methods
 
-  public newForm(): void {
+  public newForm(fkBoard): void {
     this.formType = FormType.NEW;
     this.articleForm = this.fb.group({
-      fkBoard       : [ null, [ Validators.required ] ],
+      fkBoard       : [ fkBoard, [ Validators.required ] ], //new FormControl(fkBoard, {validators: Validators.required}),
       pkArticle     : [ null, [ Validators.required ] ],
       ppkArticle    : [ null],
       title         : [ null],
-      contents      : [ null],
+      contents      :  new FormControl(null, {}),
       attachFile    : [ null]
     });
   }
@@ -101,7 +108,7 @@ export class ArticleFormComponent extends FormBase implements OnInit {
       pkArticle     : [ null, [ Validators.required ] ],
       ppkArticle    : [ null],
       title         : [ null],
-      contents      : [ null],
+      contents      :  new FormControl(null, {}),
       attachFile    : [ null]
     });
 
@@ -115,8 +122,10 @@ export class ArticleFormComponent extends FormBase implements OnInit {
           if (model.data) {
             this.modifyForm(model.data);
             this.fileList = model.data.fileList;
+
+            this.ckEditor.writeValue(model.data.contents);
           } else {
-            this.newForm();
+            this.newForm(null);
           }
         },
         (err) => {},
@@ -124,9 +133,38 @@ export class ArticleFormComponent extends FormBase implements OnInit {
     );
   }
 
+  public deleteArticle(id): void {
+
+  }
+
+  fileDown() {
+    // this.boardService.downloadFile(this.article.attachFile[0].fileId, this.article.attachFile[0].fileName);
+  }
+
+  fileUploadChange(param: UploadChangeParam) {
+    if (param.type === 'success') {
+      // this.fileList = param.file.response;
+      this.fileList.push(param.file.response[0]);
+    }
+  }
+
+  public textChange( {editor}: ChangeEvent) {
+    const data = editor.getData();
+    console.log(editor);
+    this.articleForm.get('contents').setValue(data);
+  }
+
+  public closeForm() {
+    this.formClosed.emit(this.articleForm.getRawValue());
+  }
+
+  //#endregion
+
+  //#region private method
+
   private saveBoard() {
 
-    let attachFileIdList = [];
+    const attachFileIdList = [];
 
     // tslint:disable-next-line: forin
     for (const val in this.fileList) {
@@ -150,24 +188,5 @@ export class ArticleFormComponent extends FormBase implements OnInit {
         }
       );
   }
-
-  fileDown() {
-    //this.boardService.downloadFile(this.article.attachFile[0].fileId, this.article.attachFile[0].fileName);
-  }
-
-  fileUploadChange(param: UploadChangeParam) {
-    if (param.type === 'success') {
-      //this.fileList = param.file.response;
-      this.fileList.push(param.file.response[0]);
-      console.log(param.file.response);
-      //this.fileList.push(param.file.response[0]);
-      //this.fileList = param.fileList;
-
-      //console.log(param);
-      //console.log(this.fileList);
-      //console.log(param.file.response);
-    }
-  }
-
   //#endregion
 }

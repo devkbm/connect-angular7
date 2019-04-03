@@ -1,5 +1,8 @@
-<button nz-button (click)="openArticleDrawer($event)">dd</button>
-<div class="content">
+<button nz-button (click)="getBoardTree()">조회</button>
+<button nz-button (click)="newBoard()">게시판 등록</button>
+<button nz-button (click)="newArticle()">게시글 등록</button>
+
+<div class="content" (resize)="print($event)" >
   <h3>게시판 목록</h3>
   <h3>게시글 + {{this.selectedBoard}}</h3>
   <app-board-tree id="boardTree" #boardTree

@@ -28,7 +28,7 @@ export class BoardTreeComponent implements OnInit {
     console.log('BoardTreeComponent init');
   }
 
-  getboardHierarchy() {
+  public getboardHierarchy(): void {
     this.boardService
       .getBoardHierarchy()
       .subscribe(

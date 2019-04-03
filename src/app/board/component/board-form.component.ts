@@ -99,7 +99,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
           },
           (err) => {},
           () => {}
-        )
+        );
   }
 
   public getBoard(id: string): void {
@@ -107,9 +107,9 @@ export class BoardFormComponent extends FormBase implements OnInit {
       .subscribe(
         (model: ResponseObject<Board>) => {
           if (model.data) {
-            this.modifyForm(model.data);            
+            this.modifyForm(model.data);
           } else {
-            this.newForm();            
+            this.newForm();
           }
         },
         (err) => {},
