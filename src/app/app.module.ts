@@ -35,7 +35,7 @@ registerLocaleData(ko);
   ],
   providers: [
     {
-      provide: NZ_I18N, useValue: ko_KR 
+      provide: NZ_I18N, useValue: ko_KR
     },
     {
       provide: COMPOSITION_BUFFER_MODE,

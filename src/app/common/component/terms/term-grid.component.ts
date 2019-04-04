@@ -28,7 +28,7 @@ export class TermGridComponent extends AggridFunction implements OnInit {
   constructor(private termService: TermService,
               private appAlarmService: AppAlarmService) {
 
-    super([]);
+    super();
 
     this.columnDefs = [
       {

@@ -20,161 +20,157 @@ export class BoardService extends DataService {
   }
 
   getBoardTypeList(): Observable<ResponseList<any>> {
-    const url = `${this.API_URI}/boards/boardType`;    
+    const url = `${this.API_URI}/board/boardType`;
     const options = {
       headers: this.getAuthorizedHttpHeaders()
     };
 
-    return this.http      
+    return this.http
       .get<ResponseList<any>>(url, options)
-      .pipe(                
+      .pipe(
       catchError((err) => Observable.throw(err))
       );
   }
 
   getBoardList(): Observable<ResponseList<Board>> {
-    const url = `${this.API_URI}/boards`;
+    const url = `${this.API_URI}/board`;
     const options = {
         headers: this.getAuthorizedHttpHeaders()
       };
-    
+
     return this.http
       .get<ResponseList<Board>>(url, options)
-      .pipe(                
+      .pipe(
           catchError((err) => Observable.throw(err))
       );
   }
 
   getBoard(id: string): Observable<ResponseObject<Board>> {
-    const url = `${this.API_URI}/boards/${id}`;
+    const url = `${this.API_URI}/board/${id}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders()
-        //params: params
       };
-    
+
     return this.http
       .get<ResponseObject<Board>>(url, options)
-      .pipe(                
+      .pipe(
           catchError((err) => Observable.throw(err))
-      );        
-    }
+      );
+  }
 
-    getBoardHierarchy(): Observable<ResponseList<BoardHierarchy>> {
-      const url = `${this.API_URI}/boardHierarchy`;
-      const options = {
-          headers: this.getAuthorizedHttpHeaders()
-          //params: params
-        };
-      
-      return this.http
-        .get<ResponseList<BoardHierarchy>>(url, options)
-        .pipe(                
-            catchError((err) => Observable.throw(err))
-        );
-    }
+  getBoardHierarchy(): Observable<ResponseList<BoardHierarchy>> {
+    const url = `${this.API_URI}/boardHierarchy`;
+    const options = {
+        headers: this.getAuthorizedHttpHeaders()
+      };
 
-    saveBoard(board: Board): Observable<ResponseObject<Board>> {
-      const url = `${this.API_URI}/boards`;
+    return this.http
+      .get<ResponseList<BoardHierarchy>>(url, options)
+      .pipe(
+          catchError((err) => Observable.throw(err))
+      );
+  }
 
-      return this.http
-      .post<ResponseObject<Board>>(url, board, {headers: this.getAuthorizedHttpHeaders()})
+  saveBoard(board: Board): Observable<ResponseObject<Board>> {
+    const url = `${this.API_URI}/board`;
+
+    return this.http
+    .post<ResponseObject<Board>>(url, board, {headers: this.getAuthorizedHttpHeaders()})
+    .pipe(
+      catchError((err) => Observable.throw(err))
+    );
+
+  }
+
+  deleteBoard(board: Board): Observable<ResponseObject<Board>> {
+    const url = `${this.API_URI}/board/${board.pkBoard}`;
+
+    return this.http
+      .delete<ResponseObject<Board>>(url, {headers: this.getAuthorizedHttpHeaders()})
       .pipe(
         catchError((err) => Observable.throw(err))
       );
+  }
 
+  getArticleList(fkBoard: string, title?: string, contents?: string): Observable<ResponseList<Article>> {
+    let url = `${this.API_URI}/board/article?fkBoard=${fkBoard}`;
+    const options = {
+        headers: this.getAuthorizedHttpHeaders()
+      };
+
+    if ( title !== undefined ) {
+        url = url + '&title=' + title;
     }
 
-    deleteBoard(board: Board): Observable<ResponseObject<Board>> {
-      const url = `${this.API_URI}/boards/${board.pkBoard}`;
+    if ( contents !== undefined ) {
+        url = url + '&contents=' + contents;
+    }
 
-      return this.http
-        .delete<ResponseObject<Board>>(url, {headers: this.getAuthorizedHttpHeaders()})
-        .pipe(
+    return this.http
+      .get<ResponseList<Article>>(url, options)
+      .pipe(
           catchError((err) => Observable.throw(err))
-        );
+      );
+  }
+
+  getArticle(id: number): Observable<ResponseObject<Article>> {
+    const url = `${this.API_URI}/board/article/${id}`;
+    const options = {
+        headers: this.getAuthorizedHttpHeaders()
+      };
+
+    return this.http
+      .get<ResponseObject<Article>>(url, options)
+      .pipe(
+          catchError((err) => Observable.throw(err))
+      );
+  }
+
+  saveArticle(article: Article): Observable<ResponseObject<Article>> {
+    const url = `${this.API_URI}/board/article`;
+    const options = {
+        headers: this.getAuthorizedMultiPartHeaders()
+      };
+
+    let formData = new FormData();
+
+    formData.append('pkArticle',    String(article.pkArticle));
+    formData.append('fkBoard',      String(article.fkBoard));
+    // formData.append('ppkArticle',   article.ppkArticle.toString());
+    formData.append('title',        article.title);
+    formData.append('contents',     article.contents);
+    formData.append('pwd',          article.pwd);
+    formData.append('hitCnt',       article.hitCnt);
+    formData.append('fromdDt',      article.fromDate);
+    formData.append('toDt',         article.toDate);
+    // formData.append('seq',          String(article.seq));
+    // formData.append('depth',        String(article.depth));
+    if ( article.file !== undefined ) {
+        formData.append('file',         article.file, article.file.name);
     }
 
-    getArticleList(fkBoard: string, title?: string, contents?: string): Observable<ResponseList<Article>> {
-      let url = `${this.API_URI}/boards/articles?fkBoard=${fkBoard}`;
-      const options = {
-          headers: this.getAuthorizedHttpHeaders()
-          //params: params
-        };
-
-      if ( title !== undefined ) {
-          url = url + '&title=' + title;
-      }
-
-      if ( contents !== undefined ) {
-          url = url + '&contents=' + contents;
-      }
-
-      return this.http
-        .get<ResponseList<Article>>(url, options)
-        .pipe(
-            catchError((err) => Observable.throw(err))
-        );
-    }
-
-    getArticle(id: number): Observable<ResponseObject<Article>> {
-      const url = `${this.API_URI}/boards/articles/${id}`;
-      const options = {
-          headers: this.getAuthorizedHttpHeaders()
-        };
-
-      return this.http
-        .get<ResponseObject<Article>>(url, options)
-        .pipe(
-            catchError((err) => Observable.throw(err))
-        );
-    }
-
-    saveArticle(article: Article): Observable<ResponseObject<Article>> {
-      const url = `${this.API_URI}/boards/articles`;
-      const options = {
-          headers: this.getAuthorizedMultiPartHeaders()
-          //params: params
-        };
-
-      let formData = new FormData();
-      
-      formData.append('pkArticle',    String(article.pkArticle));
-      formData.append('fkBoard',      String(article.fkBoard));
-      // formData.append('ppkArticle',   article.ppkArticle.toString());
-      formData.append('title',        article.title);
-      formData.append('contents',     article.contents);
-      formData.append('pwd',          article.pwd);
-      formData.append('hitCnt',       article.hitCnt);
-      formData.append('fromdDt',      article.fromDate);
-      formData.append('toDt',         article.toDate);
-      // formData.append('seq',          String(article.seq));
-      // formData.append('depth',        String(article.depth));
-      if ( article.file !== undefined ) {
-          formData.append('file',         article.file, article.file.name);
-      }
-                    
-      return this.http
-        .post<ResponseObject<Article>>(url, formData, options)
-        .pipe(                
-            catchError((err) => Observable.throw(err))
-        );
-    }
+    return this.http
+      .post<ResponseObject<Article>>(url, formData, options)
+      .pipe(
+          catchError((err) => Observable.throw(err))
+      );
+  }
 
   saveArticleJson(article: Article): Observable<ResponseObject<Article>> {
     const url = `${this.API_URI}/board/article`;
     const options = {
         headers: this.getAuthorizedHttpHeaders()
-      };      
-                  
+      };
+
     return this.http
       .post<ResponseObject<Article>>(url, article, options)
-      .pipe(                
+      .pipe(
           catchError((err) => Observable.throw(err))
       );
   }
 
-  deleteArticle(article: Article): Observable<ResponseObject<Article>> {
-    const url = `${this.API_URI}/board/article/${article.pkArticle}`;
+  deleteArticle(id): Observable<ResponseObject<Article>> {
+    const url = `${this.API_URI}/board/article/${id}`;
 
     return this.http
       .delete<ResponseObject<Article>>(url, {headers: this.getAuthorizedHttpHeaders()})
@@ -205,7 +201,6 @@ export class BoardService extends DataService {
             console.log('완료');
           }
         );
-    }
-
+  }
 
 }

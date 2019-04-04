@@ -30,7 +30,6 @@ import { ProgramComponent } from './component/program/program.component';
 import { MenuGroupGridComponent } from './component/menu/menu-group-grid.component';
 import { MenuGridComponent } from './component/menu/menu-grid.component';
 import { MenuComponent } from './component/menu/menu.component';
-import { ButtonRendererComponent } from './grid/renderer/button-renderer.component';
 import { TermComponent } from './component/terms/term.component';
 import { TermGridComponent } from './component/terms/term-grid.component';
 import { TermFormComponent } from './component/terms/term-form.component';
@@ -41,6 +40,8 @@ import { CommonCodeComponent } from './component/commoncode/common-code.componen
 import { CommonCodeTreeComponent } from './component/commoncode/common-code-tree.component';
 
 import { UserDuplicationValidatorDirective } from './validator/user-duplication-validator.directive';
+import { ButtonRendererComponent } from './grid/renderer/button-renderer.component';
+import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.component';
 
 
 @NgModule({
@@ -51,13 +52,14 @@ import { UserDuplicationValidatorDirective } from './validator/user-duplication-
     ReactiveFormsModule,
     HttpClientModule,
     NgZorroAntdModule,
-    AgGridModule.withComponents([ButtonRendererComponent]),
+    AgGridModule.withComponents([ButtonRendererComponent, CheckboxRendererComponent]),
     AppRoutingModule
   ],
   declarations: [
-    UserDuplicationValidatorDirective,    
+    UserDuplicationValidatorDirective,
     LoginComponent,
     ButtonRendererComponent,
+    CheckboxRendererComponent,
     UserFormComponent,
     UserGridComponent,
     UserComponent,

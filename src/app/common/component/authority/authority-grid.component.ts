@@ -28,12 +28,15 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
     constructor(private userService: UserService,
                 private appAlarmService: AppAlarmService) {
 
-        super([]);
+        super();
 
         this.columnDefs = [
             {
                 headerName: '',
+                sortable: true,
+                resizable: true,
                 width: 34,
+                suppressSizeToFit: true,
                 cellStyle: {'text-align': 'center', padding: '0px'},
                 cellRenderer: 'buttonRenderer',
                 cellRendererParams: {
@@ -45,19 +48,25 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
             {
                 headerName: 'No',
                 valueGetter: 'node.rowIndex + 1',
+                sortable: true,
+                resizable: true,
+                suppressSizeToFit: true,
                 width: 70,
                 cellStyle: {'text-align': 'center'}
             },
             {
                 headerName: '권한',
                 field: 'authority',
+                sortable: true,
+                resizable: true,
+                suppressSizeToFit: true,
                 width: 100
             },
             {
                 headerName: '설명',
                 field: 'description',
-                width: 500,
-                autoHeight: true
+                sortable: true,
+                resizable: true
             }
         ];
 
@@ -81,6 +90,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
                 (model: ResponseList<Authority>) => {
                     if (model.total > 0) {
                         this.authorityList = model.data;
+                        this.sizeToFit();
                     } else {
                         this.authorityList = null;
                     }
@@ -101,6 +111,10 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
 
     private rowDbClicked(event) {
         this.rowDoubleClicked.emit(event.data);
+    }
+
+    public test(event) {
+        console.log(event);
     }
 
 }

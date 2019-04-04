@@ -4,10 +4,9 @@
     [rowSelection]="'single'"
     [rowData]="authorityList"
     [columnDefs]="columnDefs"
-    [getRowNodeId]="getRowNodeId"
-    [enableSorting]="true"
-    [enableColResize]="true"
+    [getRowNodeId]="getRowNodeId"    
     [frameworkComponents]="frameworkComponents"
+    (gridSize)="test($event)"
     (gridReady)="onGridReady($event)"
     (selectionChanged)="selectionChanged($event)"
     (rowDoubleClicked)="rowDbClicked($event)">

@@ -18,7 +18,7 @@ import { UploadChangeParam, NzUploadComponent } from 'ng-zorro-antd';
 @Component({
   selector: 'app-article-form',
   templateUrl: './article-form.component.html',
-  styles: ['./article-form.component.css']
+  styleUrls: ['./article-form.component.css']
 })
 export class ArticleFormComponent extends FormBase implements OnInit {
 
@@ -62,11 +62,8 @@ export class ArticleFormComponent extends FormBase implements OnInit {
 
   textData;
 
-  @ViewChild('upload')
-  upload: NzUploadComponent;
-
-  @ViewChild('ckEditor')
-  ckEditor: any;
+  @ViewChild('upload') upload: NzUploadComponent;
+  @ViewChild('ckEditor') ckEditor; //: CKEditorComponent;
 
   /**
    * Xs < 576px span size
@@ -91,6 +88,12 @@ export class ArticleFormComponent extends FormBase implements OnInit {
 
   public newForm(fkBoard): void {
     this.formType = FormType.NEW;
+
+    this.fileList = [];
+    this.textData = null;
+    // console.log(this.ckEditor.editorInstance);
+    this.ckEditor.writeValue(null);
+
     this.articleForm = this.fb.group({
       fkBoard       : [ fkBoard, [ Validators.required ] ], //new FormControl(fkBoard, {validators: Validators.required}),
       pkArticle     : [ null, [ Validators.required ] ],
@@ -134,7 +137,15 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   }
 
   public deleteArticle(id): void {
-
+    console.log(id);
+    this.boardService.deleteArticle(id)
+      .subscribe(
+        (model: ResponseObject<Article>) => {
+            this.formDeleted.emit(this.articleForm.getRawValue());
+        },
+        (err) => {},
+        () => {}
+    );
   }
 
   fileDown() {
@@ -162,7 +173,7 @@ export class ArticleFormComponent extends FormBase implements OnInit {
 
   //#region private method
 
-  private saveBoard() {
+  private saveBoard(): void {
 
     const attachFileIdList = [];
 

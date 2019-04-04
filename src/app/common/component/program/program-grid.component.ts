@@ -28,7 +28,7 @@ export class ProgramGridComponent extends AggridFunction implements OnInit {
   constructor(private programService: ProgramService,
               private appAlarmService: AppAlarmService) {
 
-    super([]);
+    super();
 
     this.columnDefs = [
       {

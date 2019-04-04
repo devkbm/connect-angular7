@@ -9,10 +9,10 @@ import { CommonCodeTreeComponent } from './common-code-tree.component';
   styleUrls: ['./common-code.component.css']
 })
 export class CommonCodeComponent implements OnInit {
-    
-    queryKey: string = 'programCode';
-    queryValue: string = '';    
-    
+
+    queryKey = 'programCode';
+    queryValue = '';
+
     @ViewChild('commonCodeTree')
     tree: CommonCodeTreeComponent;
 
@@ -24,25 +24,25 @@ export class CommonCodeComponent implements OnInit {
     ngOnInit() {
         this.tree.getCommonCodeHierarchy();
     }
-    
-    getCommonCodeTree() {         
+
+    public getCommonCodeTree(): void {
         this.tree.getCommonCodeHierarchy();
     }
 
-    initForm() {
+    public initForm(): void {
         this.form.newForm();
     }
 
-    saveCommonCode() {
+    public saveCommonCode(): void {
         this.form.submitCommonCode();
     }
 
-    deleteCommonCode() {
+    public deleteCommonCode(): void {
         this.form.deleteCommonCode();
     }
 
-    selectedItem(item) {         
-        this.form.getCommonCode(item.id);        
-    }  
-    
+    public selectedItem(item): void {
+        this.form.getCommonCode(item.id);
+    }
+
 }

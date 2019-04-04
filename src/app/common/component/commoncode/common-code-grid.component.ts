@@ -29,7 +29,7 @@ export class CommonCodeGridComponent extends AggridFunction implements OnInit {
   constructor(private commonCodeService: CommonCodeService,
               private appAlarmService: AppAlarmService) {
 
-    super([]);
+    super();
 
     this.columnDefs = [
       {

@@ -29,13 +29,13 @@ export class UserGridComponent extends AggridFunction implements OnInit {
   constructor(private userService: UserService,
               private appAlarmService: AppAlarmService) {
 
-    super([]);
+    super();
 
     this.columnDefs = [
         {
           headerName: '',
           width: 34,
-          cellStyle: {'text-align': 'center', 'padding': '0px'},
+          cellStyle: {'text-align': 'center', padding: '0px'},
           cellRenderer: 'buttonRenderer',
           cellRendererParams: {
             onClick: this.onEditButtonClick.bind(this),
@@ -51,9 +51,51 @@ export class UserGridComponent extends AggridFunction implements OnInit {
       },
       {headerName: '아이디',        field: 'userId',  width: 100 },
       {headerName: '이름',          field: 'name',    width: 100 },
-      {headerName: '계정잠금여부',  field: 'accountNonLocked',      width: 120 },
-      {headerName: '계정만료여부',  field: 'accountNonExpired',     width: 120 },
-      {headerName: '비번만료여부',  field: 'credentialsNonExpired', width: 120 }
+      {
+        headerName: '사용여부',
+        field: 'enabled',
+        width: 80,
+        cellStyle: {'text-align': 'center', padding: '0px'},
+        cellRenderer: 'checkboxRenderer',
+        cellRendererParams: {
+          label: '',
+          disabled: true
+        }
+      },
+      {
+        headerName: '계정잠금여부',
+        field: 'accountNonLocked',
+        width: 120,
+        cellStyle: {'text-align': 'center', padding: '0px'},
+        cellRenderer: 'checkboxRenderer',
+        cellRendererParams: {
+          label: '',
+          disabled: true
+        }
+      },
+      {
+        headerName: '계정만료여부',
+        field: 'accountNonExpired',
+        width: 120,
+        cellStyle: {'text-align': 'center', padding: '0px'},
+        cellRenderer: 'checkboxRenderer',
+        cellRendererParams: {
+          label: '',
+          disabled: true
+        }
+      },
+      {
+        headerName: '비번만료여부',
+        field: 'credentialsNonExpired',
+        width: 120,
+        cellStyle: {'text-align': 'center', padding: '0px'},
+        cellRenderer: 'checkboxRenderer',
+        cellRendererParams: {
+          onClick: this.onEditButtonClick.bind(this),
+          label: '',
+          disabled: true
+        }
+      }
     ];
 
     this.getRowNodeId = function(data) {
@@ -101,6 +143,5 @@ export class UserGridComponent extends AggridFunction implements OnInit {
   public getSelectedRow() {
     return this.gridApi.getSelectedRows()[0];
   }
-  
 
 }

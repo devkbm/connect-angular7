@@ -1,27 +1,40 @@
-<button nz-button (click)="getBoardTree()">조회</button>
-<button nz-button (click)="newBoard()">게시판 등록</button>
-<button nz-button (click)="newArticle()">게시글 등록</button>
-
-<div class="content" (resize)="print($event)" >
-  <h3>게시판 목록</h3>
-  <h3>게시글 + {{this.selectedBoard}}</h3>
-  <app-board-tree id="boardTree" #boardTree
-    (itemSelected)="setBoardSelect($event)"
-    (itemDbClicked)="modifyBoard($event)">
-  </app-board-tree>
-  
-  <nz-tabset>
-    <nz-tab nzTitle="Tab 1">
-      <div>
-        <app-article-grid id="articleGrid" #articleGrid
-          (rowDoubleClicked)="editArticle($event)">
-        </app-article-grid>
-      </div>
-    </nz-tab>
-  </nz-tabset>
-  
+<div nz-row>
+  <div nz-col [nzXs]="12" [nzSm]="12">
+    <nz-input-group nzSearch [nzSuffix]="suffixIconSearch">
+      <input type="text" style="ime-mode:normal;" [(ngModel)]="queryValue" nz-input placeholder="input search text">
+    </nz-input-group>          
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+  <div nz-col style="text-align: right" [nzXs]="12" [nzSm]="12">
+    <button nz-button (click)="getBoardTree()">조회</button>
+    <button nz-button (click)="newBoard()">게시판 등록</button>
+    <button nz-button (click)="newArticle()">게시글 등록</button>
+  </div>
 </div>
 
+<div nz-row>
+  <div nz-col [nzXs]="4" [nzSm]="4">
+    <h3>게시판 목록</h3>
+    <app-board-tree id="boardTree" #boardTree
+      [searchValue]="queryValue"
+      (itemSelected)="setBoardSelect($event)"
+      (itemDbClicked)="modifyBoard($event)">
+    </app-board-tree>
+  </div>
+  <div nz-col [nzXs]="20" [nzSm]="20">    
+    <nz-tabset>
+      <nz-tab [nzTitle]="selectedBoard">
+        <div class="grid">
+          <app-article-grid id="articleGrid" #articleGrid 
+            (rowDoubleClicked)="editArticle($event)">
+          </app-article-grid>
+        </div>
+      </nz-tab>
+    </nz-tabset>  
+  </div>
+</div>
 
 <nz-drawer
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"

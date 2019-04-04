@@ -25,19 +25,19 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
 
   constructor(private appAlarmService: AppAlarmService,
               private boardService: BoardService) {
-    super([]);
+    super();
 
     this.columnDefs = [
       {
           headerName: 'No',
           valueGetter: 'node.rowIndex + 1',
           width: 70,
-          cellStyle: {'text-align': 'center'}
+          cellStyle: {'text-align': 'center'},
+          suppressSizeToFit: true
       },
       {
           headerName: '제목',
-          field: 'title',
-          width: 500
+          field: 'title'
       },
       {
         headerName: '등록일자',
@@ -45,7 +45,9 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           return new Date(data.value).toLocaleString();
         },
         field: 'createdDt',
-        width: 200
+        width: 180,
+        cellStyle: {'text-align': 'center'},
+        suppressSizeToFit: true
       },
       {
         headerName: '수정일자',
@@ -53,9 +55,17 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           return new Date(data.value).toLocaleString();
         },
         field: 'modifiedDt',
-        width: 200
+        width: 180,
+        cellStyle: {'text-align': 'center'},
+        suppressSizeToFit: true
       }
     ];
+
+    this.defaultColDef = {
+      sortable: true,
+      resizable: true,
+    };
+
 
     this.getRowNodeId = function(data) {
         return data.pkArticle;
@@ -63,7 +73,8 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
   }
 
   ngOnInit() {
-    this.setWidthAndHeight('100%', '600px');
+    //this.setWidthAndHeight('100%', '100%');
+    this.sizeToFit();
   }
 
   getArticleList(fkBoard): void {
@@ -73,6 +84,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           (model: ResponseList<Article>) => {
               if (model.total > 0) {
                   this.articleList = model.data;
+                  this.sizeToFit();
               } else {
                   this.articleList = null;
               }

@@ -10,26 +10,37 @@ import { ArticleFormComponent } from './article-form.component';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
+  /**
+   * 게시판 Drawer 여부
+   */
   drawerVisible = false;
+
+  /**
+   * 게시글 Drawer 여부
+   */
   articleDrawerVisible = false;
 
+  /**
+   * 선택된 게시판 키
+   */
   selectedBoard;
 
-  @ViewChild('boardTree')
-  boardTree: BoardTreeComponent;
+  /**
+   * 게시판 트리 조회 Filter 조건
+   */
+  queryValue;
 
-  @ViewChild('boardForm')
-  boardForm: BoardFormComponent;
+  tabTitle;
 
-  @ViewChild('articleGrid')
-  articleGrid: ArticleGridComponent;
-
-  @ViewChild('articleForm')
-  articleForm: ArticleFormComponent;
+  @ViewChild('boardTree') boardTree: BoardTreeComponent;
+  @ViewChild('boardForm') boardForm: BoardFormComponent;
+  @ViewChild('articleGrid') articleGrid: ArticleGridComponent;
+  @ViewChild('articleForm') articleForm: ArticleFormComponent;
 
   constructor() { }
 
   ngOnInit() {
+    this.getBoardTree();
   }
 
   public setBoardSelect(item): void {

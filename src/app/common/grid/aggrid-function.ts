@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ButtonRendererComponent } from './renderer/button-renderer.component';
+import { CheckboxRendererComponent } from './renderer/checkbox-renderer.component';
 
 @Injectable()
 export class AggridFunction {
@@ -9,15 +10,20 @@ export class AggridFunction {
     protected gridColumnApi;
     protected frameworkComponents: any;
 
+    protected columnDefs: object[];
+    protected defaultColDef: {};
+
+
     protected style = {
         width: '100%',
         height: '100%'
     };
 
-    constructor(protected columnDefs: object[]) {
+    constructor() {
         this.frameworkComponents = {
-            buttonRenderer: ButtonRendererComponent
-            };
+            buttonRenderer: ButtonRendererComponent,
+            checkboxRenderer: CheckboxRendererComponent
+        };
     }
 
     protected onGridReady(params) {
@@ -30,6 +36,10 @@ export class AggridFunction {
             width: width,
             height: height
         };
+    }
+
+    public getSelectedRows() {
+        return this.gridApi.getSelectedRows();
     }
 
     /**
@@ -103,6 +113,18 @@ export class AggridFunction {
      */
     public setRowData(rowNode: any, data: object) {
         rowNode.setData(data);
+    }
+
+    public autoSizeAll(): void {
+        const allColumnIds = [];
+        this.gridColumnApi.getAllColumns().forEach(function(column) {
+            allColumnIds.push(column.colId);
+        });
+        this.gridColumnApi.autoSizeColumns(allColumnIds);
+    }
+
+    public sizeToFit(): void {
+        this.gridApi.sizeColumnsToFit();
     }
 
 }

@@ -7,4 +7,9 @@
     text-align: right;
     left: 0px;
     background: #fff;
+    z-index: 900;
+}
+
+:host ::ng-deep .ck-editor__editable {
+    min-height: 400px !important;
 }

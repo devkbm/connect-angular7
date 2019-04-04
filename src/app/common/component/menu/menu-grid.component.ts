@@ -32,7 +32,7 @@ export class MenuGridComponent extends AggridFunction implements OnInit {
   constructor(private menuService: MenuService,
               private appAlarmService: AppAlarmService) {
 
-      super([]);
+      super();
 
       this.columnDefs = [
         {

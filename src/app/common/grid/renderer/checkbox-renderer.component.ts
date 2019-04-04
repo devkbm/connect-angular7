@@ -3,25 +3,27 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
-  selector: 'app-button-renderer',
+  selector: 'app-checkbox-renderer',
   template: `
-    <button nz-button nzSize='small' (click)="onClick($event)">
-      <i nz-icon [type]="iconType"></i>
+    <label nz-checkbox [(ngModel)]="value" [nzDisabled]="disabled" (click)="onClick($event)" (change)="onChange($event)">
       {{label}}
-    </button>
+    </label>
   `,
   styles: []
 })
-export class ButtonRendererComponent implements ICellRendererAngularComp {
+export class CheckboxRendererComponent implements ICellRendererAngularComp {
 
   params;
+  disabled;
   label: string;
-  iconType: string;
+  value;
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
+
     this.label = this.params.label || null;
-    this.iconType = this.params.iconType || null;
+    this.disabled = this.params.disabled;
+    this.value = params.data[this.params.colDef.field];
   }
 
   refresh(params: any): boolean {
@@ -38,6 +40,10 @@ export class ButtonRendererComponent implements ICellRendererAngularComp {
 
       this.params.onClick(params);
     }
+  }
+
+  onChange(event) {
+    this.params.data[this.params.colDef.field] = this.value;
   }
 
 
