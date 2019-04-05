@@ -27,6 +27,7 @@ export class CommonLayoutComponent implements OnInit {
   selectedValue: string;
   message: string;
   menuGroupCode: string;
+  userImageBase64;
 
   menuGroupList: MenuGroup[];
   menuItems: MenuHierarchy[];
@@ -42,6 +43,7 @@ export class CommonLayoutComponent implements OnInit {
     this.appAlarmService.currentMessage.subscribe(message => this.message = message);
 
     this.setInitMenuGroup();
+    this.setAvatar();
   }
 
   /**
@@ -108,6 +110,13 @@ export class CommonLayoutComponent implements OnInit {
     sessionStorage.setItem('selectedMenu', url);
     // '/home/' + 
     this.router.navigate([url]);
+  }
+
+  public setAvatar(): void {
+    // this.userImageBase64 = 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
+    const url = sessionStorage.getItem('imageUrl');
+    this.userImageBase64 = `http://localhost:8090/common/fileimage/${url}`;
+    console.log(this.userImageBase64);
   }
 
 }

@@ -6,7 +6,7 @@
   }
 
 .grid {
-  height: calc(100vh - 267px);
+  height: calc(100vh - 233px);
 }
 
 :host ::ng-deep .ck-editor__editable {

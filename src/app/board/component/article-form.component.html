@@ -30,17 +30,7 @@
     <!--<div *ngFor="let attach of articleForm.get('attachFile').value">
         <a [href]="'http://localhost:8090/common/file/' + attach.fileId" target="_blank" >{{attach.fileName}}</a>
     </div>
-    <input type="file" accept="image/*" (change)="onFileChange(fileInput.files)" #fileInput>-->
-
-    <nz-upload #upload 
-        nzAction="http://localhost:8090/common/file/"         
-        nzMultiple
-        [nzListType]="'text'"        
-        [nzData]="imageUploadParam"
-        [nzFileList]="fileList"
-        (nzChange)="fileUploadChange($event)">
-        <button nz-button><i nz-icon type="upload"></i><span>Upload</span></button>
-    </nz-upload>
+    <input type="file" accept="image/*" (change)="onFileChange(fileInput.files)" #fileInput>-->    
 
     <nz-form-item>
         <nz-form-label nzFor="title" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">제목</nz-form-label>
@@ -61,5 +51,16 @@
         </nz-form-control>        
     </nz-form-item>    
     <!--  [config]="{ toolbar: ['heading', '|', 'bold', 'italic', 'font', '|', 'undo', 'redo' ] }"-->
-  
+
+    <div class="clearfix" nz-row style="height: 100px">
+        <nz-upload #upload class="upload-list-inline"
+            nzAction="http://localhost:8090/common/file/"         
+            nzMultiple
+            [nzListType]="'text'"        
+            [nzData]="imageUploadParam"
+            [nzFileList]="fileList"
+            (nzChange)="fileUploadChange($event)">
+            <button nz-button><i nz-icon type="upload"></i><span>첨부파일</span></button>
+        </nz-upload>
+    </div>
 </form>

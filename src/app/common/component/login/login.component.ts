@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
       .subscribe((model: UserToken) => {
         console.log(model);
         sessionStorage.setItem('token', model.token);
+        sessionStorage.setItem('imageUrl', model.imageUrl);
         sessionStorage.setItem('menuGroupList', JSON.stringify(model.menuGroupList));
+        sessionStorage.setItem('authorityList', JSON.stringify(model.authorities));
 
         this.router.navigate(['/home']);
       });

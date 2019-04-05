@@ -1,6 +1,6 @@
 .logo {
     width: 200px;
-    height: 48px;    
+    height: 60px;    
     background-color: rgba(255, 255, 255, 0.2);
     float: left;
     vertical-align: middle;
@@ -18,9 +18,27 @@
     width: 200px;
 }
 
-.header {
-    height: 48px;
-    padding:0;
+.header {        
+    height: 60px;
+    padding: 0;
+    margin: 0;
+    align-content: center;
+    vertical-align: middle;    
+}
+
+.collapse-icon {
+    margin-top: 16px;
+    margin-left: 5px;
+    font-size: 24px; 
+    color:rgb(185, 173, 159);
+    vertical-align: top;
+}
+
+.avatar {    
+    float: right;
+    margin-top: 6px;
+    margin-right: 20px;
+    vertical-align: top;
 }
 
 .main-content {
