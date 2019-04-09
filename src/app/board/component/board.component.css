@@ -9,6 +9,13 @@
   height: calc(100vh - 233px);
 }
 
+.tree {
+  width: 200px; 
+  height: calc(100vh - 173px);
+  float: left; 
+  background-color: brown;
+}
+
 :host ::ng-deep .ck-editor__editable {
   min-height: 700px !important;
 }

@@ -11,7 +11,7 @@
 
 .sidebar {
     background: white;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 92px);
 }
 
 .sidemenugroup {
@@ -48,8 +48,10 @@
     overflow-y: auto;
 }
 
-.footer {
-    height: 32px;
-    text-align: center;
+.footer {    
+    margin: 0px;
+    padding: 0px;
+    height: 57px;
+    text-align: center;    
     background-color: green;
 }

@@ -44,7 +44,8 @@ export class BoardComponent implements OnInit {
   }
 
   public setBoardSelect(item): void {
-    this.selectedBoard = item;
+    this.tabTitle = item.title;
+    this.selectedBoard = item.key;
     this.getArticleGridData();
   }
 

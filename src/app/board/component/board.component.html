@@ -14,27 +14,26 @@
   </div>
 </div>
 
-<div nz-row>
-  <div nz-col [nzXs]="4" [nzSm]="4">
-    <h3>게시판 목록</h3>
-    <app-board-tree id="boardTree" #boardTree
-      [searchValue]="queryValue"
-      (itemSelected)="setBoardSelect($event)"
-      (itemDbClicked)="modifyBoard($event)">
-    </app-board-tree>
-  </div>
-  <div nz-col [nzXs]="20" [nzSm]="20">    
-    <nz-tabset>
-      <nz-tab [nzTitle]="selectedBoard">
-        <div class="grid">
-          <app-article-grid id="articleGrid" #articleGrid 
-            (rowDoubleClicked)="editArticle($event)">
-          </app-article-grid>
-        </div>
-      </nz-tab>
-    </nz-tabset>  
-  </div>
+
+<div class="tree">
+  <h3>게시판 목록</h3>
+  <app-board-tree id="boardTree" #boardTree
+    [searchValue]="queryValue"
+    (itemSelected)="setBoardSelect($event)"
+    (itemDbClicked)="modifyBoard($event)">
+  </app-board-tree>
 </div>
+
+<nz-tabset>
+  <nz-tab [nzTitle]="tabTitle">
+    <div class="grid">
+      <app-article-grid id="articleGrid" #articleGrid 
+        (rowDoubleClicked)="editArticle($event)">
+      </app-article-grid>
+    </div>
+  </nz-tab>
+</nz-tabset>  
+
 
 <nz-drawer
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"

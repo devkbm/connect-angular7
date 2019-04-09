@@ -53,7 +53,7 @@ export class BoardTreeComponent implements OnInit {
 
   nzClick(event: NzFormatEmitEvent): void {
     const node = event.node.origin;
-    this.itemSelected.emit(node.key);
+    this.itemSelected.emit(node);
   }
 
   public nzDbClick(event: NzFormatEmitEvent): void {
