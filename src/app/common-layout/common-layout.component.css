@@ -44,14 +44,15 @@
 .main-content {
     margin: 24px 16px 0px 16px;
     background-color: white;
-    height: calc(100vh - 141px);
+    height: calc(100vh - 108px);
     overflow-y: auto;
 }
 
 .footer {    
+    position: sticky;
     margin: 0px;
-    padding: 0px;
-    height: 57px;
+    padding: 0px;    
+    height: 24px;
     text-align: center;    
     background-color: green;
 }

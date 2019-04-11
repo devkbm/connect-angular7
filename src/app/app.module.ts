@@ -11,7 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import ko from '@angular/common/locales/ko';
 import { CommonLayoutModule } from './common-layout/common-layout.module';
 import { CommonFuncModule } from './common/common-func.module';
-import { BoardModule } from './board/board.module';
+import { BoardModule } from './cooperation/board/board.module';
 
 import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
 

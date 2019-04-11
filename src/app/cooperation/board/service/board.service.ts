@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
-import { DataService } from '../../common/service/data.service';
-import { ResponseObject } from '../../common/model/response-object';
-import { ResponseList } from '../../common/model/response-list';
+import { DataService } from '../../../common/service/data.service';
+import { ResponseObject } from '../../../common/model/response-object';
+import { ResponseList } from '../../../common/model/response-list';
 
 import { Board } from '../model/board';
 import { Article } from '../model/article';

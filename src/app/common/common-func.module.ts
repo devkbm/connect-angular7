@@ -8,8 +8,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AgGridModule } from 'ag-grid-angular';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 
-import { BoardFormComponent } from '../board/component/board-form.component';
-import { BoardModule } from '../board/board.module';
 import { AppRoutingModule } from '../app-routing.module';
 
 import { LoginService } from './service/login.service';

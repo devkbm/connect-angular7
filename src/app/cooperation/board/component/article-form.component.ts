@@ -10,7 +10,7 @@ import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular/cked
 
 import { BoardService } from '.././service/board.service';
 
-import { ResponseObject } from '../../common/model/response-object';
+import { ResponseObject } from '../../../common/model/response-object';
 import { Article } from '.././model/article';
 import { FormBase, FormType } from 'src/app/common/form/form-base';
 import { UploadChangeParam, NzUploadComponent } from 'ng-zorro-antd';

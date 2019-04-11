@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CommonLayoutComponent } from './common-layout.component';
 
-import { BoardFormComponent } from '../board/component/board-form.component';
-import { ArticleFormComponent } from '../board/component/article-form.component';
+import { BoardFormComponent } from '../cooperation/board/component/board-form.component';
+import { ArticleFormComponent } from '../cooperation/board/component/article-form.component';
 
 import { MenuGroupFormComponent } from '../common/component/menu/menu-group-form.component';
 import { ProgramFormComponent } from '../common/component/program/program-form.component';
@@ -20,9 +20,8 @@ import { MenuGridComponent } from '../common/component/menu/menu-grid.component'
 import { MenuGroupGridComponent } from '../common/component/menu/menu-group-grid.component';
 import { MenuComponent } from '../common/component/menu/menu.component';
 import { MenuFormComponent } from '../common/component/menu/menu-form.component';
-import { BoardComponent } from '../board/component/board.component';
+import { BoardComponent } from '../cooperation/board/component/board.component';
 import { TermComponent } from '../common/component/terms/term.component';
-import { CommonCodeFormComponent } from '../common/component/commoncode/common-code-form.component';
 import { CommonCodeComponent } from '../common/component/commoncode/common-code.component';
 
 

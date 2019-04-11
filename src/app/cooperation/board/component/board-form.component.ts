@@ -8,7 +8,7 @@ import {
 
 import { BoardService } from '.././service/board.service';
 
-import { ResponseObject } from '../../common/model/response-object';
+import { ResponseObject } from '../../../common/model/response-object';
 import { Board } from '.././model/board';
 import { BoardHierarchy } from '../model/board-hierarchy';
 import { ResponseList } from 'src/app/common/model/response-list';
