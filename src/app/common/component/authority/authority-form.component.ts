@@ -61,7 +61,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
                                               updateOn: 'blur'
                                             }),
       description   : [ null ]
-    });    
+    });
   }
 
   public modifyForm(formData: Authority) {
@@ -99,7 +99,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
       .subscribe(
         (model: ResponseObject<Authority>) => {
           this.appAlarmService.changeMessage(model.message);
-          this.formSaved.emit(this.authorityForm.value);
+          this.formSaved.emit(this.authorityForm.getRawValue());
         },
         (err) => {
           console.log(err);
@@ -114,7 +114,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
       .subscribe(
         (model: ResponseObject<Authority>) => {
           this.appAlarmService.changeMessage(model.message);
-          this.formDeleted.emit(this.authorityForm.value);
+          this.formDeleted.emit(this.authorityForm.getRawValue());
         },
         (err) => {
           console.log(err);
@@ -128,7 +128,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit {
   }
 
   public closeForm() {
-    this.formClosed.emit(this.authorityForm.value);
+    this.formClosed.emit(this.authorityForm.getRawValue());
   }
 
 }

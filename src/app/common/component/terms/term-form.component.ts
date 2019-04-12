@@ -43,7 +43,7 @@ export class TermFormComponent implements OnInit {
       nameKor           : [ null, [ Validators.required ] ],
       abbreviationKor   : [ null, [ Validators.required ] ],
       nameEng           : [ null, [ Validators.required ] ],
-      abbreviationEng   : [ null, [ Validators.required ] ],      
+      abbreviationEng   : [ null, [ Validators.required ] ],
       description       : [ null ],
       comment           : [ null ]
     });
@@ -70,11 +70,11 @@ export class TermFormComponent implements OnInit {
 
   public submitTerm() {
     this.termService
-        .registerTerm(this.termForm.value)
+        .registerTerm(this.termForm.getRawValue())
         .subscribe(
           (model: ResponseObject<Term>) => {
             this.appAlarmService.changeMessage(model.message);
-            this.formSaved.emit(this.termForm.value);
+            this.formSaved.emit(this.termForm.getRawValue());
           },
           (err) => {
             console.log(err);
@@ -89,7 +89,7 @@ export class TermFormComponent implements OnInit {
       .subscribe(
         (model: ResponseObject<Term>) => {
           this.appAlarmService.changeMessage(model.message);
-          this.formDeleted.emit(this.termForm.value);
+          this.formDeleted.emit(this.termForm.getRawValue());
         },
         (err) => {
           console.log(err);
@@ -99,7 +99,7 @@ export class TermFormComponent implements OnInit {
   }
 
   public closeForm() {
-    this.formClosed.emit(this.termForm.value);
+    this.formClosed.emit(this.termForm.getRawValue());
   }
 
 }

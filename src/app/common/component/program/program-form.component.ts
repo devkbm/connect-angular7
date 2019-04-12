@@ -102,11 +102,11 @@ export class ProgramFormComponent extends FormBase implements OnInit {
 
   public submitProgram() {
     this.programService
-        .registerProgram(this.programForm.value)
+        .registerProgram(this.programForm.getRawValue())
         .subscribe(
           (model: ResponseObject<WebResource>) => {
             this.appAlarmService.changeMessage(model.message);
-            this.formSaved.emit(this.programForm.value);
+            this.formSaved.emit(this.programForm.getRawValue());
           },
           (err) => {
             console.log(err);
@@ -121,7 +121,7 @@ export class ProgramFormComponent extends FormBase implements OnInit {
       .subscribe(
         (model: ResponseObject<WebResource>) => {
           this.appAlarmService.changeMessage(model.message);
-          this.formDeleted.emit(this.programForm.value);
+          this.formDeleted.emit(this.programForm.getRawValue());
         },
         (err) => {
           console.log(err);
@@ -131,7 +131,7 @@ export class ProgramFormComponent extends FormBase implements OnInit {
   }
 
   public closeForm() {
-    this.formClosed.emit(this.programForm.value);
+    this.formClosed.emit(this.programForm.getRawValue());
   }
 
 }

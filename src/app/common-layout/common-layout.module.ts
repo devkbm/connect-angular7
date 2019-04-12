@@ -14,7 +14,7 @@ import { TermService } from '../common/service/term.service';
 
 @NgModule({
   imports: [
-    CommonModule,    
+    CommonModule,
     NgZorroAntdModule,
     FormsModule,
     CommonFuncModule,

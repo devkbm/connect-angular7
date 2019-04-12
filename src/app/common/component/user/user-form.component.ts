@@ -198,7 +198,7 @@ export class UserFormComponent extends FormBase implements OnInit {
       .subscribe(
         (model: ResponseObject<User>) => {
           this.appAlarmService.changeMessage(model.message);
-          this.formDeleted.emit(this.userForm.value);
+          this.formDeleted.emit(this.userForm.getRawValue());
         },
         (err) => {
           console.log(err);
@@ -284,7 +284,7 @@ export class UserFormComponent extends FormBase implements OnInit {
 
   // 미리보기 버튼 클릭시
   handlePreview = (file: UploadFile) => {
-    this.previewImage = file.url || file.thumbUrl;        
+    this.previewImage = file.url || file.thumbUrl;
     this.previewVisible = true;
   }
 
@@ -294,9 +294,9 @@ export class UserFormComponent extends FormBase implements OnInit {
   }
 
   fileUploadChange(param: UploadChangeParam) {
-    if (param.type == 'success') {
-      this.isUploadable = false;      
-    } 
+    if (param.type === 'success') {
+      this.isUploadable = false;
+    }
   }
 
 }

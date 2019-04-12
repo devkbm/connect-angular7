@@ -135,11 +135,11 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
 
   public submitCommonCode() {
     this.commonCodeService
-        .registerCommonCode(this.codeForm.value)
+        .registerCommonCode(this.codeForm.getRawValue())
         .subscribe(
           (model: ResponseObject<CommonCode>) => {
             this.appAlarmService.changeMessage(model.message);
-            this.formSaved.emit(this.codeForm.value);
+            this.formSaved.emit(this.codeForm.getRawValue());
           },
           (err) => {
             console.log(err);
@@ -154,7 +154,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
         .subscribe(
             (model: ResponseObject<CommonCode>) => {
             this.appAlarmService.changeMessage(model.message);
-            this.formDeleted.emit(this.codeForm.value);
+            this.formDeleted.emit(this.codeForm.getRawValue());
             },
             (err) => {
             console.log(err);
@@ -164,7 +164,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
   }
 
   public closeForm() {
-    this.formClosed.emit(this.codeForm.value);
+    this.formClosed.emit(this.codeForm.getRawValue());
   }
 
 }

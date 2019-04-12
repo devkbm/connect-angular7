@@ -65,12 +65,12 @@ export class MenuFormComponent extends FormBase implements OnInit {
 
   ngOnInit() {
 
-    this.newForm(null);    
+    this.newForm(null);
 
     this.getMenuTypeList();
     this.getProgramList();
     this.getMenuGroupList();
-  }  
+  }
 
   public newForm(menuGroupCode: string): void {
     this.formType = FormType.NEW;
@@ -91,9 +91,9 @@ export class MenuFormComponent extends FormBase implements OnInit {
   }
 
   public modifyForm(formData: Menu): void {
-    this.formType = FormType.MODIFY;    
+    this.formType = FormType.MODIFY;
 
-    this.getMenuHierarchy(formData.menuGroupCode);    
+    this.getMenuHierarchy(formData.menuGroupCode);
 
     this.menuForm = this.fb.group({
       menuGroupCode     : [ null, [ Validators.required ] ],
@@ -105,7 +105,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
       resource          : [ null ]
     });
 
-    this.menuForm.patchValue(formData);    
+    this.menuForm.patchValue(formData);
   }
 
   public getMenu(menuCode: string) {
@@ -113,11 +113,11 @@ export class MenuFormComponent extends FormBase implements OnInit {
     this.menuService
       .getMenu(menuCode)
       .subscribe(
-        (model: ResponseObject<Menu>) => {          
+        (model: ResponseObject<Menu>) => {
           if ( model.total > 0 ) {
-            this.modifyForm(model.data)            
+            this.modifyForm(model.data);
           } else {
-            this.newForm(null);            
+            this.newForm(null);
           }
           this.appAlarmService.changeMessage(model.message);
         },
@@ -130,10 +130,10 @@ export class MenuFormComponent extends FormBase implements OnInit {
 
   private submitMenu() {
     this.menuService
-      .registerMenu(this.menuForm.value)
+      .registerMenu(this.menuForm.getRawValue())
       .subscribe(
         (model: ResponseObject<Menu>) => {
-          this.formSaved.emit(this.menuForm.value);
+          this.formSaved.emit(this.menuForm.getRawValue());
           this.appAlarmService.changeMessage(model.message);
         },
         (err) => {
@@ -148,7 +148,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
       .deleteMenu(this.menuForm.value)
       .subscribe(
         (model: ResponseObject<Menu>) => {
-          this.formDeleted.emit(this.menuForm.value);
+          this.formDeleted.emit(this.menuForm.getRawValue());
           this.appAlarmService.changeMessage(model.message);
         },
         (err) => {
@@ -159,7 +159,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
   }
 
   public closeForm() {
-    this.formClosed.emit(this.menuForm.value);
+    this.formClosed.emit(this.menuForm.getRawValue());
   }
 
   private getMenuHierarchy(menuGroupCode: string): void {

@@ -23,6 +23,7 @@ import { MenuFormComponent } from '../common/component/menu/menu-form.component'
 import { BoardComponent } from '../cooperation/board/component/board.component';
 import { TermComponent } from '../common/component/terms/term.component';
 import { CommonCodeComponent } from '../common/component/commoncode/common-code.component';
+import { TeamFormComponent } from '../cooperation/communication/component/team-form.component';
 
 
 const layoutroutes: Routes = [
@@ -46,7 +47,8 @@ const layoutroutes: Routes = [
       {path: 'authForm',      component: AuthorityFormComponent},
       {path: 'authGrid',      component: AuthorityGridComponent},
       {path: 'auth',          component: AuthorityComponent},
-      {path: 'term',          component: TermComponent}
+      {path: 'term',          component: TermComponent},
+      {path: 'team',          component: TeamFormComponent}
     ]
   }
 ];

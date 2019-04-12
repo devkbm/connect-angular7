@@ -47,7 +47,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
               private menuService: MenuService,
               private appAlarmService: AppAlarmService) { super(); }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.newForm();
   }
 
@@ -61,7 +61,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
                                               }),
       menuGroupName   : [ null, [ Validators.required ] ],
       description     : [ null]
-    });    
+    });
   }
 
   public modifyForm(formData: MenuGroup): void {
@@ -70,10 +70,10 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
       menuGroupCode   : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
       menuGroupName   : [ null, [ Validators.required ] ],
       description     : [ null ]
-    });    
+    });
 
     this.menuGroupForm.patchValue(formData);
-  }  
+  }
 
   public getMenuGroup(menuGroupCode: string) {
     this.menuService
@@ -81,11 +81,11 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
       .subscribe(
         (model: ResponseObject<MenuGroup>) => {
           if ( model.total > 0 ) {
-            this.modifyForm(model.data);                        
+            this.modifyForm(model.data);
           } else {
-            this.newForm();            
+            this.newForm();
           }
-          this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 조회되었습니다.');
+          this.appAlarmService.changeMessage(model.message);
         },
         (err) => {
           console.log(err);
@@ -96,11 +96,11 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
 
   private submitMenuGroup() {
     this.menuService
-      .registerMenuGroup(this.menuGroupForm.value)
+      .registerMenuGroup(this.menuGroupForm.getRawValue())
       .subscribe(
         (model: ResponseObject<MenuGroup>) => {
-          this.formSaved.emit(this.menuGroupForm.value);
-          this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 저장되었습니다.');
+          this.formSaved.emit(this.menuGroupForm.getRawValue());
+          this.appAlarmService.changeMessage(model.message);
         },
         (err) => {
           console.log(err);
@@ -114,7 +114,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
       .deleteMenuGroup(this.menuGroupForm.get('menuGroupCode').value)
       .subscribe(
         (model: ResponseObject<MenuGroup>) => {
-          this.formDeleted.emit(this.menuGroupForm.value);
+          this.formDeleted.emit(this.menuGroupForm.getRawValue());
           this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 삭제되었습니다.');
         },
         (err) => {
@@ -125,7 +125,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit {
   }
 
   public closeForm() {
-    this.formClosed.emit(this.menuGroupForm.value);
+    this.formClosed.emit(this.menuGroupForm.getRawValue());
   }
 
 }

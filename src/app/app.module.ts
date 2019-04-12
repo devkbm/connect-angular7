@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,9 +12,9 @@ import { registerLocaleData } from '@angular/common';
 import ko from '@angular/common/locales/ko';
 import { CommonLayoutModule } from './common-layout/common-layout.module';
 import { CommonFuncModule } from './common/common-func.module';
-import { BoardModule } from './cooperation/board/board.module';
 
-import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
+import { BoardModule } from './cooperation/board/board.module';
+import { CommunicationModule } from './cooperation/communication/communication.module';
 
 registerLocaleData(ko);
 
@@ -28,7 +29,8 @@ registerLocaleData(ko);
     AppRoutingModule,
     CommonLayoutModule,
     CommonFuncModule,
-    BoardModule
+    BoardModule,
+    CommunicationModule
   ],
   declarations: [
     AppComponent
