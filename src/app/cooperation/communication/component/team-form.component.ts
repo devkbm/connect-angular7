@@ -12,6 +12,7 @@ import { FormBase, FormType } from 'src/app/common/form/form-base';
 import { TeamService } from '../service/team.service';
 import { Team } from '../model/team';
 import { TeamMember } from '../model/team-member';
+import { ResponseList } from 'src/app/common/model/response-list';
 
 @Component({
   selector: 'app-team-form',
@@ -38,6 +39,8 @@ export class TeamFormComponent extends FormBase implements OnInit {
               private teamService: TeamService) { super(); }
 
   ngOnInit() {
+    this.getAllMember();
+
     this.newForm();
   }
 
@@ -82,6 +85,7 @@ export class TeamFormComponent extends FormBase implements OnInit {
   }
 
   public saveTeam(): void {
+    console.log(this.form.getRawValue());
     this.teamService
       .saveTeam(this.form.getRawValue())
       .subscribe(
@@ -110,6 +114,21 @@ export class TeamFormComponent extends FormBase implements OnInit {
 
   public closeForm() {
     this.formClosed.emit(this.form.getRawValue());
+  }
+
+  public getAllMember(): void {
+    this.teamService.getAllMemberList()
+      .subscribe(
+        (model: ResponseList<TeamMember>) => {
+          if (model.data) {
+            this.memberList = model.data;
+          } else {
+            this.memberList = [];
+          }
+        },
+        (err) => {},
+        () => {}
+    );
   }
 
   //#endregion

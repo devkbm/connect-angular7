@@ -8,6 +8,7 @@ import { DataService } from '../../../common/service/data.service';
 import { ResponseObject } from '../../../common/model/response-object';
 import { ResponseList } from '../../../common/model/response-list';
 import { Team } from '../model/team';
+import { TeamMember } from '../model/team-member';
 
 
 
@@ -71,6 +72,10 @@ export class TeamService extends DataService {
 
   }
 
+  /**
+   * @description 팀을 삭제한다.
+   * @param id team 객체 id
+   */
   public deleteTeam(id: number): Observable<ResponseObject<Team>> {
     const url = `${this.API_URI}/team/${id}`;
     const options = {
@@ -81,6 +86,20 @@ export class TeamService extends DataService {
       .delete<ResponseObject<Team>>(url, options)
       .pipe(
         catchError(this.handleError<ResponseObject<Team>>('deleteTeam', null))
+      );
+  }
+
+  public getAllMemberList(params?: any): Observable<ResponseList<TeamMember>> {
+    const url = `${this.API_URI}/allmember`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      params: params
+    };
+
+    return this.http
+      .get<ResponseList<TeamMember>>(url, options)
+      .pipe(
+        catchError(this.handleError<ResponseList<TeamMember>>('getAllMemberList', null))
       );
   }
 
