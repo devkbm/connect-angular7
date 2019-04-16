@@ -124,6 +124,9 @@ export class AggridFunction {
     }
 
     public sizeToFit(): void {
+        if (this.gridApi == null) {
+            return;
+        }
         this.gridApi.sizeColumnsToFit();
     }
 

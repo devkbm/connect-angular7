@@ -9,6 +9,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from '../../common/grid/renderer/button-renderer.component';
 import { TeamService } from './service/team.service';
 import { TeamFormComponent } from './component/team-form.component';
+import { TeamGridComponent } from './component/team-grid.component';
+import { TeamComponent } from './component/team.component';
 
 @NgModule({
   imports: [
@@ -21,12 +23,15 @@ import { TeamFormComponent } from './component/team-form.component';
     CKEditorModule
   ],
   declarations: [
-    TeamFormComponent
+    TeamFormComponent,
+    TeamGridComponent,
+    TeamComponent
   ],
   providers: [
     TeamService
   ],
   exports: [
+    TeamComponent,
     TeamFormComponent
   ]
 })

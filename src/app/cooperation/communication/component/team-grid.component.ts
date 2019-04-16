@@ -1,18 +1,19 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AggridFunction } from 'src/app/common/grid/aggrid-function';
 import { AppAlarmService } from 'src/app/common/service/app-alarm.service';
-import { Article } from '../model/article';
-import { BoardService } from '../service/board.service';
 import { ResponseList } from 'src/app/common/model/response-list';
 
-@Component({
-  selector: 'app-article-grid',
-  templateUrl: './article-grid.component.html',
-  styleUrls: ['./article-grid.component.css']
-})
-export class ArticleGridComponent extends AggridFunction implements OnInit {
+import { TeamService } from '../service/team.service';
+import { Team } from '../model/team';
 
-  articleList: Article[];
+@Component({
+  selector: 'app-team-grid',
+  templateUrl: './team-grid.component.html',
+  styleUrls: ['./team-grid.component.css']
+})
+export class TeamGridComponent extends AggridFunction implements OnInit {
+
+  teamList: Team[];
 
   @Output()
   rowSelected = new EventEmitter();
@@ -24,7 +25,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
   editButtonClicked = new EventEmitter();
 
   constructor(private appAlarmService: AppAlarmService,
-              private boardService: BoardService) {
+              private teamService: TeamService) {
     super();
 
     this.columnDefs = [
@@ -36,56 +37,39 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           suppressSizeToFit: true
       },
       {
-          headerName: '제목',
-          field: 'title'
+          headerName: '팀 Id',
+          field: 'teamId'
       },
       {
-        headerName: '등록일자',
-        cellRenderer: (data) => {
-          return new Date(data.value).toLocaleString();
-        },
-        field: 'createdDt',
-        width: 180,
-        cellStyle: {'text-align': 'center'},
-        suppressSizeToFit: true
-      },
-      {
-        headerName: '수정일자',
-        cellRenderer: (data) => {
-          return new Date(data.value).toLocaleString();
-        },
-        field: 'modifiedDt',
-        width: 180,
-        cellStyle: {'text-align': 'center'},
-        suppressSizeToFit: true
+        headerName: '팀명',
+        field: 'teamName'
       }
     ];
 
     this.defaultColDef = {
       sortable: true,
-      resizable: true,
+      resizable: true
     };
 
 
     this.getRowNodeId = function(data) {
-        return data.pkArticle;
+        return data.teamId;
     };
   }
 
   ngOnInit() {
-    //this.setWidthAndHeight('100%', '100%');
+    this.sizeToFit();
   }
 
-  getArticleList(fkBoard): void {
-    this.boardService
-        .getArticleList(fkBoard)
+  public getTeamList(param: any): void {
+    this.teamService
+        .getTeamList(param)
         .subscribe(
-          (model: ResponseList<Article>) => {
+          (model: ResponseList<Team>) => {
               if (model.total > 0) {
-                  this.articleList = model.data;
-                  this.sizeToFit();
+                  this.teamList = model.data;
               } else {
-                  this.articleList = null;
+                  this.teamList = null;
               }
               this.appAlarmService.changeMessage(model.message);
           },
@@ -102,7 +86,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
     this.rowSelected.emit(selectedRows[0]);
   }
 
-  private rowDbClicked(event) {    
+  private rowDbClicked(event) {
     this.rowDoubleClicked.emit(event.data);
   }
 

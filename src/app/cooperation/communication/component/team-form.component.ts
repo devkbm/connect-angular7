@@ -50,7 +50,7 @@ export class TeamFormComponent extends FormBase implements OnInit {
     this.formType = FormType.NEW;
 
     this.form = this.fb.group({
-      teamId        : [ null, [ Validators.required ] ],
+      teamId        : new FormControl({value: null, disabled: true}),
       teamName      : [ null, [ Validators.required ] ],
       memberList    : [ null ]
     });
@@ -61,7 +61,7 @@ export class TeamFormComponent extends FormBase implements OnInit {
     this.formType = FormType.MODIFY;
 
     this.form = this.fb.group({
-      teamId        : new FormControl(null, {validators: Validators.required}),
+      teamId        : new FormControl({value: null, disabled: true}),
       teamName      : [ null, [ Validators.required ] ],
       memberList    : [ null ]
     });

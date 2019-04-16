@@ -38,7 +38,12 @@ export class BoardFormComponent extends FormBase implements OnInit {
   fromControlSm = 20;
 
   constructor(private fb: FormBuilder,
-              private boardService: BoardService) { super(); }
+              private boardService: BoardService) {
+    super();
+
+    this.getboardHierarchy();
+    this.getBoardTypeList();
+  }
 
   ngOnInit() {
 
@@ -52,8 +57,6 @@ export class BoardFormComponent extends FormBase implements OnInit {
       toDate          : [ new Date(9999, 11, 31) ]
     });
 
-    this.getboardHierarchy();
-    this.getBoardTypeList();
   }
 
   public newForm(): void {
@@ -85,7 +88,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
 
     this.boardForm.patchValue(formData);
   }
-  
+
   public getBoardTypeList(): void {
     this.boardService
         .getBoardTypeList()
