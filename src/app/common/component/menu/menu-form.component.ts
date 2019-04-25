@@ -61,15 +61,17 @@ export class MenuFormComponent extends FormBase implements OnInit {
   constructor(private fb: FormBuilder,
               private menuService: MenuService,
               private programService: ProgramService,
-              private appAlarmService: AppAlarmService) { super(); }
-
-  ngOnInit() {
-
-    this.newForm(null);
+              private appAlarmService: AppAlarmService) {
+    super();
 
     this.getMenuTypeList();
     this.getProgramList();
     this.getMenuGroupList();
+  }
+
+  ngOnInit() {
+
+    this.newForm(null);
   }
 
   public newForm(menuGroupCode: string): void {
