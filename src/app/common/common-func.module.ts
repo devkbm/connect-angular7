@@ -40,6 +40,8 @@ import { CommonCodeTreeComponent } from './component/commoncode/common-code-tree
 import { UserDuplicationValidatorDirective } from './validator/user-duplication-validator.directive';
 import { ButtonRendererComponent } from './grid/renderer/button-renderer.component';
 import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.component';
+import { DeptFormComponent } from './component/dept/dept-form.component';
+import { DeptTreeComponent } from './component/dept/dept-tree.component';
 
 
 @NgModule({
@@ -78,7 +80,9 @@ import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.com
     CommonCodeFormComponent,
     CommonCodeGridComponent,
     CommonCodeTreeComponent,
-    CommonCodeComponent
+    CommonCodeComponent,
+    DeptFormComponent,
+    DeptTreeComponent
   ],
   exports: [
     LoginComponent,

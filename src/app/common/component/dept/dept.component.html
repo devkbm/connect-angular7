@@ -1,0 +1,56 @@
+<!--조회 조건-->
+<div nz-row class="btn-group">  
+  <div nz-col [nzSpan]="12">
+    <nz-input-group nzSearch [nzSuffix]="suffixIconSearch">
+      <input type="text" style="ime-mode:normal;" [(ngModel)]="queryValue" nz-input placeholder="input search text">
+    </nz-input-group>          
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">    
+    <button nz-button (click)="getCommonCodeTree()">
+      <i nz-icon type="search"></i>
+      조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="initForm()">
+      <i nz-icon type="form" theme="outline"></i>
+      신규
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" 
+      nz-popconfirm nzTitle="저장하시겠습니까?" 
+      (nzOnConfirm)="saveCommonCode()" (nzOnCancel)="false">
+      <i nz-icon type="save" theme="outline"></i>
+      저장
+    </button> 
+    <nz-divider nzType="vertical"></nz-divider>          
+    <button nz-button nzType="danger" 
+      nz-popconfirm nzTitle="삭제하시겠습니까?" 
+      (nzOnConfirm)="deleteCommonCode()" (nzOnCancel)="false">
+      <i nz-icon type="delete" theme="outline"></i>
+      삭제
+    </button>    
+  </div>
+</div>
+      
+<!-- -->
+<h3>부서코드 목록</h3>
+
+<div class="grid-wrapper">
+      <app-dept-tree
+        #deptTree
+        id="deptTree"
+        [searchValue]="queryValue"
+        (itemSelected)="selectedItem($event)">              
+      </app-dept-tree>      
+
+      <app-dept-form
+        id="deptForm"
+        #deptForm
+        (formSaved)="getCommonCodeTree()"
+        (formDeleted)="getCommonCodeTree()">
+    </app-dept-form>
+</div>
+      
