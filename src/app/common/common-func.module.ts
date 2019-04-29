@@ -42,6 +42,7 @@ import { ButtonRendererComponent } from './grid/renderer/button-renderer.compone
 import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.component';
 import { DeptFormComponent } from './component/dept/dept-form.component';
 import { DeptTreeComponent } from './component/dept/dept-tree.component';
+import { DeptComponent } from './component/dept/dept.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { DeptTreeComponent } from './component/dept/dept-tree.component';
     CommonCodeTreeComponent,
     CommonCodeComponent,
     DeptFormComponent,
-    DeptTreeComponent
+    DeptTreeComponent,
+    DeptComponent
   ],
   exports: [
     LoginComponent,

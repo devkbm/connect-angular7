@@ -25,6 +25,7 @@ import { TermComponent } from '../common/component/terms/term.component';
 import { CommonCodeComponent } from '../common/component/commoncode/common-code.component';
 import { TeamFormComponent } from '../cooperation/communication/component/team-form.component';
 import { TeamComponent } from '../cooperation/communication/component/team.component';
+import { DeptComponent } from '../common/component/dept/dept.component';
 
 
 const layoutroutes: Routes = [
@@ -49,7 +50,8 @@ const layoutroutes: Routes = [
       {path: 'authGrid',      component: AuthorityGridComponent},
       {path: 'auth',          component: AuthorityComponent},
       {path: 'term',          component: TermComponent},
-      {path: 'team',          component: TeamComponent}
+      {path: 'team',          component: TeamComponent},
+      {path: 'dept',          component: DeptComponent}
     ]
   }
 ];

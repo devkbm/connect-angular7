@@ -33,11 +33,11 @@ export class DeptComponent implements OnInit {
         this.form.newForm();
     }
 
-    public saveCommonCode(): void {
+    public saveDept(): void {
         this.form.submitDept();
     }
 
-    public deleteCommonCode(): void {
+    public deleteDept(): void {
         this.form.deleteDept();
     }
 

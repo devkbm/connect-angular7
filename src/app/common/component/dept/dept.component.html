@@ -21,14 +21,14 @@
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzType="primary" 
       nz-popconfirm nzTitle="저장하시겠습니까?" 
-      (nzOnConfirm)="saveCommonCode()" (nzOnCancel)="false">
+      (nzOnConfirm)="saveDept()" (nzOnCancel)="false">
       <i nz-icon type="save" theme="outline"></i>
       저장
     </button> 
     <nz-divider nzType="vertical"></nz-divider>          
     <button nz-button nzType="danger" 
       nz-popconfirm nzTitle="삭제하시겠습니까?" 
-      (nzOnConfirm)="deleteCommonCode()" (nzOnCancel)="false">
+      (nzOnConfirm)="deleteDept()" (nzOnCancel)="false">
       <i nz-icon type="delete" theme="outline"></i>
       삭제
     </button>    
