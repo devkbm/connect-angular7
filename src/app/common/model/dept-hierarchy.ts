@@ -1,4 +1,5 @@
 export class DeptHierarchy {
+    parentDeptCode: string;
     deptCode: string;
     deptNameKorean: string;
     deptAbbreviationKorean: string;

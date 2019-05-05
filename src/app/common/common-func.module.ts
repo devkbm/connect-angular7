@@ -43,6 +43,8 @@ import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.com
 import { DeptFormComponent } from './component/dept/dept-form.component';
 import { DeptTreeComponent } from './component/dept/dept-tree.component';
 import { DeptComponent } from './component/dept/dept.component';
+import { MenuService } from './service/menu.service';
+import { DeptService } from './service/dept.service';
 
 
 @NgModule({
@@ -109,7 +111,9 @@ import { DeptComponent } from './component/dept/dept.component';
     { provide: NZ_I18N, useValue: en_US },
     LoginService,
     UserService,
-    CommonCodeService
+    CommonCodeService,
+    MenuService,
+    DeptService
   ]
 })
 export class CommonFuncModule { }

@@ -44,7 +44,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
   formControlXs = 24;
 
   formLabelSm = 4;
-  fromControlSm = 20;
+  formControlSm = 20;
 
   @Input()
   menuGroupCode: string;
@@ -147,7 +147,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
 
   private deleteMenu(): void {
     this.menuService
-      .deleteMenu(this.menuForm.value)
+      .deleteMenu(this.menuForm.getRawValue())
       .subscribe(
         (model: ResponseObject<Menu>) => {
           this.formDeleted.emit(this.menuForm.getRawValue());
@@ -173,7 +173,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
           if ( model.total > 0 ) {
             this.menuHiererachy = model.data;
           } else {
-            this.menuHiererachy = null;
+            this.menuHiererachy = [];
           }
         },
         (err) => {

@@ -1,6 +1,24 @@
 {{deptForm.value | json}}
 <form nz-form [formGroup]="deptForm">
 
+    <!--상위부서코드 필드-->
+    <nz-form-item class="form-item">
+        <nz-form-label
+            nzFor="parentDeptCode"
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
+            상위 메뉴코드
+        </nz-form-label>
+        
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" >
+            <nz-tree-select
+                id="parentDeptCode"
+                [nzNodes]="deptHierarchy"
+                [nzAllowClear]="true"                
+                formControlName="parentDeptCode">
+            </nz-tree-select>
+        </nz-form-control>
+    </nz-form-item>
+
     <!--부서코드 필드 (생성)-->
     <nz-form-item class="form-item" *ngIf="formType == 'NEW'">
         <nz-form-label nzFor="deptCode" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">부서코드</nz-form-label>

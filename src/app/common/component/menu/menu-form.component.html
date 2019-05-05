@@ -9,7 +9,7 @@
             메뉴그룹코드
         </nz-form-label>
 
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-select
                 id="menuGroupCode"
                 formControlName="menuGroupCode"
@@ -34,12 +34,11 @@
             상위 메뉴코드
         </nz-form-label>
         
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm" >
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" >
             <nz-tree-select
                 id="parentMenuCode"
                 [nzNodes]="menuHiererachy"
-                [nzAllowClear]="true"
-                [nzAsyncData]="true"
+                [nzAllowClear]="true"                
                 formControlName="parentMenuCode">
             </nz-tree-select>
         </nz-form-control>
@@ -51,7 +50,7 @@
             nzFor="menuCode" nzRequired
             [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴코드
         </nz-form-label>
-        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input
                 nz-input
                 id="menuCode"
@@ -72,7 +71,7 @@
             nzFor="menuCode" nzRequired
             [nzXs]="formLabelXs" [nzSm]="formLabelSm">메뉴코드
         </nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input
                 nz-input
                 id="menuCode"
@@ -90,7 +89,7 @@
             nzFor="menuName"
             nzRequired
             [nzXs]="formLabelXs" [nzSm]="formLabelSm" >메뉴명</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input
                 nz-input
                 id="menuName"
@@ -111,7 +110,7 @@
             메뉴타입
         </nz-form-label>
 
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-select
                 id="menuType"
                 formControlName="menuType"
@@ -135,7 +134,7 @@
             [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             프로그램
         </nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-select
                 id="resource"
                 formControlName="resource"
@@ -160,7 +159,7 @@
             [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             순번
         </nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-input-number
                 id="sequence"
                 formControlName="sequence"

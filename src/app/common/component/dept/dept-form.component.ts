@@ -12,6 +12,8 @@ import { AppAlarmService } from '../../service/app-alarm.service';
 import { ResponseObject } from '../../model/response-object';
 import { FormBase, FormType } from '../../form/form-base';
 import { Dept } from '../../model/dept';
+import { DeptHierarchy } from '../../model/dept-hierarchy';
+import { ResponseList } from '../../model/response-list';
 
 
 
@@ -23,6 +25,8 @@ import { Dept } from '../../model/dept';
 export class DeptFormComponent extends FormBase implements OnInit {
 
   deptForm: FormGroup;
+
+  deptHierarchy: DeptHierarchy[];
 
   /**
    * Xs < 576px span size
@@ -48,6 +52,7 @@ export class DeptFormComponent extends FormBase implements OnInit {
               private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {
+    this.getDeptHierarchy();
     this.newForm();
   }
 
@@ -55,6 +60,7 @@ export class DeptFormComponent extends FormBase implements OnInit {
     this.formType = FormType.NEW;
 
     this.deptForm = this.fb.group({
+      parentDeptCode          : [ null ],
       deptCode                : [ null ],
       deptNameKorean          : [ null ],
       deptAbbreviationKorean  : [ null, [ Validators.required ] ],
@@ -71,6 +77,7 @@ export class DeptFormComponent extends FormBase implements OnInit {
     this.formType = FormType.MODIFY;
 
     this.deptForm = this.fb.group({
+      parentDeptCode          : [ null ],
       deptCode                : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
       deptNameKorean          : [ null ],
       deptAbbreviationKorean  : [ null, [ Validators.required ] ],
@@ -101,6 +108,26 @@ export class DeptFormComponent extends FormBase implements OnInit {
               console.log(err);
             },
             () => {}
+        );
+  }
+
+  public getDeptHierarchy(): void {
+    this.deptService
+        .getDeptHierarchyList()
+        .subscribe(
+            (model: ResponseList<DeptHierarchy>) => {
+                if ( model.total > 0 ) {
+                this.deptHierarchy = model.data;
+                } else {
+                this.deptHierarchy = [];
+                }
+            },
+            (err) => {
+            console.log(err);
+            },
+            () => {
+            console.log('완료');
+            }
         );
   }
 

@@ -9,7 +9,7 @@
     </ng-template>
   </div>
   <div nz-col [nzSpan]="12" style="text-align: right;">    
-    <button nz-button (click)="getCommonCodeTree()">
+    <button nz-button (click)="getDeptTree()">
       <i nz-icon type="search"></i>
       조회
     </button>
@@ -49,8 +49,8 @@
       <app-dept-form
         id="deptForm"
         #deptForm
-        (formSaved)="getCommonCodeTree()"
-        (formDeleted)="getCommonCodeTree()">
+        (formSaved)="getDeptTree()"
+        (formDeleted)="getDeptTree()">
     </app-dept-form>
 </div>
       
