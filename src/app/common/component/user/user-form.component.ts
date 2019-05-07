@@ -20,6 +20,8 @@ import { MenuGroup } from '../../model/menu-group';
 import { existingUserValidator } from '../../validator/user-duplication-validator.directive';
 import { UploadFile, UploadChangeParam } from 'ng-zorro-antd';
 import { FormType, FormBase } from '../../form/form-base';
+import { DeptHierarchy } from '../../model/dept-hierarchy';
+import { DeptService } from '../../service/dept.service';
 
 @Component({
   selector: 'app-user-form',
@@ -31,6 +33,7 @@ export class UserFormComponent extends FormBase implements OnInit {
   public userForm: FormGroup;
   public authList;
   public menuGroupList;
+  public deptHierarchy: DeptHierarchy[];
 
   passwordConfirm: string;
   popup: boolean;
@@ -65,7 +68,7 @@ export class UserFormComponent extends FormBase implements OnInit {
   formControlXs = 24;
 
   formLabelSm = 4;
-  fromControlSm = 20;
+  formControlSm = 20;
 
 
   @Output()
@@ -79,6 +82,7 @@ export class UserFormComponent extends FormBase implements OnInit {
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
+              private deptService: DeptService,
               private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit() {
@@ -87,7 +91,7 @@ export class UserFormComponent extends FormBase implements OnInit {
 
     this.getAuthorityList();
     this.getMenuGroupList();
-
+    this.getDeptHierarchy();
   }
 
   public newForm(): void {
@@ -105,6 +109,7 @@ export class UserFormComponent extends FormBase implements OnInit {
       name            : [ null, [ Validators.required ] ],
       enabled         : [ true ],
       password        : [ null, [ Validators.required ] ],
+      deptCode        : [ null ],
       imageBase64     : [ null ],
       authorityList   : [ null ],
       menuGroupList   : [ null ]
@@ -121,6 +126,7 @@ export class UserFormComponent extends FormBase implements OnInit {
       name            : [ null, [ Validators.required ] ],
       enabled         : [ true ],
       password        : [ null, [ Validators.required ] ],
+      deptCode        : [ null ],
       imageBase64     : [ null ],
       authorityList   : [ null ],
       menuGroupList   : [ null ]
@@ -276,6 +282,26 @@ export class UserFormComponent extends FormBase implements OnInit {
           console.log('완료');
         }
       );
+  }
+
+  public getDeptHierarchy(): void {
+    this.deptService
+        .getDeptHierarchyList()
+        .subscribe(
+            (model: ResponseList<DeptHierarchy>) => {
+                if ( model.total > 0 ) {
+                this.deptHierarchy = model.data;
+                } else {
+                this.deptHierarchy = [];
+                }
+            },
+            (err) => {
+            console.log(err);
+            },
+            () => {
+            console.log('완료');
+            }
+        );
   }
 
   public closeForm() {

@@ -31,7 +31,7 @@
         <nz-form-label nzFor="userId" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             아이디
         </nz-form-label>
-        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control nzHasFeedback [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="userId" formControlName="userId" placeholder="아이디를 입력해주세요.">
             <nz-form-explain *ngIf="isFieldErrors(userForm,'userId','required')">The input is Required!</nz-form-explain>
             <nz-form-explain *ngIf="isFieldErrors(userForm,'userId','exists')">{{userForm.get('userId').getError('exists')}}</nz-form-explain>
@@ -43,7 +43,7 @@
         <nz-form-label nzFor="userId" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">
             아이디
         </nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="userId" formControlName="userId" placeholder="아이디를 입력해주세요.">
             <nz-form-explain *ngIf="isFieldErrors(userForm,'userId','required')">The input is Required!</nz-form-explain>            
         </nz-form-control>        
@@ -59,7 +59,7 @@
             이름
         </nz-form-label>
 
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm" nzHasFeedback>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzHasFeedback>
             <input style="ime-mode: inactive" id="name" nz-input formControlName="name">
             <nz-form-explain *ngIf="isFieldErrors(userForm,'name','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
@@ -75,9 +75,28 @@
             Password
         </nz-form-label>
 
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input style="ime-mode: inactive" nz-input type="password" id="password" formControlName="password">
             <nz-form-explain *ngIf="isFieldErrors(userForm,'password','required')">Please input your password!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <!--부서 필드-->
+    <nz-form-item class="form-item">
+        <nz-form-label
+            nzFor="deptCode"
+            [nzXs]="formLabelXs" [nzSm]="formLabelSm">
+            부서
+        </nz-form-label>
+        
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" >
+            <nz-tree-select
+                id="deptCode"
+                [nzNodes]="deptHierarchy"
+                [nzAllowClear]="true"            
+                [nzPlaceHolder]="'부서 없음'"    
+                formControlName="deptCode">
+            </nz-tree-select>
         </nz-form-control>
     </nz-form-item>
 
@@ -89,7 +108,7 @@
             [nzSm]="formLabelSm">사용여부
         </nz-form-label>
 
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <label id="enabled" nz-checkbox formControlName="enabled"></label>
         </nz-form-control>
     </nz-form-item>
@@ -103,7 +122,7 @@
             권한
         </nz-form-label>
 
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-select formControlName="authorityList" [nzSize]="'default'" nzMode="multiple" nzPlaceHolder="Please select">
                 <nz-option *ngFor="let option of authList" [nzLabel]="option.description" [nzValue]="option.authority"></nz-option>
             </nz-select>
@@ -119,7 +138,7 @@
             메뉴그룹
         </nz-form-label>
 
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-select formControlName="menuGroupList" [nzSize]="'default'" nzMode="multiple" nzPlaceHolder="Please select">
                 <nz-option *ngFor="let option of menuGroupList" [nzLabel]="option.menuGroupName" [nzValue]="option.menuGroupCode"></nz-option>
             </nz-select>

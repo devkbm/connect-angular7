@@ -13,7 +13,8 @@
             <nz-tree-select
                 id="parentDeptCode"
                 [nzNodes]="deptHierarchy"
-                [nzAllowClear]="true"                
+                [nzAllowClear]="true"            
+                [nzPlaceHolder]="'상위 부서 없음'"    
                 formControlName="parentDeptCode">
             </nz-tree-select>
         </nz-form-control>

@@ -1,4 +1,5 @@
 {{codeForm.value | json}}
+{{codeForm.get('fixedLengthYn').value}}
 <form nz-form [formGroup]="codeForm">
 
     <!--상위 공통코드 필드-->
@@ -89,7 +90,7 @@
     <nz-form-item class="form-item">
         <nz-form-label nzFor="codeLength" [nzXs]="formLabelXs" [nzSm]="formLabelSm">고정 길이</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-            <nz-input-number id="codeLength" formControlName="codeLength" [nzMax]="255" [nzStep]="1"></nz-input-number>
+            <nz-input-number id="codeLength" formControlName="codeLength" [nzMax]="255" [nzStep]="1" [nzDisabled]="!codeForm.get('fixedLengthYn').value"></nz-input-number>
         </nz-form-control>
     </nz-form-item>
 
