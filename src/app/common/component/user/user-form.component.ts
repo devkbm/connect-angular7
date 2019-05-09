@@ -106,10 +106,12 @@ export class UserFormComponent extends FormBase implements OnInit {
                                                 asyncValidators: [existingUserValidator(this.userService)],
                                                 updateOn: 'blur'
                                               }),
-      name            : [ null, [ Validators.required ] ],
+      name            : new FormControl({value: null, disabled: false}, {validators: Validators.required}),
       enabled         : [ true ],
       password        : [ null, [ Validators.required ] ],
       deptCode        : [ null ],
+      mobileNum       : [ null ],
+      email           : [ null ],
       imageBase64     : [ null ],
       authorityList   : [ null ],
       menuGroupList   : [ null ]
@@ -123,10 +125,12 @@ export class UserFormComponent extends FormBase implements OnInit {
 
     this.userForm = this.fb.group({
       userId          : new FormControl({value: null, disabled: true}, {validators: Validators.required}),
-      name            : [ null, [ Validators.required ] ],
+      name            : new FormControl({value: null, disabled: false}, {validators: Validators.required}),
       enabled         : [ true ],
       password        : [ null, [ Validators.required ] ],
       deptCode        : [ null ],
+      mobileNum       : [ null ],
+      email           : [ null ],
       imageBase64     : [ null ],
       authorityList   : [ null ],
       menuGroupList   : [ null ]

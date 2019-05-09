@@ -100,6 +100,36 @@
         </nz-form-control>
     </nz-form-item>
 
+    <!--이름 필드-->
+    <nz-form-item>
+        <nz-form-label 
+            nzFor="mobileNum"             
+            [nzXs]="formLabelXs"
+            [nzSm]="formLabelSm">
+            핸드폰 번호
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzHasFeedback>
+            <input style="ime-mode: inactive" id="mobileNum" nz-input formControlName="mobileNum">
+            <nz-form-explain *ngIf="isFieldErrors(userForm,'mobileNum','required')">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <!--이름 필드-->
+    <nz-form-item>
+        <nz-form-label 
+            nzFor="email"             
+            [nzXs]="formLabelXs"
+            [nzSm]="formLabelSm">
+            이메일
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm" nzHasFeedback>
+            <input style="ime-mode: inactive" id="name" nz-input formControlName="email">
+            <nz-form-explain *ngIf="isFieldErrors(userForm,'email','required')">The input is Required!</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
     <!--사용여부 필드-->
     <nz-form-item>
         <nz-form-label 
