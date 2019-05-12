@@ -83,7 +83,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           (model: ResponseList<Article>) => {
               if (model.total > 0) {
                   this.articleList = model.data;
-                  this.sizeToFit();
+                  // this.sizeToFit();
               } else {
                   this.articleList = null;
               }
@@ -102,8 +102,31 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
     this.rowSelected.emit(selectedRows[0]);
   }
 
-  private rowDbClicked(event) {    
+  private rowDbClicked(event) {
     this.rowDoubleClicked.emit(event.data);
+  }
+
+  onGridSizeChanged(params) {
+    
+    var gridWidth = document.getElementById("grid-wrapper").offsetWidth;
+    var columnsToShow = [];
+    var columnsToHide = [];
+    var totalColsWidth = 0;
+    var allColumns = params.columnApi.getAllColumns();
+    for (var i = 0; i < allColumns.length; i++) {
+      let column = allColumns[i];
+      totalColsWidth += column.getMinWidth();
+      if (totalColsWidth > gridWidth) {
+        columnsToHide.push(column.colId);
+      } else {
+        columnsToShow.push(column.colId);
+      }
+    }
+    params.columnApi.setColumnsVisible(columnsToShow, true);
+    params.columnApi.setColumnsVisible(columnsToHide, false);
+    params.api.sizeColumnsToFit();
+    
+    // console.log(params);
   }
 
 }
