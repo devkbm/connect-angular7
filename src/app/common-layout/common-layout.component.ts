@@ -115,7 +115,7 @@ export class CommonLayoutComponent implements OnInit {
   public setAvatar(): void {
     // this.userImageBase64 = 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
     const url = sessionStorage.getItem('imageUrl');
-    this.userImageBase64 = `http://localhost:8090/common/fileimage/${url}`;
+    this.userImageBase64 = `http://localhost:8090/static/${url}`;
     console.log(this.userImageBase64);
   }
 
