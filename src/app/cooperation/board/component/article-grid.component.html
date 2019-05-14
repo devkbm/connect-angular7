@@ -8,6 +8,7 @@
     [getRowNodeId]="getRowNodeId"    
     [frameworkComponents]="frameworkComponents"
     (gridReady)="onGridReady($event)"
+    (firstDataRendered)="onFirstDataRendered($event)"
     (gridSizeChanged)="onGridSizeChanged($event)"
     (selectionChanged)="selectionChanged($event)"
     (rowDoubleClicked)="rowDbClicked($event)">

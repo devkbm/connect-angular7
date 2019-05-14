@@ -153,7 +153,7 @@ export class UserFormComponent extends FormBase implements OnInit {
 
             this.previewImage = null;
             this.imageUploadParam = {userId: model.data.userId};
-            if (model.data.imageBase64.length > 0 ) {
+            if (model.data.imageBase64 != null ) {
               this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
               this.isUploadable = false;
             } else {

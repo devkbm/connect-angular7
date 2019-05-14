@@ -73,7 +73,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
   }
 
   ngOnInit() {
-    //this.setWidthAndHeight('100%', '100%');
+    //this.setWidthAndHeight('100%', '100%');    
   }
 
   getArticleList(fkBoard): void {
@@ -83,7 +83,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
           (model: ResponseList<Article>) => {
               if (model.total > 0) {
                   this.articleList = model.data;
-                  // this.sizeToFit();
+                  // this.sizeToFit();                  
               } else {
                   this.articleList = null;
               }
@@ -107,12 +107,13 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
   }
 
   onGridSizeChanged(params) {
-    
+    /*
     var gridWidth = document.getElementById("grid-wrapper").offsetWidth;
     var columnsToShow = [];
     var columnsToHide = [];
     var totalColsWidth = 0;
-    var allColumns = params.columnApi.getAllColumns();
+    var allColumns = this.gridColumnApi.getAllColumns();
+
     for (var i = 0; i < allColumns.length; i++) {
       let column = allColumns[i];
       totalColsWidth += column.getMinWidth();
@@ -122,11 +123,20 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
         columnsToShow.push(column.colId);
       }
     }
+    */
+        /*
     params.columnApi.setColumnsVisible(columnsToShow, true);
     params.columnApi.setColumnsVisible(columnsToHide, false);
     params.api.sizeColumnsToFit();
-    
-    // console.log(params);
+    */    
+
+    //this.gridColumnApi.setColumnsVisible(columnsToShow, true);
+    //this.gridColumnApi.setColumnsVisible(columnsToHide, false);
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  onFirstDataRendered(params) {
+    params.api.sizeColumnsToFit();
   }
 
 }

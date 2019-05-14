@@ -29,11 +29,12 @@
     <!--상위 게시판 필드-->
     <nz-form-item>
         <nz-form-label nzFor="ppkBoard" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">상위 게시판</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-tree-select
                 id="ppkBoard"
                 [nzNodes]="parentBoardItems"
                 [nzAllowClear]="true"
+                [nzPlaceHolder]="'상위 게시판 없음'"    
                 formControlName="ppkBoard">
             </nz-tree-select>
         </nz-form-control>
@@ -42,7 +43,7 @@
     <!--게시판명 필드-->
     <nz-form-item>
         <nz-form-label nzFor="boardName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">게시판 명</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="boardName" formControlName="boardName" placeholder="게시판명을 입력해주세요.">
             <nz-form-explain *ngIf="isFieldErrors(boardForm,'boardName','required')">The input is Required!</nz-form-explain>
         </nz-form-control>
@@ -53,7 +54,7 @@
       <nz-form-label nzFor="boardType" [nzXs]="formLabelXs" [nzSm]="formLabelSm">
           게시판 타입
       </nz-form-label>
-      <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+      <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
           <nz-select
               id="boardType"
               formControlName="boardType"
@@ -73,7 +74,7 @@
     <!--시작일자 필드-->
     <nz-form-item>
         <nz-form-label nzFor="fromDate" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">시작일자</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-date-picker formControlName="fromDate"></nz-date-picker>
         </nz-form-control>
     </nz-form-item>
@@ -81,7 +82,7 @@
     <!--종료일자 필드-->
     <nz-form-item>
         <nz-form-label nzFor="toDate" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">종료일자</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-date-picker formControlName="toDate"></nz-date-picker>
         </nz-form-control>
     </nz-form-item>
@@ -89,7 +90,7 @@
     <!--게시판설명 필드-->
     <nz-form-item>
         <nz-form-label nzFor="boardDescription" [nzXs]="formLabelXs" [nzSm]="formLabelSm">게시판 설명</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <textarea nz-input id="boardDescription" formControlName="boardDescription" placeholder="게시판 설명을 입력해주세요." [nzAutosize]="{ minRows: 10, maxRows: 20 }"></textarea>
         </nz-form-control>
     </nz-form-item>

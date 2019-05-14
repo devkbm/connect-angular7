@@ -28,7 +28,7 @@ export class AggridFunction {
 
     protected onGridReady(params) {
         this.gridApi = params.api;
-        this.gridColumnApi = params.columnApi;
+        this.gridColumnApi = params.columnApi;        
     }
 
     protected setWidthAndHeight(width, height) {

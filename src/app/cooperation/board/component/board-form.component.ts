@@ -35,7 +35,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
   formControlXs = 24;
 
   formLabelSm = 4;
-  fromControlSm = 20;
+  formControlSm = 20;
 
   constructor(private fb: FormBuilder,
               private boardService: BoardService) {
