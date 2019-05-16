@@ -24,6 +24,8 @@ export class DataService {
     protected getAuthorizedHttpHeaders(): HttpHeaders {
         return new HttpHeaders()
             .set('Content-Type', 'application/json')
+            .set('X-Requested-With', 'XMLHttpRequest')
+            .set('Authorization', sessionStorage.getItem('token'))
             .set('x-auth-token', sessionStorage.getItem('token'));
     }
 
@@ -31,7 +33,7 @@ export class DataService {
         const headers = new HttpHeaders()
         //.set('Content-Type', 'multipart/form-data')
         .set('Accept', 'application/json')
-        .set('x-auth-token', sessionStorage.getItem('token'));
+        .set('X-Auth-Token', sessionStorage.getItem('token'));
 
         headers.delete('Content-Type');
 
@@ -39,7 +41,7 @@ export class DataService {
     }
 
     protected getAuthorizedHeaders(): Headers {
-        return new Headers({'x-auth-token': sessionStorage.getItem('token')});
+        return new Headers({'X-Auth-Token': sessionStorage.getItem('token')});
     }
 
     /**

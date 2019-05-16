@@ -67,7 +67,7 @@ export class BoardService extends DataService {
     return this.http
       .get<ResponseList<BoardHierarchy>>(url, options)
       .pipe(
-          catchError((err) => Observable.throw(err))
+          catchError(this.handleError)
       );
   }
 

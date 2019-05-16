@@ -14,6 +14,7 @@ import { BoardComponent } from './component/board.component';
 import { ArticleGridComponent } from './component/article-grid.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from '../../common/grid/renderer/button-renderer.component';
+import { ArticleViewComponent } from './component/article-view.component';
 
 
 
@@ -28,6 +29,7 @@ import { ButtonRendererComponent } from '../../common/grid/renderer/button-rende
     CKEditorModule
   ],
   declarations: [
+    ArticleViewComponent,
     BoardTreeComponent,
     BoardFormComponent,
     ArticleFormComponent,

@@ -15,4 +15,5 @@ export class Article {
     articleChecks: ArticleCheck[];
     fileList: string[];
     file: File;
+    editable: boolean;
 }

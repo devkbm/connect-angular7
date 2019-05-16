@@ -62,6 +62,8 @@ export class ArticleFormComponent extends FormBase implements OnInit {
 
   textData;
 
+  article: Article;
+
   @ViewChild('upload') upload: NzUploadComponent;
   @ViewChild('ckEditor') ckEditor; //: CKEditorComponent;
 
@@ -123,6 +125,8 @@ export class ArticleFormComponent extends FormBase implements OnInit {
       .subscribe(
         (model: ResponseObject<Article>) => {
           if (model.data) {
+            this.article = model.data;
+
             this.modifyForm(model.data);
             this.fileList = model.data.fileList;
 
@@ -160,8 +164,7 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   }
 
   public textChange( {editor}: ChangeEvent) {
-    const data = editor.getData();
-    console.log(editor);
+    const data = editor.getData();    
     this.articleForm.get('contents').setValue(data);
   }
 

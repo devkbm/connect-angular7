@@ -89,7 +89,7 @@ export class CommonLayoutComponent implements OnInit {
           // this.treeCom.nzSelectedKeys = [seledtedMenu];
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
         },
         () => {
           console.log('메뉴 조회 완료');

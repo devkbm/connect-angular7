@@ -3,6 +3,7 @@ import { ArticleGridComponent } from './article-grid.component';
 import { BoardFormComponent } from './board-form.component';
 import { BoardTreeComponent } from './board-tree.component';
 import { ArticleFormComponent } from './article-form.component';
+import { Article } from '../model/article';
 
 @Component({
   selector: 'app-board',
@@ -20,10 +21,15 @@ export class BoardComponent implements OnInit {
    */
   articleDrawerVisible = false;
 
+  articleViewDrawerVisible = false;
+
   /**
    * 선택된 게시판 키
    */
   selectedBoard;
+
+
+  selectedArticle: Article;
 
   /**
    * 게시판 트리 조회 Filter 조건
@@ -54,22 +60,6 @@ export class BoardComponent implements OnInit {
     this.articleGrid.getArticleList(this.selectedBoard);
   }
 
-  public openDrawer(): void {
-    this.drawerVisible = true;
-  }
-
-  public closeDrawer(): void {
-    this.drawerVisible = false;
-  }
-
-  public openArticleDrawer(): void {
-    this.articleDrawerVisible = true;
-  }
-
-  public closeArticleDrawer(): void {
-    this.articleDrawerVisible = false;
-  }
-
   public newBoard(): void {
     this.boardForm.newForm();
     this.openDrawer();
@@ -90,13 +80,51 @@ export class BoardComponent implements OnInit {
     this.openArticleDrawer();
   }
 
+  public validEditable(item) {
+    if (item.editable === true) {
+      this.editArticle(item);
+    } else {
+      this.showArticleView(item);
+    }
+    console.log(item);
+  }
+
   public editArticle(item): void {
     this.articleForm.getArticle(item.pkArticle);
     this.openArticleDrawer();
+  }
+
+  public showArticleView(item): void {
+    this.selectedArticle = item;
+    this.openArticleViewDrawer();
   }
 
   public print(item): void {
     console.log(item);
   }
 
+
+  public openDrawer(): void {
+    this.drawerVisible = true;
+  }
+
+  public closeDrawer(): void {
+    this.drawerVisible = false;
+  }
+
+  public openArticleDrawer(): void {
+    this.articleDrawerVisible = true;
+  }
+
+  public closeArticleDrawer(): void {
+    this.articleDrawerVisible = false;
+  }
+
+  public openArticleViewDrawer(): void {
+    this.articleViewDrawerVisible = true;
+  }
+
+  public closeArticleViewDrawer(): void {
+    this.articleViewDrawerVisible = false;
+  }
 }
