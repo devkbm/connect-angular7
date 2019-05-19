@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { DataService } from '../service/data.service';
 
@@ -11,8 +11,8 @@ import { map, tap, catchError } from 'rxjs/operators';
 @Injectable()
 export class LoginService extends DataService {
 
-  constructor(http: HttpClient) {
-    super('http://localhost:8090/common/user/login', http);
+  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
+    super('http://localhost:8090/common/user/login', http, tokenExtractor);
     //super('http://localhost:8090/login', http);
   }
 
@@ -38,7 +38,8 @@ export class LoginService extends DataService {
   private doJsonLogin(id: string, pwd: string): Observable<UserToken> {
     const body = {username: id, password: pwd};
     const options = {
-      headers: this.getHttpHeaders()
+      headers: this.getHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http

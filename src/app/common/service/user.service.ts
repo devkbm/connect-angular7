@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -21,8 +21,8 @@ export class UserService extends DataService {
 
   private MENU_GROUP_API_URI = 'http://localhost:8090/common/menugroup';
 
-  constructor(http: HttpClient) {
-    super('http://localhost:8090/common/user', http);
+  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
+    super('http://localhost:8090/common/user', http, tokenExtractor);
   }
 
   checkUser(id: string): Observable<ResponseObject<boolean>> {

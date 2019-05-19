@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -15,8 +15,8 @@ import { MenuHierarchy } from '../model/menu-hierarchy';
 @Injectable()
 export class MenuService extends DataService {
 
-  constructor(http: HttpClient) {
-    super('http://localhost:8090/common', http);
+  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
+    super('http://localhost:8090/common', http, tokenExtractor);
   }
 
   getMenuGroupList(params?: any): Observable<ResponseList<MenuGroup>> {
@@ -167,7 +167,8 @@ export class MenuService extends DataService {
   getMenuHierarchy(menuGroupCode: String): Observable<ResponseList<MenuHierarchy>> {
     const url = `http://localhost:8090/common/menuhierarchy/${menuGroupCode}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http

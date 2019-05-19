@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class DataService {
 
     protected responseMap =  (res: Response) => res;
-
-    constructor(protected API_URI: string, protected http: HttpClient) { }
+    
+    constructor(protected API_URI: string, protected http: HttpClient, protected tokenExtractor: HttpXsrfTokenExtractor) { }
 
     /**
      * @description HttpHeaders를 가져온다.
      * @returnType {HttpHeaders}
      */
     protected getHttpHeaders(): HttpHeaders {
-        return new HttpHeaders().set('Content-Type', 'application/json');
+        //const token = this.tokenExtractor.getToken() as string;
+        
+        return new HttpHeaders()
+        //    .set('X-XSRF-TOKEN', token)
+            .set('Content-Type', 'application/json');
     }
 
     /**
@@ -22,9 +26,12 @@ export class DataService {
      * @returnType {HttpHeaders}
      */
     protected getAuthorizedHttpHeaders(): HttpHeaders {
+        const token = this.tokenExtractor.getToken() as string;
+        console.log(token);
         return new HttpHeaders()
             .set('Content-Type', 'application/json')
             .set('X-Requested-With', 'XMLHttpRequest')
+            //.set('X-XSRF-TOKEN', token)
             .set('Authorization', sessionStorage.getItem('token'))
             .set('x-auth-token', sessionStorage.getItem('token'));
     }

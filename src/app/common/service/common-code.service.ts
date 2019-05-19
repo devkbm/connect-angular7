@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -15,8 +15,8 @@ import { CommonCodeHierarchy } from '../model/common-code-hierarchy';
 @Injectable()
 export class CommonCodeService extends DataService {
 
-  constructor(http: HttpClient) {
-    super('http://localhost:8090/common/code', http);
+  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
+    super('http://localhost:8090/common/code', http, tokenExtractor);
   }
 
   getCommonCodeList(params?: any): Observable<ResponseList<CommonCode>> {

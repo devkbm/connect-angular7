@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -13,8 +13,8 @@ import { WebResource } from '../model/web-resource';
 @Injectable()
 export class ProgramService extends DataService {
 
-  constructor(http: HttpClient) {
-    super('http://localhost:8090/common/webresource', http);
+  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
+    super('http://localhost:8090/common/webresource', http, tokenExtractor);
   }
 
   getProgramList(params?: any): Observable<ResponseList<WebResource>> {
