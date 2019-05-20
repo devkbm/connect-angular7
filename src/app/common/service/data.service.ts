@@ -14,10 +14,10 @@ export class DataService {
      * @returnType {HttpHeaders}
      */
     protected getHttpHeaders(): HttpHeaders {
-        //const token = this.tokenExtractor.getToken() as string;
+        const token = this.tokenExtractor.getToken() as string;
         
         return new HttpHeaders()
-        //    .set('X-XSRF-TOKEN', token)
+            //.set('X-XSRF-TOKEN', token)
             .set('Content-Type', 'application/json');
     }
 
