@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('menuGroupList', JSON.stringify(model.menuGroupList));
         sessionStorage.setItem('authorityList', JSON.stringify(model.authorities));
 
-        //this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
       });
 
   }

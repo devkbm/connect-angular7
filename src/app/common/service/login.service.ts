@@ -25,7 +25,8 @@ export class LoginService extends DataService {
   doLogin(id: string, pwd: string): Observable<UserToken> {
     const body = {username: id, password: pwd};
     const options = {
-      headers: this.getHttpHeaders()
+      headers: this.getHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http

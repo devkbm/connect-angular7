@@ -28,7 +28,8 @@ export class UserService extends DataService {
   checkUser(id: string): Observable<ResponseObject<boolean>> {
     const url = `${this.API_URI}/${id}/check`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -39,7 +40,8 @@ export class UserService extends DataService {
   getUser(id: string): Observable<ResponseObject<User>> {
     const url = `${this.API_URI}/${id}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -51,6 +53,7 @@ export class UserService extends DataService {
     const url = `${this.API_URI}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true,
       params: params
     };
 
@@ -61,7 +64,8 @@ export class UserService extends DataService {
 
   registerUser(user: User): Observable<ResponseObject<User>> {
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -71,7 +75,8 @@ export class UserService extends DataService {
 
   deleteUser(userId: string): Observable<ResponseObject<User>> {
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -81,7 +86,8 @@ export class UserService extends DataService {
 
   initializePassword(user: User): Observable<ResponseObject<string>> {
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -95,6 +101,7 @@ export class UserService extends DataService {
     const url = `${this.AUTHORITY_API_URI}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true,
       params: params
     };
 
@@ -108,7 +115,8 @@ export class UserService extends DataService {
   getAuthority(id: string): Observable<ResponseObject<Authority>> {
     const url = `${this.AUTHORITY_API_URI}/${id}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -121,7 +129,8 @@ export class UserService extends DataService {
   getAuthorityDupCheck(id: string): Observable<ResponseObject<boolean>> {
     const url = `${this.AUTHORITY_API_URI}/${id}/check`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -133,7 +142,8 @@ export class UserService extends DataService {
 
   registerAuthority(authority: Authority): Observable<ResponseObject<Authority>> {
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -146,7 +156,8 @@ export class UserService extends DataService {
   deleteAuthority(id: string): Observable<ResponseObject<Authority>> {
     const url = `${this.AUTHORITY_API_URI}/${id}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -159,7 +170,8 @@ export class UserService extends DataService {
   getMenuGroupList(): Observable<ResponseList<MenuGroup>> {
     const url = `${this.MENU_GROUP_API_URI}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http

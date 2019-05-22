@@ -22,7 +22,8 @@ export class BoardService extends DataService {
   getBoardTypeList(): Observable<ResponseList<any>> {
     const url = `${this.API_URI}/board/boardType`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http
@@ -35,7 +36,8 @@ export class BoardService extends DataService {
   getBoardList(): Observable<ResponseList<Board>> {
     const url = `${this.API_URI}/board`;
     const options = {
-        headers: this.getAuthorizedHttpHeaders()
+        headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true
       };
 
     return this.http
@@ -48,7 +50,8 @@ export class BoardService extends DataService {
   getBoard(id: string): Observable<ResponseObject<Board>> {
     const url = `${this.API_URI}/board/${id}`;
     const options = {
-        headers: this.getAuthorizedHttpHeaders()
+        headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true
       };
 
     return this.http
@@ -61,8 +64,9 @@ export class BoardService extends DataService {
   getBoardHierarchy(): Observable<ResponseList<BoardHierarchy>> {
     const url = `${this.API_URI}/boardHierarchy`;
     const options = {
-        headers: this.getAuthorizedHttpHeaders()
-      };
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
 
     return this.http
       .get<ResponseList<BoardHierarchy>>(url, options)
@@ -73,9 +77,13 @@ export class BoardService extends DataService {
 
   saveBoard(board: Board): Observable<ResponseObject<Board>> {
     const url = `${this.API_URI}/board`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
 
     return this.http
-    .post<ResponseObject<Board>>(url, board, {headers: this.getAuthorizedHttpHeaders()})
+    .post<ResponseObject<Board>>(url, board, options)
     .pipe(
       catchError((err) => Observable.throw(err))
     );
@@ -84,9 +92,13 @@ export class BoardService extends DataService {
 
   deleteBoard(board: Board): Observable<ResponseObject<Board>> {
     const url = `${this.API_URI}/board/${board.pkBoard}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
 
     return this.http
-      .delete<ResponseObject<Board>>(url, {headers: this.getAuthorizedHttpHeaders()})
+      .delete<ResponseObject<Board>>(url, options)
       .pipe(
         catchError((err) => Observable.throw(err))
       );
@@ -95,8 +107,9 @@ export class BoardService extends DataService {
   getArticleList(fkBoard: string, title?: string, contents?: string): Observable<ResponseList<Article>> {
     let url = `${this.API_URI}/board/article?fkBoard=${fkBoard}`;
     const options = {
-        headers: this.getAuthorizedHttpHeaders()
-      };
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
 
     if ( title !== undefined ) {
         url = url + '&title=' + title;
@@ -116,7 +129,8 @@ export class BoardService extends DataService {
   getArticle(id: number): Observable<ResponseObject<Article>> {
     const url = `${this.API_URI}/board/article/${id}`;
     const options = {
-        headers: this.getAuthorizedHttpHeaders()
+        headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true
       };
 
     return this.http
@@ -129,7 +143,8 @@ export class BoardService extends DataService {
   saveArticle(article: Article): Observable<ResponseObject<Article>> {
     const url = `${this.API_URI}/board/article`;
     const options = {
-        headers: this.getAuthorizedMultiPartHeaders()
+        headers: this.getAuthorizedMultiPartHeaders(),
+        withCredentials: true
       };
 
     let formData = new FormData();
@@ -159,8 +174,9 @@ export class BoardService extends DataService {
   saveArticleJson(article: Article): Observable<ResponseObject<Article>> {
     const url = `${this.API_URI}/board/article`;
     const options = {
-        headers: this.getAuthorizedHttpHeaders()
-      };
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
 
     return this.http
       .post<ResponseObject<Article>>(url, article, options)
@@ -171,9 +187,13 @@ export class BoardService extends DataService {
 
   deleteArticle(id): Observable<ResponseObject<Article>> {
     const url = `${this.API_URI}/board/article/${id}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
 
     return this.http
-      .delete<ResponseObject<Article>>(url, {headers: this.getAuthorizedHttpHeaders()})
+      .delete<ResponseObject<Article>>(url, options)
       .pipe(
         catchError((err) => Observable.throw(err))
       );
@@ -183,7 +203,8 @@ export class BoardService extends DataService {
     const url = `http://localhost:8090/file/${fileId}`;
     const options = {
       headers: this.getAuthorizedMultiPartHeaders(),
-      responseType: 'blob'
+      responseType: 'blob',
+      withCredentials: true
     };
 
     this.http.get(url, {headers: this.getAuthorizedMultiPartHeaders(), responseType: 'blob'})

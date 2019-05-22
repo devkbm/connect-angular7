@@ -22,7 +22,7 @@ import { ResponseList } from '../common/model/response-list';
 })
 export class CommonLayoutComponent implements OnInit {
 
-  isCollapsed: Boolean = false;
+  isCollapsed: boolean = false;
   triggerTemplate: TemplateRef<void> | null = null;
   selectedValue: string;
   message: string;
@@ -116,7 +116,6 @@ export class CommonLayoutComponent implements OnInit {
     // this.userImageBase64 = 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
     const url = sessionStorage.getItem('imageUrl');
     this.userImageBase64 = `http://localhost:8090/static/${url}`;
-    console.log(this.userImageBase64);
   }
 
 }

@@ -22,6 +22,7 @@ export class DeptService extends DataService {
     const url = `${this.API_URI}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true,
         params: params
      };
 
@@ -34,6 +35,7 @@ export class DeptService extends DataService {
     const url = 'http://localhost:8090/common/depttree';
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true,
         params: params
      };
 
@@ -45,7 +47,8 @@ export class DeptService extends DataService {
   getDept(id: string): Observable<ResponseObject<Dept>> {
     const url = `${this.API_URI}/${id}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http.get<ResponseObject<Dept>>(url, options).pipe(
@@ -67,7 +70,8 @@ export class DeptService extends DataService {
   saveDept(dept: Dept): Observable<ResponseObject<Dept>> {
     const url = `${this.API_URI}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
     return this.http.post<ResponseObject<Dept>>(url, dept, options).pipe(
       catchError((err) => Observable.throw(err))
@@ -77,7 +81,8 @@ export class DeptService extends DataService {
   deleteDept(id: string): Observable<ResponseObject<Dept>> {
     const url = `${this.API_URI}/${id}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
     return this.http
               .delete<ResponseObject<Dept>>(url, options)

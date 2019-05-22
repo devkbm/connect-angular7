@@ -21,6 +21,7 @@ export class TermService extends DataService {
     const url = `${this.API_URI}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true,
         params: params
      };
 
@@ -31,22 +32,37 @@ export class TermService extends DataService {
 
   getTerm(id: string): Observable<ResponseObject<Term>> {
     const url = `${this.API_URI}/${id}`;
-    return this.http.get<ResponseObject<Term>>(url, {headers: this.getAuthorizedHttpHeaders()}).pipe(
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+   };
+
+    return this.http.get<ResponseObject<Term>>(url, options).pipe(
       catchError((err) => Observable.throw(err))
     );
   }
 
   registerTerm(term: Term): Observable<ResponseObject<Term>> {
     const url = `${this.API_URI}`;
-    return this.http.post<ResponseObject<Term>>(url, term, {headers: this.getAuthorizedHttpHeaders()}).pipe(
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http.post<ResponseObject<Term>>(url, term, options).pipe(
       catchError((err) => Observable.throw(err))
     );
   }
 
   deleteTerm(id: string): Observable<ResponseObject<Term>> {
     const url = `${this.API_URI}/${id}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
     return this.http
-              .delete<ResponseObject<Term>>(url, {headers: this.getAuthorizedHttpHeaders()})
+              .delete<ResponseObject<Term>>(url, options)
               .pipe(
                 catchError((err) => Observable.throw(err))
               );

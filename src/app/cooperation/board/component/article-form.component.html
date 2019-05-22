@@ -52,12 +52,15 @@
     </nz-form-item>    
     <!--  [config]="{ toolbar: ['heading', '|', 'bold', 'italic', 'font', '|', 'undo', 'redo' ] }"-->
 
+    <!--[nzHeaders]="fileUploadHeader" -->
     <div class="clearfix" nz-row style="height: 100px">
         <nz-upload #upload class="upload-list-inline"
             nzAction="http://localhost:8090/common/file/"         
-            nzMultiple
-            [nzListType]="'text'"        
+            nzMultiple                                    
+            [nzListType]="'text'"      
+            [nzWithCredentials]="true"  
             [nzData]="imageUploadParam"
+            [nzHeaders]="fileUploadHeader"
             [nzFileList]="fileList"
             (nzChange)="fileUploadChange($event)">
             <button nz-button><i nz-icon type="upload"></i><span>첨부파일</span></button>
