@@ -93,8 +93,9 @@ export class ArticleFormComponent extends FormBase implements OnInit {
   ngOnInit() {
     this.newForm(null);
     this.fileUploadHeader = {
-      Authorization: sessionStorage.getItem('token'),
-      'x-auth-token': sessionStorage.getItem('token')
+q      Authorization: sessionStorage.getItem('token')
+      //'x-auth-token': sessionStorage.getItem('token')
+      //'Content-Type': 'multipart/form-data'
     };
   }
 
