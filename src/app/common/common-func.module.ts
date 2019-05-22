@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AgGridModule } from 'ag-grid-angular';
-import { NgZorroAntdModule, NZ_I18N, en_US, ko_KR } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 
 import { AppRoutingModule } from '../app-routing.module';
 
@@ -45,7 +45,6 @@ import { DeptTreeComponent } from './component/dept/dept-tree.component';
 import { DeptComponent } from './component/dept/dept.component';
 import { MenuService } from './service/menu.service';
 import { DeptService } from './service/dept.service';
-import { CustomHttpInterceptor } from './interceptor/custom-http-interceptor';
 
 
 @NgModule({
@@ -110,8 +109,7 @@ import { CustomHttpInterceptor } from './interceptor/custom-http-interceptor';
     CommonCodeComponent
   ],
   providers: [
-    { provide: NZ_I18N, useValue: ko_KR },
-    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
+    { provide: NZ_I18N, useValue: en_US },
     LoginService,
     UserService,
     CommonCodeService,
