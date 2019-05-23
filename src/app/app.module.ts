@@ -25,7 +25,7 @@ registerLocaleData(ko);
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
+    HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN', headerName: "X-XSRF-TOKEN"}),
     NgZorroAntdModule,
     AppRoutingModule,
     CommonLayoutModule,
