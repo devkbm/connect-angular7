@@ -23,6 +23,7 @@ export class CommonCodeService extends DataService {
     const url = `${this.API_URI}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true,
         params: params
      };
 
@@ -34,7 +35,8 @@ export class CommonCodeService extends DataService {
   getCommonCode(id: string): Observable<ResponseObject<CommonCode>> {
     const url = `${this.API_URI}/${id}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()      
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http.get<ResponseObject<CommonCode>>(url, options).pipe(
@@ -46,6 +48,7 @@ export class CommonCodeService extends DataService {
     const url = `http://localhost:8090/common/codetree`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true,
         params: params
      };
 
@@ -58,6 +61,7 @@ export class CommonCodeService extends DataService {
     const url = `${this.API_URI}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
+        withCredentials: true,
         params: {
           parentId : parentId
         }
@@ -71,7 +75,8 @@ export class CommonCodeService extends DataService {
   registerCommonCode(program: CommonCode): Observable<ResponseObject<CommonCode>> {
     const url = `${this.API_URI}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http.post<ResponseObject<CommonCode>>(url, program, options).pipe(
@@ -82,7 +87,8 @@ export class CommonCodeService extends DataService {
   deleteCommonCode(id: string): Observable<ResponseObject<CommonCode>> {
     const url = `${this.API_URI}/${id}`;
     const options = {
-      headers: this.getAuthorizedHttpHeaders()
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
     };
 
     return this.http.delete<ResponseObject<CommonCode>>(url, options).pipe(
