@@ -46,6 +46,8 @@ import { DeptComponent } from './component/dept/dept.component';
 import { MenuService } from './service/menu.service';
 import { DeptService } from './service/dept.service';
 import { CustomHttpInterceptor } from './interceptor/custom-http-interceptor';
+import { ResponseList } from './model/response-list';
+import { ResponseObject } from './model/response-object';
 
 
 @NgModule({
@@ -90,7 +92,18 @@ import { CustomHttpInterceptor } from './interceptor/custom-http-interceptor';
     DeptTreeComponent,
     DeptComponent
   ],
+  providers: [
+    { provide: NZ_I18N, useValue: ko_KR },
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
+    LoginService,
+    UserService,
+    CommonCodeService,
+    MenuService,
+    DeptService
+  ],
   exports: [
+    ResponseList,
+    ResponseObject,
     LoginComponent,
     UserFormComponent,
     UserGridComponent,
@@ -108,15 +121,6 @@ import { CustomHttpInterceptor } from './interceptor/custom-http-interceptor';
     CommonCodeGridComponent,
     CommonCodeTreeComponent,
     CommonCodeComponent
-  ],
-  providers: [
-    { provide: NZ_I18N, useValue: ko_KR },
-    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
-    LoginService,
-    UserService,
-    CommonCodeService,
-    MenuService,
-    DeptService
   ]
 })
 export class CommonFuncModule { }
