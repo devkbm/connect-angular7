@@ -1,5 +1,5 @@
 export class WorkGroup {
-    id: number;
-    name: string;
+    workGroupId: number;
+    workGroupName: string;
     memberList: string[];
 }

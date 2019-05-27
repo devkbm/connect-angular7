@@ -11,7 +11,7 @@ import { BoardService } from '.././service/board.service';
 import { ResponseObject } from '../../../common/model/response-object';
 import { Board } from '.././model/board';
 import { BoardHierarchy } from '../model/board-hierarchy';
-import { ResponseList } from 'src/app/common/model/response-list';
+import { ResponseList } from '../../../common/model/response-list';
 import { FormBase, FormType } from 'src/app/common/form/form-base';
 
 @Component({
@@ -23,7 +23,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
 
   boardForm: FormGroup;
 
-  parentBoardItems: BoardHierarchy[];
+  parentBoardItems: BoardHierarchy[] = [];
 
   boardTypeList;
 
@@ -97,7 +97,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
             if (model.data) {
               this.boardTypeList = model.data;
             } else {
-              this.boardTypeList = null;
+              this.boardTypeList = [];
             }
           },
           (err) => {},
@@ -163,7 +163,7 @@ export class BoardFormComponent extends FormBase implements OnInit {
             if ( model.total > 0 ) {
               this.parentBoardItems = model.data;
             } else {
-              this.parentBoardItems = null;
+              this.parentBoardItems = [];
             }
             //this.appAlarmService.changeMessage(model.message);
             // title 노드 텍스트

@@ -6,10 +6,10 @@ import {
   Validators
 } from '@angular/forms';
 
-import { FormBase, FormType } from 'src/app/common/form/form-base';
+import { ResponseObject } from '../../../../common/model/response-object';
+import { FormBase, FormType } from '../../../../common/form/form-base';
 import { WorkGroupService } from '../../service/workgroup.service';
 import { WorkGroup } from '../../model/workgroup';
-import { ResponseObject } from 'src/app/common/model/response-object';
 
 @Component({
 selector: 'app-workgroup-form',
@@ -30,6 +30,8 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
 
     form: FormGroup;
 
+    memberList;
+
     constructor(private fb: FormBuilder,
                 private workGroupService: WorkGroupService) { super(); }
 
@@ -45,9 +47,9 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
         this.formType = FormType.NEW;
 
         this.form = this.fb.group({
-        teamId        : new FormControl({value: null, disabled: true}),
-        teamName      : [ null, [ Validators.required ] ],
-        memberList    : [ null ]
+            workGroupId     : [ null, [ Validators.required ] ],
+            workGroupName   : [ null, [ Validators.required ] ],
+            memberList      : [ null ]
         });
 
     }
@@ -56,9 +58,9 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
         this.formType = FormType.MODIFY;
 
         this.form = this.fb.group({
-        teamId        : new FormControl({value: null, disabled: true}),
-        teamName      : [ null, [ Validators.required ] ],
-        memberList    : [ null ]
+            workGroupId     : new FormControl({value: null, disabled: true}),
+            workGroupName   : [ null, [ Validators.required ] ],
+            memberList      : [ null ]
         });
 
         this.form.patchValue(formData);
@@ -95,7 +97,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
         );
     }
 
-    public deleteTeam(id: number): void {
+    public deleteWorkGroup(id: number): void {
         this.workGroupService.deleteWorkGroup(id)
         .subscribe(
             (model: ResponseObject<WorkGroup>) => {

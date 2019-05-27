@@ -101,9 +101,7 @@ import { ResponseObject } from './model/response-object';
     MenuService,
     DeptService
   ],
-  exports: [
-    ResponseList,
-    ResponseObject,
+  exports: [    
     LoginComponent,
     UserFormComponent,
     UserGridComponent,

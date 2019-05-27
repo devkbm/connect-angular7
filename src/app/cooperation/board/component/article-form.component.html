@@ -45,7 +45,7 @@
         <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
             <!--<textarea nz-input id="contents" formControlName="contents" placeholder="내용을 입력해주세요." [nzAutosize]="{ minRows: 13, maxRows: 20 }"></textarea>-->
             <!--<ckeditor id="contents2" name="contents" [editor]="Editor" tagName="textarea" [formControl]="contents" (change)="textChange($event)" style="width: 100%"></ckeditor>-->
-            <ckeditor #ckEditor id="contents" name="contents" [editor]="Editor" tagName="textarea"                
+            <ckeditor #ckEditor id="contents" name="contents" [editor]="Editor" tagName="textarea" data=""
                 (change)="textChange($event)">
             </ckeditor>
         </nz-form-control>        
@@ -65,8 +65,6 @@
             (nzChange)="fileUploadChange($event)">
             <button nz-button><i nz-icon type="upload"></i><span>첨부파일</span></button>
         </nz-upload>
-    </div>
-    <div [innerHTML]="articleForm.get('contents').value">  
-    </div>
+    </div>    
     
 </form>
