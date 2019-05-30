@@ -11,14 +11,16 @@ import { ProgramService } from '../common/service/program.service';
 import { AppAlarmService } from '../common/service/app-alarm.service';
 import { CommonFuncModule } from '../common/common-func.module';
 import { TermService } from '../common/service/term.service';
+import { WorkgroupModule } from '../cooperation/workgroup/workgroup.module';
 
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
     FormsModule,
+    CommonLayoutRoutingModule,
     CommonFuncModule,
-    CommonLayoutRoutingModule
+    WorkgroupModule
   ],
   declarations: [
     CommonLayoutComponent

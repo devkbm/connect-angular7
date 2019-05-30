@@ -26,6 +26,7 @@ import { CommonCodeComponent } from '../common/component/commoncode/common-code.
 import { TeamFormComponent } from '../cooperation/communication/component/team-form.component';
 import { TeamComponent } from '../cooperation/communication/component/team.component';
 import { DeptComponent } from '../common/component/dept/dept.component';
+import { WorkgroupComponent } from '../cooperation/workgroup/component/workgroup/workgroup.component';
 
 
 const layoutroutes: Routes = [
@@ -51,7 +52,8 @@ const layoutroutes: Routes = [
       {path: 'auth',          component: AuthorityComponent},
       {path: 'term',          component: TermComponent},
       {path: 'team',          component: TeamComponent},
-      {path: 'dept',          component: DeptComponent}
+      {path: 'dept',          component: DeptComponent},
+      {path: 'workgroup',     component: WorkgroupComponent}
     ]
   }
 ];

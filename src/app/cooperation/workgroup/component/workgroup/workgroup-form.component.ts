@@ -10,6 +10,8 @@ import { ResponseObject } from '../../../../common/model/response-object';
 import { FormBase, FormType } from '../../../../common/form/form-base';
 import { WorkGroupService } from '../../service/workgroup.service';
 import { WorkGroup } from '../../model/workgroup';
+import { ResponseList } from 'src/app/common/model/response-list';
+import { WorkGroupMember } from '../../model/workgroup-member';
 
 @Component({
 selector: 'app-workgroup-form',
@@ -36,7 +38,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
                 private workGroupService: WorkGroupService) { super(); }
 
     ngOnInit() {
-        // this.getAllMember();
+        this.getAllMember();
 
         this.newForm();
     }
@@ -113,9 +115,9 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
     }
 
     public getAllMember(): void {
-        /*this.teamService.getAllMemberList()
+        this.workGroupService.getMemberList()
         .subscribe(
-            (model: ResponseList<TeamMember>) => {
+            (model: ResponseList<WorkGroupMember>) => {
             if (model.data) {
                 this.memberList = model.data;
             } else {
@@ -124,7 +126,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
             },
             (err) => {},
             () => {}
-        );*/
+        );
     }
 
     //#endregion

@@ -8,6 +8,7 @@ import { DataService } from '../../../common/service/data.service';
 import { ResponseObject } from '../../../common/model/response-object';
 import { ResponseList } from '../../../common/model/response-list';
 import { WorkGroup } from '../model/workgroup';
+import { WorkGroupMember } from '../model/workgroup-member';
 
 
 
@@ -92,6 +93,19 @@ export class WorkGroupService extends DataService {
       );
   }
 
-  
+  public getMemberList(params?: any): Observable<ResponseList<WorkGroupMember>> {
+    const url = `http://localhost:8090/common/user`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true,
+      params: params
+    };
+
+    return this.http
+      .get<ResponseList<WorkGroupMember>>(url, options)
+      .pipe(
+        catchError(this.handleError<ResponseList<WorkGroupMember>>('getMemberList', null))
+      );
+  }
 
 }
