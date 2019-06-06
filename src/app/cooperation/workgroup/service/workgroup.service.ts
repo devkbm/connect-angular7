@@ -9,6 +9,7 @@ import { ResponseObject } from '../../../common/model/response-object';
 import { ResponseList } from '../../../common/model/response-list';
 import { WorkGroup } from '../model/workgroup';
 import { WorkGroupMember } from '../model/workgroup-member';
+import { WorkGroupSchedule } from '../model/workgroup-schedule';
 
 
 
@@ -105,6 +106,61 @@ export class WorkGroupService extends DataService {
       .get<ResponseList<WorkGroupMember>>(url, options)
       .pipe(
         catchError(this.handleError<ResponseList<WorkGroupMember>>('getMemberList', null))
+      );
+  }
+
+
+  /**
+   * @description 스케쥴을 조회한다.
+   * @param id 스케쥴id
+   */
+  public getWorkGroupSchedule(id: number): Observable<ResponseObject<WorkGroupSchedule>> {
+    const url = `${this.API_URI}/schedule/${id}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http
+      .get<ResponseObject<WorkGroupSchedule>>(url, options)
+      .pipe(
+        catchError(this.handleError<ResponseObject<WorkGroupSchedule>>('getWorkGroup', null))
+      );
+  }
+
+  /**
+   * @description 스케쥴을 저장한다.
+   * @param workGroupSchedule
+   */
+  public saveWorkGroupSchedule(workGroupSchedule: WorkGroupSchedule): Observable<ResponseObject<WorkGroupSchedule>> {
+    const url = `${this.API_URI}/schedule`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http
+      .post<ResponseObject<WorkGroupSchedule>>(url, workGroupSchedule, options)
+      .pipe(
+        catchError(this.handleError<ResponseObject<WorkGroupSchedule>>('saveWorkGroupSchedule', null))
+      );
+  }
+
+  /**
+   * @description 스케쥴을 삭제한다.
+   * @param id 스케쥴id
+   */
+  public deleteWorkGroupSchedule(id: number): Observable<ResponseObject<WorkGroupSchedule>> {
+    const url = `${this.API_URI}/schedule/${id}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http
+      .delete<ResponseObject<WorkGroupSchedule>>(url, options)
+      .pipe(
+        catchError(this.handleError<ResponseObject<WorkGroupSchedule>>('deleteWorkGroupSchedule', null))
       );
   }
 

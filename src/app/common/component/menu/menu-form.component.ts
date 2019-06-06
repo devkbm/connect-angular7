@@ -63,6 +63,7 @@ export class MenuFormComponent extends FormBase implements OnInit {
               private programService: ProgramService,
               private appAlarmService: AppAlarmService) {
     super();
+    this.menuHiererachy = [];
 
     this.getMenuTypeList();
     this.getProgramList();
@@ -76,6 +77,8 @@ export class MenuFormComponent extends FormBase implements OnInit {
 
   public newForm(menuGroupCode: string): void {
     this.formType = FormType.NEW;
+
+    this.getMenuHierarchy(menuGroupCode);
 
     this.menuForm = this.fb.group({
       menuGroupCode     : [ menuGroupCode, [ Validators.required ] ],

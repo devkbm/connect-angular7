@@ -1,0 +1,52 @@
+{{form.getRawValue() | json}}
+<div class="footer">
+    
+    <button nz-button (click)="getWorkGroup(form.get('workGroupId').value)">
+        <i nz-icon type="close" theme="outline"></i>
+        조회
+    </button>
+    
+    <button nz-button (click)="closeForm()">
+        <i nz-icon type="close" theme="outline"></i>
+        닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" nz-popconfirm nzTitle="저장하시겠습니까?" 
+        (nzOnConfirm)="saveWorkGroup()" (nzOnCancel)="false">
+        <i nz-icon type="save" theme="outline"></i>
+        저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="danger" nz-popconfirm nzTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="deleteWorkGroup(form.get('id').value)" (nzOnCancel)="false">
+        <i nz-icon type="delete" theme="outline"></i>
+        삭제
+    </button>    
+</div>
+
+<form nz-form [formGroup]="form" [nzLayout]="'vertical'">
+    <nz-form-item>
+        <nz-form-label nzFor="workGroupId" [nzXs]="formLabelXs" [nzSm]="formLabelSm">작업그룹 Id</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+            <input nz-input id="workGroupId" formControlName="workGroupId" placeholder="작업그룹 Id를 입력해주세요.">                         
+        </nz-form-control>        
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="workGroupName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">작업그룹명</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+            <input nz-input id="workGroupName" formControlName="workGroupName" placeholder="작업그룹명을 입력해주세요.">             
+            <nz-form-explain *ngIf="isFieldErrors(form,'workGroupName','required')">The input is Required!</nz-form-explain>
+        </nz-form-control>        
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="memberList" [nzXs]="formLabelXs" [nzSm]="formLabelSm">팀원</nz-form-label>    
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+            <nz-select formControlName="memberList" [nzSize]="'default'" nzMode="multiple" nzPlaceHolder="Please select">
+                <nz-option *ngFor="let option of memberList" [nzLabel]="option.name" [nzValue]="option.userId"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+
+</form>
