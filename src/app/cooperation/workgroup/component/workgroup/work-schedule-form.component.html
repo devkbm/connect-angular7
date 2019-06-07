@@ -1,7 +1,7 @@
 {{form.getRawValue() | json}}
 <div class="footer">
     
-    <button nz-button (click)="getWorkGroup(form.get('workGroupId').value)">
+    <button nz-button (click)="getWorkGroupSchedule(form.get('id').value)">
         <i nz-icon type="close" theme="outline"></i>
         조회
     </button>
@@ -12,13 +12,13 @@
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzType="primary" nz-popconfirm nzTitle="저장하시겠습니까?" 
-        (nzOnConfirm)="saveWorkGroup()" (nzOnCancel)="false">
+        (nzOnConfirm)="saveWorkGroupSchedule()" (nzOnCancel)="false">
         <i nz-icon type="save" theme="outline"></i>
         저장
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzType="danger" nz-popconfirm nzTitle="삭제하시겠습니까?"
-        (nzOnConfirm)="deleteWorkGroup(form.get('id').value)" (nzOnCancel)="false">
+        (nzOnConfirm)="deleteWorkGroupSchedule(form.get('id').value)" (nzOnCancel)="false">
         <i nz-icon type="delete" theme="outline"></i>
         삭제
     </button>    
@@ -27,25 +27,39 @@
 <form nz-form [formGroup]="form" [nzLayout]="'vertical'">
     <nz-form-item>
         <nz-form-label nzFor="workGroupId" [nzXs]="formLabelXs" [nzSm]="formLabelSm">작업그룹 Id</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="workGroupId" formControlName="workGroupId" placeholder="작업그룹 Id를 입력해주세요.">                         
         </nz-form-control>        
     </nz-form-item>
-
+    
     <nz-form-item>
-        <nz-form-label nzFor="workGroupName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">작업그룹명</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
-            <input nz-input id="workGroupName" formControlName="workGroupName" placeholder="작업그룹명을 입력해주세요.">             
-            <nz-form-explain *ngIf="isFieldErrors(form,'workGroupName','required')">The input is Required!</nz-form-explain>
+        <nz-form-label nzFor="id" [nzXs]="formLabelXs" [nzSm]="formLabelSm">스케쥴 Id</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <input nz-input id="id" formControlName="id" placeholder="스케쥴 Id를 입력해주세요.">                         
         </nz-form-control>        
     </nz-form-item>
 
     <nz-form-item>
-        <nz-form-label nzFor="memberList" [nzXs]="formLabelXs" [nzSm]="formLabelSm">팀원</nz-form-label>    
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
-            <nz-select formControlName="memberList" [nzSize]="'default'" nzMode="multiple" nzPlaceHolder="Please select">
-                <nz-option *ngFor="let option of memberList" [nzLabel]="option.name" [nzValue]="option.userId"></nz-option>
-            </nz-select>
+        <nz-form-label nzFor="title" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">제목</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <input nz-input id="title" formControlName="title" placeholder="제목을 입력해주세요.">             
+            <nz-form-explain *ngIf="isFieldErrors(form,'title','required')">The input is Required!</nz-form-explain>
+        </nz-form-control>        
+    </nz-form-item>
+
+    <!--시작일 필드-->
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="start" [nzXs]="formLabelXs" [nzSm]="formLabelSm">시작일</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <nz-date-picker id="start" formControlName="start" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>            
+        </nz-form-control>
+    </nz-form-item>    
+
+    <!--종료일 필드-->
+    <nz-form-item class="form-item">
+        <nz-form-label nzFor="end" [nzXs]="formLabelXs" [nzSm]="formLabelSm">종료일</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <nz-date-picker id="end" formControlName="end" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>                        
         </nz-form-control>
     </nz-form-item>
 

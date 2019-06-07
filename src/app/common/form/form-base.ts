@@ -10,6 +10,15 @@ export class FormBase {
 
     protected formType: FormType;
 
+    /**
+     * Xs < 576px span size
+     * Sm >= 576px span size
+     */
+    protected formLabelXs = 24;
+    protected formControlXs = 24;
+    protected formLabelSm = 24;
+    protected formControlSm = 24;
+
     @Output() formSaved = new EventEmitter();
     @Output() formDeleted = new EventEmitter();
     @Output() formClosed = new EventEmitter();

@@ -10,6 +10,7 @@ import { ButtonRendererComponent } from '../../common/grid/renderer/button-rende
 import { WorkGroupService } from './service/workgroup.service';
 import { WorkgroupComponent } from './component/workgroup/workgroup.component';
 import { WorkGroupFormComponent } from './component/workgroup/workgroup-form.component';
+import { WorkScheduleFormComponent } from './component/workgroup/work-schedule-form.component';
 
 
 
@@ -25,7 +26,8 @@ import { WorkGroupFormComponent } from './component/workgroup/workgroup-form.com
   ],
   declarations: [
     WorkgroupComponent,
-    WorkGroupFormComponent
+    WorkGroupFormComponent,
+    WorkScheduleFormComponent
   ],
   providers: [
     WorkGroupService

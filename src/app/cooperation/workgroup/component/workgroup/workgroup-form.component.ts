@@ -20,16 +20,6 @@ styleUrls: ['./workgroup-form.component.css']
 })
 export class WorkGroupFormComponent extends FormBase implements OnInit {
 
-    /**
-     * Xs < 576px span size
-     * Sm >= 576px span size
-     */
-    formLabelXs = 24;
-    formControlXs = 24;
-
-    formLabelSm = 24;
-    fromControlSm = 24;
-
     form: FormGroup;
 
     memberList;
@@ -83,7 +73,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
         );
     }
 
-    public saveWorkGroup(): void {                
+    public saveWorkGroup(): void {
         this.workGroupService
         .saveWorkGroup(this.form.getRawValue())
         .subscribe(

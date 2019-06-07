@@ -27,14 +27,14 @@
 <form nz-form [formGroup]="form" [nzLayout]="'vertical'">
     <nz-form-item>
         <nz-form-label nzFor="workGroupId" [nzXs]="formLabelXs" [nzSm]="formLabelSm">작업그룹 Id</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="workGroupId" formControlName="workGroupId" placeholder="작업그룹 Id를 입력해주세요.">                         
         </nz-form-control>        
     </nz-form-item>
 
     <nz-form-item>
         <nz-form-label nzFor="workGroupName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">작업그룹명</nz-form-label>
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <input nz-input id="workGroupName" formControlName="workGroupName" placeholder="작업그룹명을 입력해주세요.">             
             <nz-form-explain *ngIf="isFieldErrors(form,'workGroupName','required')">The input is Required!</nz-form-explain>
         </nz-form-control>        
@@ -42,7 +42,7 @@
 
     <nz-form-item>
         <nz-form-label nzFor="memberList" [nzXs]="formLabelXs" [nzSm]="formLabelSm">팀원</nz-form-label>    
-        <nz-form-control [nzXs]="formControlXs" [nzSm]="fromControlSm">
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
             <nz-select formControlName="memberList" [nzSize]="'default'" nzMode="multiple" nzPlaceHolder="Please select">
                 <nz-option *ngFor="let option of memberList" [nzLabel]="option.name" [nzValue]="option.userId"></nz-option>
             </nz-select>
