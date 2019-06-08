@@ -1,4 +1,5 @@
 {{form.getRawValue() | json}}
+{{calEvent | json}}
 <div class="footer">
     
     <button nz-button (click)="getWorkGroupSchedule(form.get('id').value)">
@@ -63,4 +64,21 @@
         </nz-form-control>
     </nz-form-item>
 
+        <!--사용여부 필드-->
+        <nz-form-item>
+            <nz-form-label 
+                nzFor="allDay"    
+                [nzXs]="formLabelXs"
+                [nzSm]="formLabelSm">사용여부
+            </nz-form-label>
+    
+            <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+                <label id="allDay" nz-checkbox formControlName="allDay"></label>
+            </nz-form-control>
+        </nz-form-item>
+
 </form>
+
+<full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins" [events]="calEvent">
+
+</full-calendar>
