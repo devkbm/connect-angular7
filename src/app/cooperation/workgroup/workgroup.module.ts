@@ -12,7 +12,7 @@ import { WorkGroupService } from './service/workgroup.service';
 import { WorkgroupComponent } from './component/workgroup/workgroup.component';
 import { WorkGroupFormComponent } from './component/workgroup/workgroup-form.component';
 import { WorkScheduleFormComponent } from './component/workgroup/work-schedule-form.component';
-
+import { WorkCalendarComponent } from './component/workgroup/work-calendar.component';
 
 
 @NgModule({
@@ -29,7 +29,8 @@ import { WorkScheduleFormComponent } from './component/workgroup/work-schedule-f
   declarations: [
     WorkgroupComponent,
     WorkGroupFormComponent,
-    WorkScheduleFormComponent
+    WorkScheduleFormComponent,
+    WorkCalendarComponent
   ],
   providers: [
     WorkGroupService

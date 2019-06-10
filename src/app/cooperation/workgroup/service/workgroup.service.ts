@@ -164,4 +164,23 @@ export class WorkGroupService extends DataService {
       );
   }
 
+  /**
+   * @description 작업그룹명단을 조회한다.
+   * @param params 조회 조건 객체
+   */
+  public getWorkScheduleList(params?: any): Observable<ResponseList<WorkGroupSchedule>> {
+    const url = `${this.API_URI}/schedule`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true,
+      params: params
+    };
+
+    return this.http
+      .get<ResponseList<WorkGroupSchedule>>(url, options)
+      .pipe(
+        catchError(this.handleError<ResponseList<WorkGroupSchedule>>('getWorkScheduleList', null))
+      );
+  }
+
 }

@@ -14,8 +14,6 @@ import { ResponseList } from 'src/app/common/model/response-list';
 import { WorkGroupMember } from '../../model/workgroup-member';
 import { WorkGroupSchedule } from '../../model/workgroup-schedule';
 
-import dayGridPlugin from '@fullcalendar/daygrid';
-
 @Component({
 selector: 'app-work-schedule-form',
 templateUrl: './work-schedule-form.component.html',
@@ -24,12 +22,6 @@ styleUrls: ['./work-schedule-form.component.css']
 export class WorkScheduleFormComponent extends FormBase implements OnInit {
 
     form: FormGroup;
-
-    calEvent = [
-        { title: 'event 1', start: '2019-06-06T14:13:29Z' }
-      ];
-
-    calendarPlugins = [dayGridPlugin];
 
     constructor(private fb: FormBuilder,
                 private workGroupService: WorkGroupService) { super(); }
@@ -75,7 +67,6 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit {
             (model: ResponseObject<WorkGroupSchedule>) => {
             if (model.data) {
                 this.modifyForm(model.data);
-                this.calEvent = this.calEvent.concat(model.data);
             } else {
                 this.newForm();
             }
