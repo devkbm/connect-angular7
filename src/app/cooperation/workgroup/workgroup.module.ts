@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonFuncModule } from '../../common/common-func.module';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
@@ -33,6 +33,7 @@ import { WorkCalendarComponent } from './component/workgroup/work-calendar.compo
     WorkCalendarComponent
   ],
   providers: [
+    DatePipe,
     WorkGroupService
   ],
   exports: [

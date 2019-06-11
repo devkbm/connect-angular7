@@ -5,6 +5,10 @@ import { WorkGroupService } from '../../service/workgroup.service';
 import { WorkGroupSchedule } from '../../model/workgroup-schedule';
 
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { DatePipe } from '@angular/common';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 
 @Component({
@@ -18,13 +22,28 @@ export class WorkCalendarComponent implements OnInit {
         { title: 'event 1', start: '2019-06-06T14:13:29Z' }
     ];
 
-    calendarPlugins = [dayGridPlugin];
+    selectedDate: Date;
+    calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
+    calendarHeader = {
+        left: 'prev,next today',
+        center: 'title',
+        //right: ''
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    };
 
-    constructor(private workGroupService: WorkGroupService) { 
+    @ViewChild('calendar') calendarComponent: FullCalendarComponent;
+
+    constructor(private workGroupService: WorkGroupService, private datePipe: DatePipe) {
         // this.getScheduleList();
     }
 
     ngOnInit() {
+        this.getScheduleList();
+    }
+
+    onChange(result: Date): void {
+        console.log('onChange: ', result.toLocaleString());
+        console.log(this.datePipe.transform(result, 'yyyyMM'));
         this.getScheduleList();
     }
 
@@ -33,7 +52,7 @@ export class WorkCalendarComponent implements OnInit {
     public getScheduleList(): void {
         const param = {
             fkWorkGroup : 1,
-            queryYm: '2019-02-07T00:00:00Z'
+            queryYm: this.datePipe.transform(this.selectedDate, 'yyyyMM')
         };
 
         this.workGroupService.getWorkScheduleList(param)
@@ -46,6 +65,17 @@ export class WorkCalendarComponent implements OnInit {
             (err) => {},
             () => {}
         );
+    }
+
+    onEventClick(param) {
+        console.log(param);
+    }
+
+    onDatesRender(param) {
+        this.selectedDate = param.view.currentStart;
+        console.log(param.view.currentStart);
+        console.log(param.view.currentEnd);
+        this.getScheduleList();
     }
 
     //#endregion
