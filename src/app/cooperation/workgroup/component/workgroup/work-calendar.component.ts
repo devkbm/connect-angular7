@@ -23,6 +23,8 @@ export class WorkCalendarComponent implements OnInit {
     ];
 
     selectedDate: Date;
+    toDate: Date;
+
     calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
     calendarHeader = {
         left: 'prev,next today',
@@ -52,9 +54,10 @@ export class WorkCalendarComponent implements OnInit {
     public getScheduleList(): void {
         const param = {
             fkWorkGroup : 1,
-            queryYm: this.datePipe.transform(this.selectedDate, 'yyyyMM')
+            fromDate: this.datePipe.transform(this.selectedDate, 'yyyyMMdd'),
+            toDate: this.datePipe.transform(this.toDate, 'yyyyMMdd')
         };
-
+        console.log('getScheduleList');
         this.workGroupService.getWorkScheduleList(param)
         .subscribe(
             (model: ResponseList<WorkGroupSchedule>) => {
@@ -72,9 +75,14 @@ export class WorkCalendarComponent implements OnInit {
     }
 
     onDatesRender(param) {
+        const endDate: Date = param.view.currentEnd;
+        endDate.setDate(endDate.getDate() - 1);
+
         this.selectedDate = param.view.currentStart;
-        console.log(param.view.currentStart);
-        console.log(param.view.currentEnd);
+        this.toDate = endDate;
+        // console.log(param.view.currentStart);
+        // console.log(param.view.currentEnd);
+        // console.log(endDate);
         this.getScheduleList();
     }
 

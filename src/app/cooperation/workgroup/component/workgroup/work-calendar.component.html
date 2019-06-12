@@ -1,5 +1,6 @@
 {{this.calEvent | json}}
-{{date}}
+{{this.selectedDate}}
+{{this.toDate}}
 <nz-month-picker [(ngModel)]="selectedDate" (ngModelChange)="onChange($event)" nzPlaceHolder="Select Month"></nz-month-picker>
 <br />
 
