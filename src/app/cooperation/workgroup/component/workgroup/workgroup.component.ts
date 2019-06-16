@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkgroupComponent implements OnInit {
 
+  scheduleDrawerVisible = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  closeDrawer() {
+    this.scheduleDrawerVisible = false;
+  }
+
+  openDrawer() {
+    this.scheduleDrawerVisible = true;
   }
 
 }

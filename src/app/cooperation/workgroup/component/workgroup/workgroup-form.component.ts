@@ -23,6 +23,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
     form: FormGroup;
 
     memberList;
+    color;
 
     constructor(private fb: FormBuilder,
                 private workGroupService: WorkGroupService) { super(); }
@@ -41,9 +42,9 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
         this.form = this.fb.group({
             workGroupId     : [ null, [ Validators.required ] ],
             workGroupName   : [ null, [ Validators.required ] ],
+            color           : [ null, [ Validators.required ] ],
             memberList      : [ null ]
-        });
-
+        });        
     }
 
     public modifyForm(formData: WorkGroup): void {
@@ -52,8 +53,10 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
         this.form = this.fb.group({
             workGroupId     : new FormControl({value: null, disabled: true}),
             workGroupName   : [ null, [ Validators.required ] ],
+            color           : [ null, [ Validators.required ] ],
             memberList      : [ null ]
         });
+        this.color = formData.color;
 
         this.form.patchValue(formData);
     }
@@ -117,6 +120,12 @@ export class WorkGroupFormComponent extends FormBase implements OnInit {
             (err) => {},
             () => {}
         );
+    }
+
+    public selectColor(color) {
+        console.log(color);
+
+        this.form.get('color').setValue(color);
     }
 
     //#endregion

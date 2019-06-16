@@ -1,4 +1,5 @@
 {{form.getRawValue() | json}}
+{{color}}
 <div class="footer">
     
     <button nz-button (click)="getWorkGroup(form.get('workGroupId').value)">
@@ -35,8 +36,23 @@
     <nz-form-item>
         <nz-form-label nzFor="workGroupName" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">작업그룹명</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-            <input nz-input id="workGroupName" formControlName="workGroupName" placeholder="작업그룹명을 입력해주세요.">             
+            <input nz-input id="workGroupName" formControlName="workGroupName" placeholder="작업그룹명을 입력해주세요.">                         
             <nz-form-explain *ngIf="isFieldErrors(form,'workGroupName','required')">The input is Required!</nz-form-explain>
+        </nz-form-control>        
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label nzFor="color" nzRequired [nzXs]="formLabelXs" [nzSm]="formLabelSm">색상</nz-form-label>
+        <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
+            <!--<input nz-input id="color" formControlName="color" placeholder="색상 입력해주세요.">             -->
+            <input formControlName="color"                   
+                   [style.background]="color"
+                   [cpAlphaChannel]="'always'"                   
+                   [cpOutputFormat]="'hex'"
+                   cpOKButton='true'
+                   [(colorPicker)]="color"
+                   (colorPickerChange)="selectColor($event)"/>
+            <nz-form-explain *ngIf="isFieldErrors(form,'color','required')">The input is Required!</nz-form-explain>
         </nz-form-control>        
     </nz-form-item>
 

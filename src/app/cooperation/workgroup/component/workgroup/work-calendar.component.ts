@@ -53,7 +53,7 @@ export class WorkCalendarComponent implements OnInit {
 
     public getScheduleList(): void {
         const param = {
-            fkWorkGroup : 1,
+            fkWorkGroup : 55,
             fromDate: this.datePipe.transform(this.selectedDate, 'yyyyMMdd'),
             toDate: this.datePipe.transform(this.toDate, 'yyyyMMdd')
         };

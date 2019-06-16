@@ -4,9 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonFuncModule } from '../../common/common-func.module';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { FullCalendarModule} from '@fullcalendar/angular';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from '../../common/grid/renderer/button-renderer.component';
+
+
 
 import { WorkGroupService } from './service/workgroup.service';
 import { WorkgroupComponent } from './component/workgroup/workgroup.component';
@@ -24,7 +27,8 @@ import { WorkCalendarComponent } from './component/workgroup/work-calendar.compo
     NgZorroAntdModule,
     AgGridModule.withComponents([ButtonRendererComponent]),
     CKEditorModule,
-    FullCalendarModule
+    FullCalendarModule,
+    ColorPickerModule
   ],
   declarations: [
     WorkgroupComponent,
