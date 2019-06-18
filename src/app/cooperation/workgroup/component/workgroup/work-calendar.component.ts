@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 
 import { ResponseList } from '../../../../common/model/response-list';
 import { WorkGroupService } from '../../service/workgroup.service';
@@ -22,8 +22,9 @@ export class WorkCalendarComponent implements OnInit {
         { title: 'event 1', start: '2019-06-06T14:13:29Z' }
     ];
 
-    selectedDate: Date;
+    fromDate: Date;
     toDate: Date;
+    fkWorkGroup: string;
 
     calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
     calendarHeader = {
@@ -32,6 +33,8 @@ export class WorkCalendarComponent implements OnInit {
         //right: ''
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     };
+
+    @Output() itemSelected = new EventEmitter();
 
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
@@ -44,8 +47,15 @@ export class WorkCalendarComponent implements OnInit {
     }
 
     onChange(result: Date): void {
-        console.log('onChange: ', result.toLocaleString());
-        console.log(this.datePipe.transform(result, 'yyyyMM'));
+        //console.log('onChange: ', result.toLocaleString());
+        //console.log(this.datePipe.transform(result, 'yyyyMM'));
+        console.log(result.toISOString());
+
+        let calendarApi = this.calendarComponent.getApi();
+        //calendarApi.next();
+        console.log(calendarApi);
+        calendarApi.select(result, result);
+
         this.getScheduleList();
     }
 
@@ -53,8 +63,8 @@ export class WorkCalendarComponent implements OnInit {
 
     public getScheduleList(): void {
         const param = {
-            fkWorkGroup : 55,
-            fromDate: this.datePipe.transform(this.selectedDate, 'yyyyMMdd'),
+            fkWorkGroup : this.fkWorkGroup,
+            fromDate: this.datePipe.transform(this.fromDate, 'yyyyMMdd'),
             toDate: this.datePipe.transform(this.toDate, 'yyyyMMdd')
         };
         console.log('getScheduleList');
@@ -72,13 +82,15 @@ export class WorkCalendarComponent implements OnInit {
 
     onEventClick(param) {
         console.log(param);
+        console.log(param.event.id);
+        this.itemSelected.emit(param.event.id);
     }
 
     onDatesRender(param) {
         const endDate: Date = param.view.currentEnd;
         endDate.setDate(endDate.getDate() - 1);
 
-        this.selectedDate = param.view.currentStart;
+        this.fromDate = param.view.currentStart;
         this.toDate = endDate;
         // console.log(param.view.currentStart);
         // console.log(param.view.currentEnd);

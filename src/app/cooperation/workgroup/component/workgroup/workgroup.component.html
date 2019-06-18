@@ -1,4 +1,4 @@
-<app-work-calendar>
+<app-work-calendar (itemSelected)="itemSelect($event)">
 
 </app-work-calendar>
 
@@ -15,7 +15,7 @@
     nzTitle="스케쥴 등록"
     (nzOnClose)="closeDrawer()">
     
-    <app-work-schedule-form>
+    <app-work-schedule-form #workScheduleForm>
         
     </app-work-schedule-form>
 </nz-drawer>
