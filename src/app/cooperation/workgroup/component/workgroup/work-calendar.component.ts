@@ -19,7 +19,7 @@ styleUrls: ['./work-calendar.component.css']
 export class WorkCalendarComponent implements OnInit {
 
     calEvent = [
-        { title: 'event 1', start: '2019-06-06T14:13:29Z' }
+        //{ title: 'event 1', start: '2019-06-06T14:13:29Z' }
     ];
 
     fromDate: Date;

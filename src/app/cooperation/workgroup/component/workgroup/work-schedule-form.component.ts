@@ -22,14 +22,17 @@ styleUrls: ['./work-schedule-form.component.css']
 export class WorkScheduleFormComponent extends FormBase implements OnInit {
 
     form: FormGroup;
+    startTime;
 
-    constructor(private fb: FormBuilder,
-                private workGroupService: WorkGroupService) { super(); }
+    constructor(private fb: FormBuilder,     
+                private workGroupService: WorkGroupService) { 
+                    super();                     
+                }
 
     ngOnInit() {
         this.newForm();
-    }
-
+    }    
+    
     //#region public methods
 
     public newForm(): void {

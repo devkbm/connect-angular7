@@ -1,5 +1,4 @@
 {{form.getRawValue() | json}}
-{{calEvent | json}}
 <div class="footer">
     
     <button nz-button (click)="getWorkGroupSchedule(form.get('id').value)">
@@ -52,7 +51,7 @@
     <nz-form-item class="form-item">
         <nz-form-label nzFor="start" [nzXs]="formLabelXs" [nzSm]="formLabelSm">시작일</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-            <nz-date-picker id="start" formControlName="start" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>            
+            <nz-date-picker id="start" formControlName="start" nzShowTime nzFormat="YYYY-MM-DD HH:mm:ss"></nz-date-picker>            
         </nz-form-control>
     </nz-form-item>    
 
@@ -60,7 +59,7 @@
     <nz-form-item class="form-item">
         <nz-form-label nzFor="end" [nzXs]="formLabelXs" [nzSm]="formLabelSm">종료일</nz-form-label>
         <nz-form-control [nzXs]="formControlXs" [nzSm]="formControlSm">
-            <nz-date-picker id="end" formControlName="end" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>                        
+            <nz-date-picker id="end" formControlName="end" nzShowTime nzFormat="YYYY-MM-DD HH:mm:ss"></nz-date-picker>
         </nz-form-control>
     </nz-form-item>
 

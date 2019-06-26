@@ -1,8 +1,8 @@
 export class WorkGroupSchedule {
     id: number;
     title: string;
-    start: string;
-    end: string;
+    start: Date;
+    end: Date;
     allDay: boolean;
     workGroupId: number;
 }
